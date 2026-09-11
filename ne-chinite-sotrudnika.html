@@ -1,0 +1,2755 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<script data-alter-defer-loader>(function(w,d){if(w.__alterDefer)return;var q=[],qi=[],acted=false,idled=false;function flush(a){for(var i=0;i<a.length;i++){try{a[i]()}catch(e){}}a.length=0}function act(){if(acted)return;acted=true;off();flush(qi);flush(q)}function idle(){if(idled)return;idled=true;flush(q)}var EV=['pointerdown','touchstart','keydown','wheel','mousemove'];function off(){for(var i=0;i<EV.length;i++)w.removeEventListener(EV[i],act,{capture:true})}for(var i=0;i<EV.length;i++)w.addEventListener(EV[i],act,{once:true,passive:true,capture:true});var lx=0,ly=0,pos=false;w.addEventListener('mousemove',function(e){lx=e.clientX;ly=e.clientY;pos=true},{passive:true,capture:true});w.__alterRehover=function(){if(!pos)return;var el=d.elementFromPoint(lx,ly);if(!el)return;['pointerover','mouseover','mousemove'].forEach(function(t){try{el.dispatchEvent(new MouseEvent(t,{bubbles:true,cancelable:true,clientX:lx,clientY:ly}))}catch(e){}})};w.__alterDefer=function(fn,onlyAct){if(acted||(idled&&!onlyAct)){try{fn()}catch(e){}return}(onlyAct?qi:q).push(fn)};function later(){if(w.requestIdleCallback)w.requestIdleCallback(idle,{timeout:2500});else w.setTimeout(idle,1200)}if(d.readyState==='complete')later();else w.addEventListener('load',later,{once:true});w.setTimeout(idle,6000);})(window,document)</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Интерактивный разбор запроса руководителя для HR от Alter для бизнеса">
+  <title>Не «чините» сотрудника: интерактивный разбор для HR</title>
+  <link rel="canonical" href="https://latypovruslan5.github.io/alter-business.ru/ne-chinite-sotrudnika">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://latypovruslan5.github.io/alter-business.ru/ne-chinite-sotrudnika">
+  <meta property="og:title" content="Не «чините» сотрудника: интерактивный разбор для HR">
+  <meta property="og:description" content="За 7–10 минут инструмент разбирает запрос руководителя «разберитесь с сотрудником»: проверяет факты, рабочий контекст и распределение ответственности, предлагает вопросы для разговора и следующие шаги.">
+  <!-- og:image намеренно нет: нужна растровая обложка 1200×630, SVG соцсети не показывают. -->
+  <style>
+    @font-face { font-family:'Futura PT'; src:url('uploads/FuturaPTBook.otf') format('opentype'); font-weight:400; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Futura PT'; src:url('uploads/FuturaPTBold.otf') format('opentype'); font-weight:700; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Futura PT'; src:url('uploads/FuturaPT-Demi/FuturaPT-Demi.woff2') format('woff2'), url('uploads/FuturaPT-Demi/FuturaPT-Demi.woff') format('woff'), url('uploads/FuturaPT-Demi/FuturaPT-Demi.ttf') format('truetype'); font-weight:600; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Futura PT Cond'; src:url('uploads/FuturaPTCondBold.otf') format('opentype'); font-weight:700; font-style:normal; font-display:swap; }
+
+    #nch {
+      --ink: #282C3E;
+      --body: #4C516B;
+      --muted: #6A7088;
+      --soft: #8A90A6;
+      --line: #ECEFEA;
+      --line-strong: #DCE5DF;
+      --green: #239266;
+      --green-accent: #29B981;
+      --green-wash: #EAF7F0;
+      --indigo: #6665DD;
+      --indigo-wash: #F1F1FB;
+      --amber: #C9701A;
+      --amber-wash: #FBEFDD;
+      --red: #C43D33;
+      --red-wash: #FBE7E5;
+      --grey-wash: #F5F7F5;
+      --shadow: 0 10px 30px rgba(40,44,62,.06);
+      font-family: 'Futura PT', 'Futura', 'Segoe UI', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif !important;
+      color: var(--ink) !important;
+      background: #FBFCFB !important;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    #nch *, #nch *::before, #nch *::after { box-sizing: border-box; font-family: inherit !important; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #FBFCFB; }
+
+    #nch button, #nch input, #nch textarea { font: inherit; color: inherit; }
+    #nch button { -webkit-tap-highlight-color: transparent; }
+    #nch a { color: var(--green); }
+    #nch a:hover { color: #1B7A54; }
+    #nch .hidden { display: none !important; }
+    #nch h1, #nch h2, #nch h3, #nch p { margin-top: 0; }
+
+    #nch .shell { width: min(940px, calc(100% - 32px)); margin: 0 auto; padding: 26px 0 72px; }
+
+    #nch .topbar { display: flex; align-items: center; margin-bottom: 20px; }
+    #nch .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+    #nch .brand img { height: 24px; width: auto; display: block; }
+    #nch .brand-business {
+      position: relative; padding-left: 13px; color: var(--soft);
+      font-size: 15px; font-weight: 500; line-height: 1; transform: translateY(3px);
+    }
+    #nch .brand-business::before {
+      content: ""; position: absolute; left: 0; top: 50%;
+      width: 1px; height: 14px; margin-top: -7px; background: #D3D7E0;
+    }
+
+    #nch .card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    /* ===== HERO ===== */
+    #nch .hero { padding: clamp(28px, 4vw, 48px); }
+    #nch .hero-top { display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: 24px 40px; align-items: center; }
+    #nch .hero-illo { width: 300px; max-width: 100%; height: auto; display: block; justify-self: end; }
+    #nch .eyebrow {
+      display: inline-flex; width: fit-content; align-items: center;
+      padding: 8px 16px; border-radius: 30px;
+      background: var(--green-wash); color: var(--green);
+      font-size: 15px; font-weight: 600; margin-bottom: 22px;
+    }
+    #nch h1 {
+      max-width: 760px; margin-bottom: 20px;
+      font-size: clamp(34px, 5vw, 52px); font-weight: 700;
+      line-height: 1.08; letter-spacing: -1.5px; text-wrap: pretty;
+    }
+    #nch .lead { max-width: 720px; margin-bottom: 30px; color: var(--body); font-size: clamp(17px, 2vw, 22px); line-height: 1.45; }
+
+    #nch .hero-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; margin-bottom: 26px; }
+    #nch .hero-point { padding: 22px; border: 1px solid var(--line); border-radius: 18px; background: #FBFCFB; }
+    #nch .hero-point b { display: block; margin-bottom: 6px; font-size: 18px; font-weight: 600; }
+    #nch .hero-point span { color: var(--muted); font-size: 15px; line-height: 1.45; }
+
+    #nch .notice {
+      margin: 0 0 26px; padding: 24px 26px; border-radius: 18px;
+      background: var(--indigo-wash); color: var(--body); font-size: 17px; line-height: 1.55;
+    }
+    #nch .notice b { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--indigo); }
+
+    /* ===== BUTTONS ===== */
+    #nch .btn-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+    #nch .btn-row .hint { color: var(--soft); font-size: 15px; }
+    #nch .btn {
+      border: 0; border-radius: 44px; padding: 16px 32px; cursor: pointer;
+      font-size: 18px; font-weight: 700;
+      transition: background .18s ease, color .18s ease, border-color .18s ease;
+    }
+    #nch .btn:focus-visible { outline: 3px solid rgba(41,185,129,.3); outline-offset: 3px; }
+    #nch .btn-primary { color: #fff; background: var(--green); }
+    #nch .btn-primary:hover { background: #1B7A54; }
+    #nch .btn-secondary { color: var(--green); background: #fff; border: 1.5px solid var(--green-accent); padding: 14.5px 30.5px; }
+    #nch .btn-secondary:hover { background: var(--green); color: #fff; }
+    #nch .btn-quiet { color: var(--muted); background: transparent; font-size: 17px; padding: 15px 16px; }
+    #nch .btn-quiet:hover { color: var(--ink); }
+    #nch .btn[disabled] { cursor: default; }
+    #nch .btn-primary[disabled], #nch .btn-primary[disabled]:hover { background: #F1F2F4; color: #9AA0B5; }
+    #nch .btn-secondary[disabled], #nch .btn-secondary[disabled]:hover { background: #fff; border-color: var(--line-strong); color: #9AA0B5; }
+
+    /* ===== QUIZ ===== */
+    #nch .quiz { display: block; }
+    #nch .question-card { padding: clamp(24px, 3.5vw, 40px); display: flex; flex-direction: column; }
+
+    #nch .progress-row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 10px; }
+    #nch .progress-step { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--green); }
+    #nch .progress-note { font-size: 13px; color: var(--soft); }
+    #nch .progress-track { height: 6px; border-radius: 99px; background: var(--line); overflow: hidden; margin-bottom: 30px; }
+    #nch .progress-bar { height: 100%; width: 0; border-radius: inherit; background: var(--green-accent); transition: width .25s ease; }
+
+    #nch .question-meta { color: var(--soft); font-size: 15px; margin-bottom: 10px; }
+    #nch .question-card h2 {
+      max-width: 720px; margin-bottom: 12px;
+      font-size: clamp(26px, 3.4vw, 34px); font-weight: 700; line-height: 1.14; letter-spacing: -0.8px;
+    }
+    #nch .question-hint { max-width: 700px; margin-bottom: 26px; color: var(--muted); font-size: 15px; line-height: 1.5; }
+
+    #nch .options { display: grid; gap: 10px; margin-bottom: 18px; }
+    #nch .option {
+      width: 100%; display: grid; grid-template-columns: 22px minmax(0,1fr); gap: 14px; align-items: start;
+      text-align: left; border: 1px solid var(--line); border-radius: 16px;
+      padding: 17px 20px; background: #fff; color: var(--ink); cursor: pointer;
+      transition: border-color .16s ease, background .16s ease;
+    }
+    #nch .option:hover { border-color: var(--green-accent); }
+    #nch .option.selected { border-color: var(--green-accent); background: var(--green-wash); }
+    #nch .option-marker {
+      width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #C6CBD6;
+      background: #fff; display: grid; place-items: center; margin-top: 1px;
+    }
+    #nch .multi .option-marker { border-radius: 7px; }
+    #nch .selected .option-marker { border-color: var(--green-accent); background: var(--green-accent); }
+    #nch .selected .option-marker::after {
+      content: ""; width: 8px; height: 4px;
+      border-left: 2px solid #fff; border-bottom: 2px solid #fff;
+      transform: rotate(-45deg) translateY(-1px);
+    }
+    #nch .option-title { display: block; font-size: 18px; font-weight: 600; line-height: 1.35; }
+    #nch .option-detail { display: block; margin-top: 5px; color: var(--muted); font-size: 15px; line-height: 1.45; }
+
+    #nch .other-wrap { margin: 4px 0 18px; }
+    #nch .other-wrap label { display: block; margin-bottom: 8px; font-size: 15px; font-weight: 600; }
+    #nch textarea {
+      width: 100%; min-height: 108px; resize: vertical;
+      border: 1px solid var(--line-strong); border-radius: 14px; padding: 15px 18px;
+      font-size: 17px; color: var(--ink); background: #fff; outline: none;
+    }
+    #nch textarea::placeholder { color: #9AA0B5; }
+    #nch textarea:focus { border-color: var(--green-accent); }
+
+    #nch .validation { min-height: 0; margin-bottom: 0; color: var(--red); font-size: 15px; font-weight: 600; }
+    #nch .validation:not(:empty) { margin-bottom: 14px; }
+
+    #nch .question-actions {
+      margin-top: auto; padding-top: 26px;
+      display: flex; justify-content: space-between; gap: 14px; align-items: center;
+      border-top: 1px solid var(--line);
+    }
+
+    /* ===== RESULTS ===== */
+    #nch .results { display: grid; gap: 18px; }
+    #nch .result-hero { padding: clamp(28px, 4vw, 48px); }
+    #nch .result-hero h1 { margin-bottom: 20px; }
+    #nch .result-section { padding: clamp(24px, 3.5vw, 38px); }
+    #nch .result-section h2, #nch .result-details summary {
+      font-size: clamp(24px, 3vw, 34px); font-weight: 700; line-height: 1.14; letter-spacing: -0.8px;
+    }
+    #nch .result-section h2 { margin-bottom: 18px; }
+    #nch .result-section > p { color: var(--muted); font-size: 17px; line-height: 1.55; max-width: 760px; }
+
+    #nch .result-details { padding: 0; overflow: hidden; }
+    #nch .result-details summary {
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      padding: clamp(24px, 3.5vw, 32px) clamp(24px, 3.5vw, 38px);
+      cursor: pointer; list-style: none;
+    }
+    #nch .result-details summary::-webkit-details-marker { display: none; }
+    #nch .result-details summary::after {
+      content: "+"; flex: 0 0 auto; width: 38px; height: 38px;
+      display: grid; place-items: center; border-radius: 50%;
+      background: var(--green-wash); color: var(--green); font-size: 24px; font-weight: 400; line-height: 1;
+    }
+    #nch .result-details[open] summary::after { content: "\2212"; }
+    #nch .result-details-body { padding: 22px clamp(24px, 3.5vw, 38px) clamp(24px, 3.5vw, 38px); border-top: 1px solid var(--line); }
+
+    #nch .summary-box { padding: 24px 26px; border-radius: 18px; background: var(--indigo-wash); color: var(--body); font-size: 18px; line-height: 1.55; }
+    #nch .result-hero .summary-box { background: var(--green-wash); color: #1B6B4D; }
+
+    #nch .fact-list, #nch .plain-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+    #nch .fact-list li, #nch .plain-list li { position: relative; padding-left: 26px; font-size: 18px; line-height: 1.5; color: var(--body); }
+    #nch .fact-list li::before, #nch .plain-list li::before {
+      content: ""; position: absolute; left: 0; top: .6em;
+      width: 8px; height: 8px; border-radius: 50%; background: var(--green-accent);
+    }
+
+    #nch .warning-box { padding: 24px 26px; border-radius: 18px; background: var(--amber-wash); }
+    #nch .warning-box li { color: #7A4610; }
+    #nch .warning-box li::before { background: var(--amber); }
+    #nch .danger-box { padding: 24px 26px; border-radius: 18px; background: var(--red-wash); color: #8A2F27; }
+
+    #nch .zone-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+    #nch .zone { padding: 24px; border: 1px solid var(--line); border-radius: 18px; background: #FBFCFB; }
+    #nch .status {
+      display: inline-flex; margin-bottom: 12px; padding: 6px 14px; border-radius: 30px;
+      font-size: 15px; font-weight: 600;
+    }
+    #nch .status.confirmed { background: var(--green-wash); color: var(--green); }
+    #nch .status.check { background: var(--amber-wash); color: var(--amber); }
+    #nch .status.unknown { background: #F1F2F4; color: var(--muted); }
+    #nch .zone h3 { margin-bottom: 8px; font-size: 22px; font-weight: 600; line-height: 1.25; }
+    #nch .zone p { margin-bottom: 0; color: var(--muted); font-size: 17px; line-height: 1.5; }
+
+    #nch .questions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    #nch .question-set { padding: 26px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+    #nch .question-set h3 { margin-bottom: 14px; font-size: 22px; font-weight: 600; }
+    #nch .question-set ol { margin: 0; padding-left: 22px; display: grid; gap: 11px; color: var(--body); font-size: 18px; line-height: 1.45; }
+    #nch .question-set ol li::marker { color: var(--green); }
+
+    #nch .rec-list { display: grid; gap: 16px; }
+    #nch .rec { border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: #fff; }
+    #nch .rec-head { padding: 22px 26px; background: var(--grey-wash); border-bottom: 1px solid var(--line); }
+    #nch .rec-head h3 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.3px; }
+    #nch .rec-body { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1px; background: var(--line); }
+    #nch .rec-cell { padding: 22px 26px; background: #fff; }
+    #nch .rec-cell b { display: block; margin-bottom: 8px; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--green); }
+    #nch .rec-cell p { margin: 0; color: var(--body); font-size: 17px; line-height: 1.55; }
+
+    #nch .owner-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+    #nch .owner-card { padding: 24px; border-radius: 18px; background: var(--grey-wash); border: 1px solid var(--line); }
+    #nch .owner-card h3 { margin-bottom: 12px; font-size: 22px; font-weight: 600; }
+    #nch .owner-card ul { margin: 0; padding-left: 20px; color: var(--body); font-size: 17px; line-height: 1.5; display: grid; gap: 8px; }
+    #nch .owner-card li::marker { color: var(--green-accent); }
+
+    #nch .alter-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; margin-top: 22px; }
+    #nch .alter-card { display: flex; flex-direction: column; padding: 26px; border-radius: 20px; border: 1px solid var(--line); background: #fff; }
+    #nch .alter-card:only-child { grid-column: 1 / -1; max-width: 100%; }
+    #nch .alter-card .tag {
+      width: fit-content; margin-bottom: 14px; padding: 6px 14px; border-radius: 30px;
+      background: var(--green-wash); color: var(--green); font-size: 15px; font-weight: 600;
+    }
+    #nch .alter-card h3 { margin-bottom: 10px; font-size: 22px; font-weight: 600; line-height: 1.3; }
+    #nch .alter-card p { color: var(--muted); font-size: 17px; line-height: 1.55; flex: 1; margin-bottom: 20px; }
+    #nch .alter-card a {
+      align-self: flex-start; display: inline-block; text-decoration: none;
+      border: 1.5px solid var(--green-accent); border-radius: 40px; padding: 11px 25px;
+      font-size: 17px; font-weight: 700; color: var(--green);
+      transition: background .18s ease, color .18s ease;
+    }
+    #nch .alter-card a:hover { background: var(--green); color: #fff; }
+
+    #nch .no-product { margin-top: 22px; padding: 24px 26px; border-radius: 18px; background: var(--grey-wash); color: var(--body); font-size: 17px; line-height: 1.55; }
+    #nch .no-product b { font-size: 18px; }
+
+    /* ===== RATING ===== */
+    #nch .rating-section > p { max-width: 700px; }
+    #nch .rating-scale { display: grid; grid-template-columns: repeat(10, minmax(44px, 1fr)); gap: 8px; margin-top: 22px; }
+    #nch .rating-btn {
+      min-height: 52px; border: 1px solid var(--line-strong); border-radius: 14px;
+      background: #fff; color: var(--ink); cursor: pointer; font-size: 18px; font-weight: 700;
+      transition: border-color .16s ease, background .16s ease, color .16s ease;
+    }
+    #nch .rating-btn:hover { border-color: var(--green-accent); }
+    #nch .rating-btn:focus-visible { outline: 3px solid rgba(41,185,129,.3); outline-offset: 2px; }
+    #nch .rating-btn.selected { border-color: var(--green-accent); background: var(--green-wash); color: var(--green); }
+    #nch .rating-labels { display: flex; justify-content: space-between; gap: 16px; margin-top: 10px; color: var(--soft); font-size: 17px; }
+    #nch .rating-status { min-height: 0; margin: 0; color: var(--green); font-size: 17px; font-weight: 600; }
+
+    #nch .feedback-form { margin-top: 30px; padding-top: 28px; border-top: 1px solid var(--line); }
+    #nch .feedback-form label { display: block; margin-bottom: 10px; font-size: 18px; font-weight: 600; }
+    #nch .feedback-form textarea { min-height: 124px; }
+    #nch .feedback-help { margin: 8px 0 0; color: var(--soft); font-size: 17px; }
+
+    #nch .attachment-row { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 16px; margin-top: 18px; }
+    #nch .attachment-input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+    #nch .attachment-button {
+      display: inline-flex !important; width: fit-content; margin: 0 !important; align-items: center; gap: 8px;
+      border: 1.5px solid var(--green-accent); border-radius: 40px; padding: 11px 25px;
+      background: #fff; color: var(--green); cursor: pointer; font-size: 17px; font-weight: 700;
+      transition: background .18s ease, color .18s ease;
+    }
+    #nch .attachment-button:hover { background: var(--green); color: #fff; }
+    #nch .attachment-note { color: var(--soft); font-size: 17px; }
+    #nch .screenshot-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+    #nch .screenshot-list:empty { display: none; }
+    #nch .screenshot-item { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--grey-wash); }
+    #nch .screenshot-item img { width: 100%; height: 118px; object-fit: cover; display: block; }
+    #nch .screenshot-remove {
+      position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; border: 0; border-radius: 50%;
+      background: rgba(40,44,62,.8); color: #fff; cursor: pointer; font-size: 16px; line-height: 1;
+    }
+    #nch .feedback-submit-row { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 22px; }
+    #nch .feedback-submit-row .rating-status { flex: 1 1 260px; }
+
+    #nch .final-actions .result-toolbar { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    #nch .share {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px 26px;
+      padding: 26px clamp(24px, 3.5vw, 32px); border-radius: 20px; background: var(--green-wash);
+    }
+    #nch .share p { margin: 0; max-width: 620px; color: #1B6B4D; font-size: 17px; line-height: 1.5; }
+    #nch .share b { display: block; margin-bottom: 6px; font-size: 22px; font-weight: 600; color: var(--ink); }
+    #nch .share-hint { margin-top: 18px; color: var(--muted); font-size: 17px; line-height: 1.5; max-width: 640px; }
+    #nch .footer-note { padding: 22px 4px 0; color: var(--soft); text-align: center; font-size: 17px; line-height: 1.5; }
+
+    #nch .test-report { padding: 30px; white-space: pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace !important; }
+
+    @media (max-width: 860px) {
+      #nch .hero-grid, #nch .zone-grid, #nch .owner-grid { grid-template-columns: 1fr; }
+      #nch .hero-top { grid-template-columns: 1fr; }
+      #nch .hero-illo { width: 240px; justify-self: start; }
+      #nch .questions-grid, #nch .alter-grid, #nch .rec-body { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      #nch .shell { width: min(100% - 20px, 940px); padding-top: 14px; }
+      #nch .question-card, #nch .hero, #nch .result-section, #nch .result-hero { padding: 24px 20px; }
+      #nch .rating-scale { grid-template-columns: repeat(5, minmax(44px, 1fr)); }
+      #nch .screenshot-list { grid-template-columns: 1fr 1fr; }
+      #nch .question-actions { flex-direction: column-reverse; align-items: stretch; }
+      #nch .question-actions .btn { width: 100%; }
+      #nch .final-actions .result-toolbar .btn { flex: 1 1 200px; }
+    }
+
+    @media print {
+      #nch { background: #fff !important; }
+      #nch .shell { width: 100%; padding: 0; }
+      #nch .topbar, #nch .result-toolbar, #nch .footer-note, #nch .rating-section { display: none !important; }
+      #nch .card, #nch .result-section, #nch .result-hero { box-shadow: none; border: 0; border-radius: 0; }
+      #nch .result-section { break-inside: avoid; }
+      #nch .result-details > .result-details-body { display: block !important; }
+      #nch .result-details summary::after { display: none; }
+      #nch .alter-card a::after { content: " (" attr(href) ")"; font-size: 10px; word-break: break-all; }
+    }
+  </style>
+<!-- schema:org --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Alter для бизнеса","url":"https://latypovruslan5.github.io/alter-business.ru","logo":"https://latypovruslan5.github.io/alter-business.ru/assets/logo.svg","description":"Корпоративная психологическая поддержка сотрудников: индивидуальные сессии с психологами, вебинары, тренинги и диагностика для команд.","parentOrganization":{"@type":"Organization","name":"Alter","url":"https://alter.ru"},"areaServed":"RU"}</script>
+<style></style>
+<style></style>
+<style></style>
+<style></style>
+<style></style>
+<style></style>
+<style></style>
+<style></style>
+<style>@font-face{font-family:'Futura Fallback';src:local('Arial'),local('Helvetica'),local('Liberation Sans');font-weight:400;size-adjust:87.06%;ascent-override:112.8%;descent-override:34.5%;line-gap-override:0%}@font-face{font-family:'Futura Fallback';src:local('Arial'),local('Helvetica'),local('Liberation Sans');font-weight:500;size-adjust:95.87%;ascent-override:102.4%;descent-override:31.3%;line-gap-override:0%}@font-face{font-family:'Futura Fallback';src:local('Arial'),local('Helvetica'),local('Liberation Sans');font-weight:600;size-adjust:93.84%;ascent-override:104.6%;descent-override:32.0%;line-gap-override:0%}@font-face{font-family:'Futura Fallback';src:local('Arial'),local('Helvetica'),local('Liberation Sans');font-weight:700;size-adjust:96.46%;ascent-override:101.8%;descent-override:31.1%;line-gap-override:0%}</style>
+</head>
+<body>
+  <div id="nch">
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Alter для бизнеса">
+        <img src="assets/logo.svg" alt="Alter">
+        <span class="brand-business">для бизнеса</span>
+      </a>
+    </header>
+
+    <section id="intro" class="card hero">
+      <div class="hero-top">
+        <div>
+          <div class="eyebrow">Интерактивный разбор для HR</div>
+          <h1>Не «чините» сотрудника</h1>
+          <p class="lead" style="margin-bottom:0">Инструмент помогает разобрать запрос руководителя «разберитесь с сотрудником». За 7–10 минут он проверит факты, рабочий контекст и распределение ответственности, а затем предложит вопросы для разговора и следующие шаги.</p>
+        </div>
+        <img class="hero-illo" src="assets/illustrations/ne-chinite-hero.svg" alt="Сотрудницу окружают указывающие на нее пальцы" width="366" height="343">
+      </div>
+      <div class="hero-grid" style="margin-top:30px">
+        <div class="hero-point"><b>Без ярлыков</b><span>Переведем общую оценку в наблюдаемую ситуацию.</span></div>
+        <div class="hero-point"><b>Без догадок</b><span>Неизвестное останется неизвестным и превратится в вопросы для проверки.</span></div>
+        <div class="hero-point"><b>С планом действий</b><span>Вы получите шаги для руководителя, HR и сотрудника.</span></div>
+      </div>
+      <div class="notice"><b>На чем основаны рекомендации</b>Инструмент разработан «Alter для бизнеса» на основе принципов организационной психологии и международных подходов к управлению психосоциальными рисками на работе: стандартов HSE по управлению рабочим стрессом, ISO 45003, рекомендаций ВОЗ и NICE. Он проверяет не только поведение сотрудника, но и нагрузку, ясность роли, доступные ресурсы, действия руководителя, командные процессы и изменения в компании. Инструмент не ставит диагнозы и не оценивает личность. Он помогает HR собрать факты и выбрать следующий шаг.</div>
+      <div class="btn-row">
+        <button id="startBtn" class="btn btn-primary" type="button">Начать разбор</button>
+        <span class="hint">Обычно 7–10 минут</span>
+      </div>
+    </section>
+
+    <section id="quiz" class="quiz hidden" aria-live="polite">
+      <article class="card question-card">
+        <div class="progress-row">
+          <span id="progressText" class="progress-step">Этап 1 из 4</span>
+          <span id="progressPercent" class="progress-note"></span>
+        </div>
+        <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+
+        <div id="questionMeta" class="question-meta"></div>
+        <h2 id="questionTitle"></h2>
+        <p id="questionHint" class="question-hint"></p>
+        <div id="validation" class="validation"></div>
+        <div id="options" class="options"></div>
+        <div id="otherWrap" class="other-wrap hidden">
+          <label for="otherText">Уточните выбранный вариант</label>
+          <textarea id="otherText" maxlength="500" placeholder="Коротко опишите, что важно учесть"></textarea>
+        </div>
+        <div class="question-actions">
+          <button id="backBtn" class="btn btn-secondary" type="button">Назад</button>
+          <button id="nextBtn" class="btn btn-primary" type="button">Дальше</button>
+        </div>
+      </article>
+    </section>
+
+    <section id="results" class="results hidden"></section>
+    <div class="footer-note">Инструмент помогает подготовить рабочий разбор, но не заменяет внутренние регламенты компании, юридическую оценку и экстренную помощь.</div>
+  </main>
+  </div>
+
+  <script>
+  (() => {
+    'use strict';
+
+    const STORAGE_KEY = 'alter_ne_chinite_sotrudnika_v8';
+    const RATING_STORAGE_KEY = 'alter_ne_chinite_rating_v2';
+    // Приём оценок — Cloudflare Worker (тот же, что принимает заявки форм): multipart/form-data,
+    // оценка и комментарий в KV, карточка со ссылками на скриншоты — в Пачку. См. worker/worker.js.
+    const RATING_ENDPOINT = 'https://alter.ru/crm-api/api/tool-rating';
+    const TOOL_VERSION = 'v11';
+
+    // Цели Яндекс.Метрики. window.alterGoal приходит из analytics.js (подключён блоком
+    // ALTER_METRIKA в <head>); если счётчик не загрузился — молча ничего не делаем.
+    function goal(name, params) {
+      try { if (typeof window.alterGoal === 'function') window.alterGoal(name, params); } catch (_) {}
+    }
+    const UTM = 'utm_source=leadmagnet&utm_medium=interactive&utm_campaign=ne_chinite_sotrudnika';
+
+    const TRAININGS = {
+      burnout: { title: 'Тренинг по эмоциональному выгоранию', url: 'trening-emosionalnogo-vigoraniya?' + UTM + '&utm_content=burnout', desc: 'Подойдет, если перегрузка и истощение заметны у нескольких сотрудников, а не только у одного человека.' },
+      stress: { title: 'Тренинг по управлению стрессом и эмоциями', url: 'trening-po-upravleniyu-stressom-i-emotsiyami?' + UTM + '&utm_content=stress', desc: 'Поможет команде освоить способы саморегуляции в напряженных рабочих ситуациях.' },
+      communication: { title: 'Стратегии деловой коммуникации', url: 'trening-po-delovoy-kommunikatsii?' + UTM + '&utm_content=communication', desc: 'Уместен при повторяющихся трудностях с ясностью, договоренностями и прямыми рабочими разговорами.' },
+      conflict: { title: 'Конфликт-менеджмент 360°', url: 'trening-konflikt-menedzhment?' + UTM + '&utm_content=conflict', desc: 'Подойдет, если конфликты повторяются и команде нужен общий способ обсуждать разногласия.' },
+      newManager: { title: 'Адаптация в роли руководителя', url: 'trening-adaptatsiya-rukovoditelya?' + UTM + '&utm_content=new_manager', desc: 'Для новых руководителей, которым важно выстроить постановку задач, контроль и доверие в команде.' },
+      instability: { title: 'Лидерство в нестабильности', url: 'trening-liderstvo-v-nestabilnosti?' + UTM + '&utm_content=instability', desc: 'Уместен в период изменений, когда руководителям нужно сохранять ясность и поддерживать команду.' },
+      feedback: { title: 'Конструктивная обратная связь', url: 'trening-obratnaya-svyaz?' + UTM + '&utm_content=feedback', desc: 'Подойдет, если руководители дают общие оценки, откладывают разговор или не переводят ожидания в конкретные действия.' },
+      delegation: { title: 'Делегирование без потерь', url: 'trening-delegirovanie?' + UTM + '&utm_content=delegation', desc: 'Уместен при трудностях с самостоятельностью, контролем, полномочиями и ответственностью.' },
+      motivation: { title: 'Нематериальная мотивация. Сила «Спасибо»', url: 'trening-nematerialnaya-motivatsiya?' + UTM + '&utm_content=motivation', desc: 'Подойдет руководителям, если в команде мало признания, поддержки и понятной связи между вкладом и результатом.' },
+      development: { title: 'Индивидуальный план развития', url: 'trening-individualnyy-plan-razvitiya?' + UTM + '&utm_content=development', desc: 'Уместен, когда проблема связана с развитием навыка и нужен понятный план прогресса.' },
+      oneToOne: { title: 'Встречи один на один с пользой', url: 'trening-vstrechi-1-1?' + UTM + '&utm_content=one_to_one', desc: 'Подойдет, если руководитель узнает о трудностях поздно или передает сложные разговоры HR.' },
+      emotionalIntelligence: { title: 'Тренинг по эмоциональному интеллекту', url: 'treningi-po-emosionalnomu-intellektu?' + UTM + '&utm_content=emotional_intelligence', desc: 'Уместен при повторяющихся сложностях с распознаванием эмоций и реакциями в рабочем общении.' }
+    };
+
+    const PRODUCTS = {
+      diagnostics: {
+        title: 'Диагностика ментального состояния команды',
+        url: 'diagnostika-komandi?' + UTM + '&utm_content=team_diagnostics',
+        desc: 'Поможет проверить масштаб трудности и увидеть общие сигналы стресса, выгорания, коммуникационных сложностей и других зон риска. Диагностика не заменяет разбор процессов, нагрузки, ролей и действий руководителя.',
+        cta: 'Узнать о диагностике'
+      },
+      support: {
+        title: 'Психологическая поддержка сотрудников',
+        url: './?' + UTM + '&utm_content=individual_support',
+        desc: 'Можно предложить добровольно, если сотрудник говорит о трудном состоянии, просит поддержку или после бережного разговора хочет получить информацию о конфиденциальных сессиях с психологом.',
+        cta: 'Рассчитать стоимость программы'
+      },
+      catalog: {
+        title: 'Каталог тренингов Alter для бизнеса',
+        url: 'treningi?' + UTM + '&utm_content=training_catalog',
+        desc: 'Программы для сотрудников, HR и руководителей.',
+        cta: 'Посмотреть тренинги'
+      }
+    };
+
+
+    const ISSUE_LABELS = {
+      deadline: 'сроки выполнения задач',
+      quality: 'качество работы или повторяющиеся ошибки',
+      initiative: 'самостоятельность и предложения решений',
+      responsibility: 'соблюдение рабочих договоренностей и сообщение о рисках',
+      motivation: 'участие в задачах и рабочих обсуждениях',
+      communication: 'общение или конфликт',
+      emotion: 'эмоциональное состояние сотрудника',
+      attendance: 'отсутствия, опоздания или недоступность',
+      adaptation: 'адаптация к роли или команде',
+      rules: 'нарушение обязательных правил или требований безопасности',
+      vague: 'общее недовольство без конкретной формулировки'
+    };
+
+    const opt = (value, label, detail = '', exclusive = false) => ({ value, label, detail, exclusive });
+    const has = (answer, value) => Array.isArray(answer) ? answer.includes(value) : answer === value;
+    const any = (answer, values) => values.some(v => has(answer, v));
+    const known = value => value !== undefined && value !== null && value !== '' && value !== 'unknown' && !(Array.isArray(value) && value.length === 0);
+    const answered = value => value !== undefined && value !== null && value !== '' && !(Array.isArray(value) && value.length === 0);
+
+    const DETAIL_OPTIONS = {
+      deadline: [
+        opt('missed', 'Задача не выполнена к согласованной дате'),
+        opt('late_warning', 'О риске задержки сообщили после того, как срок оказался под угрозой'),
+        opt('repeated_moves', 'Согласованную дату переносили несколько раз'),
+        opt('slow', 'Работа продвигалась медленнее согласованного темпа'),
+        opt('other', 'Другое'), opt('unknown', 'Не знаю', '', true)
+      ],
+      quality: [
+        opt('error', 'В результате есть конкретная ошибка'),
+        opt('rework', 'Работу регулярно возвращают на доработку'),
+        opt('standard', 'Результат не соответствует согласованному стандарту'),
+        opt('other', 'Другое'), opt('unknown', 'Не знаю', '', true)
+      ],
+      initiative: [
+        opt('waits', 'Ждет подробной инструкции или согласования там, где может действовать самостоятельно'),
+        opt('no_options', 'При препятствии не предлагает варианты решения'),
+        opt('late_risks', 'Сообщает о риске только после остановки работы'),
+        opt('no_extra', 'Возвращает руководителю задачу или решение, которые были переданы сотруднику'),
+        opt('other', 'Другое'), opt('unknown', 'Не знаю', '', true)
+      ],
+      responsibility: [
+        opt('avoids_decision', 'Не выполнено согласованное действие в зоне ответственности сотрудника'),
+        opt('passes_task', 'Задача передана другому человеку без предварительного согласования'),
+        opt('hides_risk', 'О препятствии или риске сообщили уже после срыва'),
+        opt('needs_approval', 'Статус не обновлялся в согласованные контрольные точки'),
+        opt('other', 'Другое'), opt('unknown', 'Не знаю', '', true)
+      ],
+      motivation: [
+        opt('less_active', 'Стал меньше включаться в задачи или ограничивается обязательным минимумом'),
+        opt('withdrawn', 'Реже участвует в рабочих обсуждениях'),
+        opt('growth_refusal', 'Отказывается от задач, которые раньше принимал'),
+        opt('complaints', 'Говорит, что не видит смысла или ценности работы'),
+        opt('other', 'Другое'), opt('unknown', 'Не знаю', '', true)
+      ],
+      communication: [
+        opt('sharp', 'Резко отвечает или повышает тон'),
+        opt('avoids', 'Уходит от прямого обсуждения разногласия'),
+        opt('feedback_reaction', 'После обратной связи разговор быстро переходит в спор'),
+        opt('withholds', 'Не передает информацию, необходимую для совместной работы'),
+        opt('other', 'Другое'), opt('unknown', 'Не знаю', '', true)
+      ],
+      emotion: [
+        opt('self_report', 'Сотрудник сам говорит о стрессе, тревоге или истощении'),
+        opt('tears', 'Сотруднику трудно продолжать рабочий разговор из-за сильных эмоций'),
+        opt('irritability', 'Сотрудник стал заметно более раздраженным, напряженным или отстраненным'),
+        opt('work_change', 'Заметно изменились привычный темп, участие в работе или взаимодействие'),
+        opt('other', 'Другое'), opt('unknown', 'Не знаю', '', true)
+      ],
+      attendance: [
+        opt('late', 'Сотрудник пришел позже согласованного времени'),
+        opt('unavailable', 'Не был доступен в согласованные рабочие часы'),
+        opt('absence', 'Не присутствовал на рабочем дне или обязательной встрече'),
+        opt('warning', 'Сообщил об отсутствии позже согласованного срока'),
+        opt('other', 'Другое'), opt('unknown', 'Не знаю', '', true)
+      ],
+      adaptation: [
+        opt('role_tasks', 'Трудности возникают при выполнении задач новой роли'),
+        opt('team_contact', 'Трудности возникают во взаимодействии с командой'),
+        opt('rules', 'Трудности возникают при работе по новым правилам и процессам'),
+        opt('manager_contact', 'Трудности возникают во взаимодействии с руководителем'),
+        opt('other', 'Другое'), opt('unknown', 'Не знаю', '', true)
+      ],
+      rules: [
+        opt('policy', 'Не соблюдено обязательное правило, регламент или процедура'),
+        opt('ethics', 'Зафиксировано неуважительное или неэтичное поведение'),
+        opt('security', 'Возник риск для безопасности людей, данных или имущества'),
+        opt('other', 'Другое'), opt('unknown', 'Не знаю', '', true)
+      ],
+      vague: [
+        opt('no_formulation', 'Руководитель не смог сформулировать, что именно не устраивает'),
+        opt('label_only', 'Звучат только оценки личности'),
+        opt('mixed', 'В одной жалобе смешано несколько разных ситуаций'),
+        opt('other', 'Другое')
+      ]
+    };
+
+    const questions = [
+      {
+        id: 'issue', section: 'Ситуация', type: 'single',
+        title: 'Что руководителя беспокоит больше всего?',
+        hint: 'Выберите одну основную жалобу. Так результат останется точным и не смешает разные случаи.',
+        options: () => [
+          opt('deadline', 'Сроки выполнения задач'),
+          opt('quality', 'Качество работы или повторяющиеся ошибки'),
+          opt('initiative', 'Самостоятельность и предложения решений'),
+          opt('responsibility', 'Соблюдение рабочих договоренностей и сообщение о рисках'),
+          opt('motivation', 'Участие в задачах и рабочих обсуждениях'),
+          opt('communication', 'Общение, конфликт или реакция на обратную связь'),
+          opt('emotion', 'Эмоциональное состояние сотрудника'),
+          opt('attendance', 'Отсутствия, опоздания или недоступность'),
+          opt('adaptation', 'Адаптация к роли или команде'),
+          opt('rules', 'Нарушение обязательных правил или требований безопасности'),
+          opt('vague', 'Руководитель выразил только общее недовольство')
+        ]
+      },
+      {
+        id: 'factPresence', section: 'Факты', type: 'single',
+        show: s => s.issue !== 'vague',
+        title: s => factPresenceTitle(s),
+        hint: s => factPresenceHint(s),
+        options: s => factPresenceOptions(s)
+      },
+      {
+        id: 'detail', section: 'Факты', type: 'multi',
+        show: s => s.issue === 'vague' || (s.factPresence && !['impression','unknown'].includes(s.factPresence)),
+        title: s => detailTitle(s.issue),
+        hint: s => s.issue === 'vague'
+          ? 'Отметьте, что именно мешает превратить жалобу в проверяемую рабочую ситуацию.'
+          : 'Можно выбрать несколько пунктов, если они относятся к одной и той же ситуации.',
+        options: s => DETAIL_OPTIONS[s.issue] || []
+      },
+      {
+        id: 'scope', section: 'Масштаб', type: 'single',
+        show: s => hasUsableFact(s),
+        title: 'Насколько широко проявляется ситуация?',
+        hint: 'Выберите самый широкий уровень, который подтверждается примерами. Не учитывайте предположения.',
+        options: s => scopeOptions(s)
+      },
+      {
+        id: 'onset', section: 'Динамика', type: 'single',
+        show: s => hasUsableFact(s) && s.scope && !['one_event','unknown'].includes(s.scope),
+        title: s => onsetTitle(s),
+        hint: s => onsetHint(s),
+        options: s => onsetOptions(s)
+      },
+      {
+        id: 'conversation', section: 'Позиции сторон', type: 'single',
+        show: s => hasUsableFact(s),
+        title: 'Как сейчас обстоит дело с разговором руководителя и сотрудника?',
+        hint: 'Выберите вариант, который точнее описывает текущий статус разговора.',
+        options: s => conversationOptions(s)
+      },
+      {
+        id: 'employeeExplanation', section: 'Позиции сторон', type: 'multi',
+        show: s => hasUsableFact(s) && (s.issue === 'emotion' ? ['detailed','hr_instead'].includes(s.conversation) : ['detailed','short','hr_instead'].includes(s.conversation)),
+        title: s => employeeExplanationTitle(s),
+        hint: 'Отмечайте только то, что сотрудник говорил сам. Не выбирайте предположения руководителя или HR.',
+        options: s => employeeExplanationOptions(s)
+      },
+      {
+        id: 'expectations', section: 'Рабочие условия', type: 'single',
+        show: s => showExpectations(s),
+        title: s => expectationTitle(s.issue),
+        hint: 'Оценивайте только то, что было сформулировано сотруднику до ситуации.',
+        options: s => expectationOptions(s.issue)
+      },
+      {
+        id: 'resources', section: 'Рабочие условия', type: 'multi',
+        show: s => showResources(s),
+        title: s => resourceTitle(s),
+        hint: s => resourceHint(s),
+        options: s => resourceOptions(s)
+      },
+      {
+        id: 'management', section: 'Управление', type: 'single',
+        show: s => showManagement(s),
+        title: s => managementTitle(s),
+        hint: 'Задача не в том, чтобы оценить руководителя, а в том, чтобы проверить управляемые условия.',
+        options: s => managementOptions(s)
+      },
+      {
+        id: 'teamProcess', section: 'Команда и процессы', type: 'multi',
+        show: s => showTeamProcess(s),
+        title: s => teamProcessTitle(s),
+        hint: s => teamProcessHint(s),
+        options: s => teamProcessOptions(s)
+      },
+      {
+        id: 'stateSupport', section: 'Состояние и поддержка', type: 'multi',
+        show: s => showStateQuestion(s),
+        title: 'Какая поддержка нужна сотруднику по его словам?',
+        hint: 'Отмечайте только просьбы или предпочтения, которые сотрудник озвучил сам. Не предполагайте потребность в поддержке по наблюдениям руководителя.',
+        options: s => stateSupportOptions(s)
+      },
+      {
+        id: 'roleStage', section: 'Контекст роли', type: 'single',
+        show: s => hasUsableFact(s) && (s.issue === 'adaptation' || any(s.resources, ['skills'])),
+        title: 'Как давно сотрудник работает в этой роли?',
+        hint: 'Для нового сотрудника сначала проверяют адаптацию, доступ к информации и реалистичность ожиданий.',
+        options: () => [
+          opt('under3', 'Меньше 3 месяцев в роли и недавно в компании'),
+          opt('internal_new', 'Меньше 3 месяцев в роли, но давно в компании'),
+          opt('three6', 'От 3 до 6 месяцев в роли'),
+          opt('over6', 'Больше 6 месяцев в роли'),
+          opt('unknown', 'Не знаю')
+        ]
+      },
+      {
+        id: 'actions', section: 'Что уже делали', type: 'multi',
+        show: s => hasUsableFact(s),
+        title: s => actionsTitle(s),
+        hint: 'Это нужно, чтобы не повторять общий совет и предложить следующий шаг.',
+        options: s => actionOptions(s)
+      }
+    ];
+
+    let state = loadState() || { answers: {}, index: 0 };
+    if (state.answers?.issue === 'other') state = { answers: {}, index: 0 };
+    let route = [];
+
+    const el = id => document.getElementById(id);
+    const intro = el('intro');
+    const quiz = el('quiz');
+    const results = el('results');
+    const optionsEl = el('options');
+    const otherWrap = el('otherWrap');
+    const otherText = el('otherText');
+
+
+    function factPresenceTitle(s) {
+      if (s.issue === 'emotion') return 'Есть ли конкретный сигнал, на котором основана тревога за состояние сотрудника?';
+      if (s.issue === 'adaptation') return 'Есть ли конкретная ситуация, на которой основана жалоба об адаптации?';
+      return 'Есть ли конкретная ситуация, на которой основана жалоба?';
+    }
+
+    function factPresenceHint(s) {
+      if (s.issue === 'emotion') return 'Подойдут слова сотрудника или наблюдаемое изменение. Общая оценка без примера не считается фактом.';
+      return 'На этом шаге важно только наличие конкретного примера. Частоту и масштаб вы оцените дальше.';
+    }
+
+    function factPresenceOptions(s) {
+      if (s.issue === 'emotion') return [
+        opt('yes', 'Да, есть конкретный сигнал или эпизод'),
+        opt('impression', 'Есть только общее впечатление руководителя'),
+        opt('unknown', 'Я не знаю подробностей', 'Вы получите короткий разбор: какие факты запросить у руководителя до разговора с сотрудником.')
+      ];
+      if (s.issue === 'adaptation') return [
+        opt('yes', 'Да, есть конкретная ситуация в период адаптации'),
+        opt('impression', 'Есть только общее впечатление руководителя'),
+        opt('unknown', 'Я не знаю подробностей', 'Вы получите короткий разбор: какие факты запросить у руководителя до разговора с сотрудником.')
+      ];
+      return [
+        opt('yes', 'Да, есть конкретная ситуация'),
+        opt('impression', 'Есть только общее впечатление руководителя'),
+        opt('unknown', 'Я не знаю подробностей', 'Вы получите короткий разбор: какие факты запросить у руководителя до разговора с сотрудником.')
+      ];
+    }
+
+    function hasUsableFact(s) {
+      if (s.issue === 'vague') return false;
+      if (s.factPresence !== 'yes' || !Array.isArray(s.detail) || !s.detail.length) return false;
+      const nonFacts = new Set(['label_only','no_formulation','unknown']);
+      return s.detail.some(value => {
+        if (value === 'other') return Boolean((s.detail__other || '').trim());
+        return !nonFacts.has(value);
+      });
+    }
+
+    function showExpectations(s) {
+      return hasUsableFact(s) && s.issue !== 'emotion';
+    }
+
+    function showResources(s) {
+      return hasUsableFact(s);
+    }
+
+    function showManagement(s) {
+      return hasUsableFact(s) && ['initiative','responsibility','adaptation'].includes(s.issue);
+    }
+
+    function showTeamProcess(s) {
+      return hasUsableFact(s) && (
+        ['several_people','others'].includes(s.scope) ||
+        any(s.resources, ['dependencies','conflicting_priorities','workload','relationships','change'])
+      );
+    }
+
+    function showStateQuestion(s) {
+      return hasUsableFact(s) && (
+        s.issue === 'emotion' ||
+        any(s.employeeExplanation, ['stress','personal','wellbeing'])
+      );
+    }
+
+    function conversationOptions(s) {
+      if (s.issue === 'emotion') return [
+        opt('detailed', 'Руководитель обсудил наблюдаемое изменение один на один и выслушал сотрудника'),
+        opt('short', 'Разговор был, но без конкретного примера или без уточнения позиции сотрудника'),
+        opt('pressure', 'Разговор сместился к личным причинам, которые сотрудник не хотел обсуждать'),
+        opt('public_criticism', 'Состояние или поведение сотрудника обсуждали при других людях'),
+        opt('hr_instead', 'С сотрудником говорил HR, а прямого разговора с руководителем не было'),
+        opt('no', 'Ситуацию еще не обсуждали с сотрудником'),
+        opt('unknown', 'Не знаю')
+      ];
+      return [
+        opt('detailed', 'Руководитель обсудил конкретный эпизод один на один и выслушал позицию сотрудника'),
+        opt('short', 'Руководитель обсудил конкретный эпизод, но позицию сотрудника пока не уточнили'),
+        opt('claim_only', 'Разговор был, но без конкретного эпизода'),
+        opt('hr_instead', 'С сотрудником говорил HR, а прямого разговора с руководителем не было'),
+        opt('no', 'Ситуацию еще не обсуждали с сотрудником'),
+        opt('unknown', 'Не знаю')
+      ];
+    }
+
+    function stateSupportOptions(s) {
+      const out = [
+        opt('no_request', 'Сотрудник не просил менять рабочие условия или предлагать поддержку', '', true),
+        opt('work_adjustment', 'Просит временно изменить нагрузку, сроки или формат взаимодействия'),
+        opt('asks_support', 'Хочет получить информацию о конфиденциальной психологической поддержке'),
+        opt('needs_time', 'Просит вернуться к разговору о поддержке позже'),
+        opt('declines_support', 'Не хочет получать информацию о психологической поддержке')
+      ];
+      const positionKnown = ['detailed','short','hr_instead'].includes(s.conversation) &&
+        known(s.employeeExplanation) && !any(s.employeeExplanation, ['unknown','no_explanation']);
+      if (!positionKnown) out.push(opt('observed_only', 'Позицию сотрудника не уточняли: есть только наблюдение руководителя или HR', '', true));
+      out.push(opt('unknown', 'Не знаю, что сотрудник сказал о поддержке', '', true));
+      out.push(opt('other', 'Другой запрос на поддержку'));
+      return out;
+    }
+
+    function employeeExplanationTitle(s) {
+      if (s.issue === 'emotion') return 'Как сотрудник сам объясняет изменение своего состояния?';
+      if (s.issue === 'adaptation') return 'Как сотрудник объясняет трудности с адаптацией?';
+      return 'Как сотрудник объясняет ситуацию?';
+    }
+
+    function employeeExplanationOptions(s) {
+      if (s.issue === 'emotion') return [
+        opt('overload', 'Связывает изменение с высокой нагрузкой'),
+        opt('priorities', 'Связывает изменение с неопределенностью или переменами в работе'),
+        opt('relationships', 'Связывает изменение с трудностями во взаимодействии'),
+        opt('personal', 'Связывает изменение с личными обстоятельствами'),
+        opt('stress', 'Говорит об истощении, но не называет конкретную причину'),
+        opt('disagrees', 'Не считает, что его состояние заметно изменилось'),
+        opt('no_explanation', 'Не назвал причину или предпочел ее не обсуждать', '', true),
+        opt('unknown', 'HR не знает содержание разговора', '', true),
+        opt('other', 'Другое')
+      ];
+
+      if (s.issue === 'adaptation') return [
+        opt('expectations', 'Не до конца понимает ожидания от роли'),
+        opt('information', 'Не хватает информации или доступов'),
+        opt('skills', 'Не хватает навыков или практики'),
+        opt('guidance', 'Не хватает контакта с руководителем, поддержки или регулярной обратной связи'),
+        opt('overload', 'Нагрузка или частые изменения мешают освоиться в роли'),
+        opt('disagrees', 'Не согласен с оценкой руководителя'),
+        opt('no_explanation', 'Не объяснил ситуацию', '', true),
+        opt('unknown', 'HR не знает содержание разговора', '', true),
+        opt('other', 'Другое')
+      ];
+
+      if (['initiative','responsibility'].includes(s.issue)) return [
+        opt('expectations', 'Не понял границы полномочий или ответственности'),
+        opt('dependencies', 'Решение зависело от других людей или меняющихся приоритетов'),
+        opt('skills', 'Не хватило опыта для самостоятельного решения'),
+        opt('fear', 'Опасался ошибки или негативной реакции руководителя'),
+        opt('overload', 'Не справлялся с объемом задач'),
+        opt('disagrees', 'Не согласен с оценкой руководителя'),
+        opt('no_explanation', 'Не объяснил ситуацию', '', true),
+        opt('unknown', 'HR не знает содержание разговора', '', true),
+        opt('other', 'Другое')
+      ];
+
+      if (s.issue === 'motivation') return [
+        opt('expectations', 'Не понимает, чего от него ждут и как оценивают вклад'),
+        opt('priorities', 'Не видит связи между задачами и общим результатом'),
+        opt('overload', 'Связывает снижение участия с перегрузкой'),
+        opt('relationships', 'Связывает снижение участия с отношениями в команде или с руководителем'),
+        opt('wellbeing', 'Связывает изменение со стрессом, истощением или личными обстоятельствами'),
+        opt('disagrees', 'Не считает, что стал меньше участвовать'),
+        opt('no_explanation', 'Не объяснил изменение', '', true),
+        opt('unknown', 'HR не знает содержание разговора', '', true),
+        opt('other', 'Другое')
+      ];
+
+      if (s.issue === 'communication') return [
+        opt('expectations', 'Стороны по-разному понимают договоренность или роли'),
+        opt('relationships', 'Говорит о напряжении во взаимодействии'),
+        opt('fear', 'Избегал разговора из-за опасения реакции другой стороны'),
+        opt('priorities', 'Конфликт возник из-за разных приоритетов'),
+        opt('wellbeing', 'Связывает реакцию со стрессом, истощением или личными обстоятельствами'),
+        opt('disagrees', 'Не согласен с описанием ситуации'),
+        opt('no_explanation', 'Не объяснил ситуацию', '', true),
+        opt('unknown', 'HR не знает содержание разговора', '', true),
+        opt('other', 'Другое')
+      ];
+
+      if (s.issue === 'attendance') return [
+        opt('expectations', 'Не понял график или правила доступности'),
+        opt('capacity', 'Связывает ситуацию с нагрузкой, графиком или нехваткой времени'),
+        opt('wellbeing', 'Связывает ситуацию со стрессом, истощением или личными обстоятельствами'),
+        opt('dependencies', 'Доступность зависела от согласования или действий других людей'),
+        opt('disagrees', 'Не согласен с тем, что нарушил договоренность'),
+        opt('no_explanation', 'Не объяснил отсутствие или недоступность', '', true),
+        opt('unknown', 'HR не знает содержание разговора', '', true),
+        opt('other', 'Другое')
+      ];
+
+      if (s.issue === 'rules') return [
+        opt('expectations', 'Не понял обязательное правило или процедуру'),
+        opt('priorities', 'Считал другое обязательное требование более приоритетным'),
+        opt('dependencies', 'Действовал по указанию другого руководителя или подразделения'),
+        opt('disagrees', 'Считает, что правило не относится к этой ситуации'),
+        opt('personal', 'Упоминает обстоятельства, которые повлияли на решение'),
+        opt('no_explanation', 'Не объяснил ситуацию', '', true),
+        opt('unknown', 'HR не знает содержание разговора', '', true),
+        opt('other', 'Другое')
+      ];
+
+      return [
+        opt('expectations', 'Не понял ожидания или критерии результата'),
+        opt('capacity', 'Не хватило времени или текущая нагрузка была слишком высокой'),
+        opt('dependencies', 'Результат зависел от других людей или меняющихся приоритетов'),
+        opt('skills', 'Не хватило навыков или опыта'),
+        opt('wellbeing', 'Связывает ситуацию со стрессом, истощением или личными обстоятельствами'),
+        opt('disagrees', 'Не согласен с оценкой руководителя'),
+        opt('no_explanation', 'Не объяснил ситуацию', '', true),
+        opt('unknown', 'HR не знает содержание разговора', '', true),
+        opt('other', 'Другое')
+      ];
+    }
+
+    function resourceTitle(s) {
+      if (s.issue === 'emotion') return 'Какие рабочие факторы подтверждаются помимо наблюдения за состоянием?';
+      if (s.issue === 'adaptation') return 'Какие условия адаптации требуют изменения?';
+      return 'Какие рабочие условия или ограничения подтверждаются фактами?';
+    }
+
+    function resourceHint(s) {
+      if (s.issue === 'emotion') return 'Отмечайте только известные рабочие условия. Личные причины сотрудник раскрывать не обязан.';
+      if (s.issue === 'adaptation') return 'Ожидания от роли уже оценены отдельно. Здесь отметьте доступы, практику, поддержку, нагрузку и зависимости.';
+      return 'Отделите подтвержденные условия от объяснения сотрудника: его позиция важна, но рабочий фактор стоит проверить по фактам.';
+    }
+
+    function managementTitle(s) {
+      if (s.issue === 'emotion') return 'Как руководитель обсуждал заметное изменение с сотрудником?';
+      if (s.issue === 'adaptation') return 'Как было организовано сопровождение адаптации?';
+      if (['initiative','responsibility'].includes(s.issue)) return 'Как руководитель реагировал на самостоятельные решения сотрудника?';
+      return 'Как руководитель сопровождал эту ситуацию?';
+    }
+
+    function actionsTitle(s) {
+      if (s.issue === 'emotion') return 'Какие изменения уже внесли после разбора ситуации?';
+      if (s.issue === 'adaptation') return 'Какие изменения уже внесли в процесс адаптации?';
+      return 'Какие изменения уже внесли после ситуации?';
+    }
+
+    function actionOptions(s) {
+      if (s.issue === 'emotion') return [
+        opt('nothing', 'Пока ничего не меняли', '', true),
+        opt('load', 'Временно изменили нагрузку, сроки или формат взаимодействия'),
+        opt('support', 'Передали информацию о конфиденциальной психологической поддержке'),
+        opt('follow_up', 'Назначили дату проверки рабочих мер'),
+        opt('process', 'Изменили общее условие в команде или процессе'),
+        opt('unknown', 'Не знаю', '', true),
+        opt('other', 'Другое')
+      ];
+
+      if (s.issue === 'adaptation') return [
+        opt('nothing', 'Пока ничего не меняли', '', true),
+        opt('onboarding', 'Составили или обновили план адаптации с этапами и сроками'),
+        opt('access', 'Добавили нужные доступы, материалы или инструкции'),
+        opt('mentoring', 'Назначили наставника или практику с обратной связью'),
+        opt('load', 'Временно изменили нагрузку или сложность задач'),
+        opt('process', 'Изменили общий процесс адаптации'),
+        opt('support', 'Передали информацию о психологической поддержке'),
+        opt('unknown', 'Не знаю', '', true),
+        opt('other', 'Другое')
+      ];
+
+      if (s.issue === 'communication') return [
+        opt('nothing', 'Пока ничего не меняли', '', true),
+        opt('process', 'Уточнили роли, порядок решений или эскалации'),
+        opt('mentoring', 'Организовали совместный разбор или обучение коммуникации'),
+        opt('formal', 'Применили предусмотренную внутреннюю процедуру'),
+        opt('support', 'Передали информацию о психологической поддержке'),
+        opt('unknown', 'Не знаю', '', true),
+        opt('other', 'Другое')
+      ];
+
+      if (s.issue === 'motivation') return [
+        opt('nothing', 'Пока ничего не меняли', '', true),
+        opt('load', 'Изменили нагрузку или состав задач'),
+        opt('mentoring', 'Добавили задачи для развития или поддержку в освоении навыка'),
+        opt('process', 'Изменили распределение задач или способ признания вклада'),
+        opt('support', 'Передали информацию о психологической поддержке'),
+        opt('unknown', 'Не знаю', '', true),
+        opt('other', 'Другое')
+      ];
+
+      if (s.issue === 'attendance') return [
+        opt('nothing', 'Пока ничего не меняли', '', true),
+        opt('load', 'Временно изменили график или нагрузку'),
+        opt('process', 'Изменили порядок сообщения об изменениях графика'),
+        opt('formal', 'Применили предусмотренную внутреннюю процедуру'),
+        opt('support', 'Передали информацию о психологической поддержке'),
+        opt('unknown', 'Не знаю', '', true),
+        opt('other', 'Другое')
+      ];
+
+      if (s.issue === 'rules') return [
+        opt('nothing', 'Пока ничего не меняли', '', true),
+        opt('process', 'Обновили инструкцию, доступ к правилу или порядок согласования исключений'),
+        opt('mentoring', 'Добавили инструктаж или практический разбор'),
+        opt('formal', 'Применили предусмотренную внутреннюю процедуру'),
+        opt('support', 'Передали информацию о психологической поддержке'),
+        opt('unknown', 'Не знаю', '', true),
+        opt('other', 'Другое')
+      ];
+
+      return [
+        opt('nothing', 'Пока ничего не меняли', '', true),
+        opt('load', 'Изменили нагрузку или сроки'),
+        opt('mentoring', 'Добавили обучение, наставника или практику'),
+        opt('process', 'Изменили процесс или распределение ролей'),
+        opt('support', 'Передали информацию о психологической поддержке'),
+        opt('formal', 'Применили формальный план или внутреннюю процедуру'),
+        opt('unknown', 'Не знаю', '', true),
+        opt('other', 'Другое')
+      ];
+    }
+
+    function detailTitle(issue) {
+      const titles = {
+        deadline: 'Как проявилась трудность со сроками?',
+        quality: 'На чем основана оценка качества?',
+        initiative: 'Как именно проявилась нехватка самостоятельности?',
+        responsibility: 'Как именно проявилась трудность с выполнением ответственности?',
+        motivation: 'Какие изменения в участии сотрудника заметил руководитель?',
+        communication: 'Как именно проявилась трудность во взаимодействии?',
+        emotion: 'Какие сигналы вызвали тревогу за состояние сотрудника?',
+        attendance: 'Как именно проявилась трудность с присутствием или доступностью?',
+        adaptation: 'В какой части адаптации возникла трудность?',
+        rules: 'На чем основана жалоба о нарушении обязательного правила?',
+        vague: 'Как звучит общее недовольство?'
+      };
+      return titles[issue] || 'Что именно произошло?';
+    }
+
+    function onsetTitle(s) {
+      if (s.issue === 'emotion') return 'Как менялось состояние сотрудника со времени первого сигнала?';
+      if (s.issue === 'adaptation') return 'Как менялась трудность в период адаптации?';
+      return 'Как менялась ситуация со времени первого случая?';
+    }
+
+    function onsetHint(s) {
+      return 'На этом шаге не ищем причину. Оцените только динамику: усиливается, ослабевает или остается примерно одинаковой.';
+    }
+
+    function onsetOptions(s) {
+      if (s.issue === 'emotion') return [
+        opt('stable', 'Сигналы остаются примерно на одном уровне'),
+        opt('worsening', 'Сигналы стали заметнее или возникают чаще'),
+        opt('improving', 'Сигналы стали слабее или возникают реже'),
+        opt('episodic', 'Состояние меняется волнами'),
+        opt('insufficient', 'Пока недостаточно наблюдений для оценки динамики'),
+        opt('unknown', 'Не знаю')
+      ];
+      if (s.issue === 'adaptation') return [
+        opt('stable', 'Трудность сохраняется примерно на одном уровне'),
+        opt('worsening', 'Трудность проявляется чаще или сильнее'),
+        opt('improving', 'Трудность проявляется реже или слабее'),
+        opt('episodic', 'Прогресс чередуется с повторением трудности'),
+        opt('insufficient', 'Пока недостаточно наблюдений для оценки динамики'),
+        opt('unknown', 'Не знаю')
+      ];
+      return [
+        opt('stable', 'Ситуация повторяется примерно одинаково'),
+        opt('worsening', 'Ситуация стала возникать чаще или сильнее влиять на работу'),
+        opt('improving', 'Ситуация стала возникать реже или слабее влиять на работу'),
+        opt('episodic', 'Ситуация возникает периодически без устойчивой динамики'),
+        opt('insufficient', 'Пока недостаточно наблюдений для оценки динамики'),
+        opt('unknown', 'Не знаю')
+      ];
+    }
+
+    function expectationTitle(issue) {
+      if (issue === 'deadline') return 'Были ли заранее согласованы срок и контрольные точки?';
+      if (issue === 'quality') return 'Были ли заранее согласованы критерии качества?';
+      if (['initiative','responsibility'].includes(issue)) return 'Были ли заранее согласованы полномочия и зона ответственности?';
+      if (issue === 'motivation') return 'Было ли заранее понятно, какое участие ожидается от сотрудника?';
+      if (issue === 'communication') return 'Были ли заранее согласованы правила рабочего взаимодействия?';
+      if (issue === 'rules') return 'Было ли правило заранее понятно и доступно сотруднику?';
+      if (issue === 'attendance') return 'Были ли заранее согласованы график и правила доступности?';
+      if (issue === 'adaptation') return 'Были ли заранее согласованы ожидания от роли и периода адаптации?';
+      return 'Было ли сотруднику заранее понятно, что именно от него ожидают?';
+    }
+
+    function expectationOptions(issue) {
+      return [
+        opt('clear_written', 'Да, все было конкретно, одинаково понято и зафиксировано'),
+        opt('clear_spoken', 'Да, все было конкретно и одинаково понято, но не зафиксировано'),
+        opt('partial', 'Обсудили только часть или стороны поняли условия по-разному'),
+        opt('after', 'Сформулировали уже после ситуации'),
+        opt('no', 'Заранее не обсуждали'),
+        opt('unknown', 'Не знаю')
+      ];
+    }
+
+    function scopeOptions(s) {
+      const unknown = opt('unknown', 'Не знаю', 'Разбор продолжится. В результате появится отдельный пункт о том, что масштаб ситуации нужно уточнить.');
+
+      if (s.issue === 'emotion') return [
+        opt('one_event', 'Один эпизод у одного сотрудника'),
+        opt('same_tasks', 'Несколько эпизодов в похожих рабочих ситуациях у этого сотрудника'),
+        opt('overall', 'Изменение заметно в разных рабочих ситуациях у этого сотрудника'),
+        opt('others', 'Похожие изменения заметны у нескольких сотрудников'),
+        unknown
+      ];
+
+      if (s.issue === 'communication') return [
+        opt('one_event', 'Один эпизод во взаимодействии с одним человеком'),
+        opt('one_person', 'Несколько эпизодов во взаимодействии с одним человеком'),
+        opt('several_people', 'Эпизоды возникают во взаимодействии с несколькими людьми'),
+        opt('others', 'Похожие трудности во взаимодействии есть у других сотрудников'),
+        unknown
+      ];
+
+      if (s.issue === 'adaptation') return [
+        opt('one_event', 'Одна конкретная ситуация в период адаптации'),
+        opt('same_tasks', 'Несколько ситуаций на одном типе задач или этапе адаптации'),
+        opt('overall', 'Трудности возникают в разных задачах и взаимодействиях новой роли'),
+        opt('others', 'Похожие трудности есть у других новых сотрудников'),
+        unknown
+      ];
+
+      if (s.issue === 'attendance') return [
+        opt('one_event', 'Один случай отсутствия или недоступности'),
+        opt('same_tasks', 'Несколько случаев одного типа отсутствия или недоступности'),
+        opt('overall', 'Трудности возникают в разных элементах графика и доступности'),
+        opt('others', 'Похожие трудности есть у других сотрудников'),
+        unknown
+      ];
+
+      if (s.issue === 'motivation') return [
+        opt('one_event', 'Один эпизод в одной задаче или обсуждении'),
+        opt('same_tasks', 'Несколько эпизодов в похожих задачах или обсуждениях'),
+        opt('overall', 'Снижение участия заметно в разных задачах и обсуждениях'),
+        opt('others', 'Похожие изменения участия заметны у других сотрудников'),
+        unknown
+      ];
+
+      if (s.issue === 'rules') return [
+        opt('one_event', 'Один эпизод с одним обязательным правилом'),
+        opt('same_tasks', 'Несколько эпизодов с одним и тем же правилом'),
+        opt('overall', 'Трудности возникают с разными обязательными правилами'),
+        opt('others', 'Похожие нарушения или разночтения есть у других сотрудников'),
+        unknown
+      ];
+
+      return [
+        opt('one_event', 'Один случай в одной задаче'),
+        opt('same_tasks', 'Несколько случаев в похожих задачах'),
+        opt('overall', 'Трудность проявляется в разных задачах сотрудника'),
+        opt('others', 'Похожая трудность есть у других сотрудников'),
+        unknown
+      ];
+    }
+
+    function resourceOptions(s) {
+      if (s.issue === 'emotion') return [
+        opt('none', 'Известных рабочих факторов нет', '', true),
+        opt('workload', 'Выросли нагрузка или интенсивность работы'),
+        opt('conflicting_priorities', 'Приоритеты или требования противоречат друг другу'),
+        opt('role_limits', 'Изменились роль, ответственность или ожидания'),
+        opt('relationships', 'Есть напряжение во взаимодействии с руководителем или командой'),
+        opt('change', 'Команда или компания проходит через изменения'),
+        opt('support', 'Не хватает рабочей поддержки со стороны руководителя или команды'),
+        opt('unknown', 'Не знаю', '', true),
+        opt('other', 'Другое')
+      ];
+
+      if (s.issue === 'adaptation') return [
+        opt('none', 'Основные условия для адаптации доступны', '', true),
+        opt('information', 'Не хватает информации, инструкций или доступов'),
+        opt('skills', 'Не хватает навыков или практики'),
+        opt('workload', 'Нагрузка слишком высокая для периода адаптации'),
+        opt('conflicting_priorities', 'Приоритеты или требования противоречат друг другу'),
+        opt('dependencies', 'Освоение роли зависит от других людей или подразделений'),
+        opt('unknown', 'Не знаю', '', true),
+        opt('other', 'Другое')
+      ];
+
+      if (s.issue === 'communication') return [
+        opt('none', 'Известных рабочих препятствий нет', '', true),
+        opt('conflicting_priorities', 'У сторон разные приоритеты или требования'),
+        opt('information', 'Не хватает общей информации для обсуждения'),
+        opt('workload', 'Разговоры проходят на фоне высокой нагрузки или дефицита времени'),
+        opt('unknown', 'Не знаю', '', true),
+        opt('other', 'Другое')
+      ];
+
+      if (s.issue === 'motivation') return [
+        opt('none', 'Известных рабочих препятствий нет', '', true),
+        opt('workload', 'Нагрузка не оставляет ресурса на дополнительное участие'),
+        opt('conflicting_priorities', 'Приоритеты часто меняются или противоречат друг другу'),
+        opt('skills', 'Задачи не соответствуют текущему уровню навыков'),
+        opt('support', 'Не хватает обратной связи, признания или обсуждения развития'),
+        opt('unknown', 'Не знаю', '', true),
+        opt('other', 'Другое')
+      ];
+
+      if (s.issue === 'attendance') return [
+        opt('none', 'Известных рабочих препятствий нет', '', true),
+        opt('workload', 'График или объем работы создают устойчивую перегрузку'),
+        opt('conflicting_priorities', 'Рабочие требования конфликтуют с согласованным графиком'),
+        opt('dependencies', 'Доступность зависит от действий или согласований других людей'),
+        opt('support', 'Нет понятного канала для сообщения об изменении графика'),
+        opt('unknown', 'Не знаю', '', true),
+        opt('other', 'Другое')
+      ];
+
+      if (s.issue === 'rules') return [
+        opt('none', 'Известных рабочих препятствий нет', '', true),
+        opt('conflicting_priorities', 'Два требования противоречат друг другу'),
+        opt('dependencies', 'Соблюдение правила зависело от действий другого подразделения'),
+        opt('support', 'Не было понятного способа уточнить правило или согласовать исключение до действия'),
+        opt('unknown', 'Не знаю', '', true),
+        opt('other', 'Другое')
+      ];
+
+      const out = [opt('none', 'Известных рабочих условий, мешавших работе, не выявлено', '', true)];
+      if (['deadline','quality'].includes(s.issue)) out.push(opt('workload', 'Объем задач или сроки были нереалистичными'));
+      out.push(opt('information', 'Не хватало информации, доступа или доступной помощи'));
+      out.push(opt('dependencies', 'Результат зависел от других людей'));
+      out.push(opt('conflicting_priorities', 'Приоритеты или требования противоречили друг другу'));
+      out.push(opt('skills', 'Не хватало навыков или опыта'));
+      out.push(opt('unknown', 'Не знаю', '', true));
+      out.push(opt('other', 'Другое'));
+      return out;
+    }
+
+    function managementOptions(s) {
+      if (s.issue === 'emotion') return [
+        opt('supportive', 'Разговор прошел один на один, через наблюдаемые факты и возможные рабочие меры'),
+        opt('vague_feedback', 'Разговор прошел один на один, но в основном через общую оценку состояния или поведения'),
+        opt('pressure', 'Разговор сместился к личным причинам, которые сотрудник не хотел обсуждать'),
+        opt('public_criticism', 'Состояние или поведение сотрудника обсуждали при других людях'),
+        opt('unknown', 'Не знаю'),
+        opt('other', 'Другой вариант')
+      ];
+
+      if (s.issue === 'adaptation') return [
+        opt('supportive', 'Были регулярные встречи с разбором конкретных задач и следующим шагом'),
+        opt('limited_contact', 'Встречи были, но проходили нерегулярно или без понятного следующего шага'),
+        opt('micromanagement', 'Большинство промежуточных решений требовало согласования'),
+        opt('no_support', 'Отдельного сопровождения адаптации не было'),
+        opt('unknown', 'Не знаю'),
+        opt('other', 'Другой вариант')
+      ];
+
+      if (['initiative','responsibility'].includes(s.issue)) return [
+        opt('supportive', 'Границы решений были понятны, а самостоятельные действия обсуждались на конкретных примерах'),
+        opt('micromanagement', 'Большинство промежуточных решений требовало согласования'),
+        opt('reverses', 'Самостоятельные решения часто пересматривались без заранее понятных критериев'),
+        opt('mistake_risk', 'Не было ясно, какие ошибки допустимы и когда нужно согласование'),
+        opt('unknown', 'Не знаю'),
+        opt('other', 'Другой вариант')
+      ];
+
+      return [
+        opt('supportive', 'Руководитель опирался на конкретные факты и согласовал следующий шаг'),
+        opt('vague_feedback', 'Обратная связь оставалась общей, без конкретного примера или следующего шага'),
+        opt('unknown', 'Не знаю'),
+        opt('other', 'Другой вариант')
+      ];
+    }
+
+    function teamProcessTitle(s) {
+      if (s.issue === 'emotion') return 'Какие общие условия могут быть связаны с похожими изменениями в команде?';
+      if (s.issue === 'adaptation') return 'Какие общие условия могут мешать адаптации новых сотрудников?';
+      return 'Какие общие условия могут создавать похожую трудность в команде?';
+    }
+
+    function teamProcessHint(s) {
+      if (s.issue === 'emotion') return 'Отмечайте только условия, которые затрагивают нескольких сотрудников. Сам масштаб уже учтен в предыдущем вопросе.';
+      return 'Отмечайте только условия, которые относятся не к одному сотруднику, а к общей организации работы.';
+    }
+
+    function teamProcessOptions(s) {
+      const none = opt('none', 'Общих условий из списка не выявлено', '', true);
+      const unknown = opt('unknown', 'Не знаю', '', true);
+      const other = opt('other', 'Другое');
+
+      if (s.issue === 'emotion') return [
+        none,
+        opt('load_team', 'У нескольких сотрудников одновременно выросла нагрузка'),
+        opt('change_team', 'Несколько сотрудников проходят через одни и те же изменения или неопределенность'),
+        opt('cross_team', 'Напряжение повторяется внутри команды или между подразделениями'),
+        opt('roles', 'У нескольких сотрудников изменились роли или ожидания без достаточных пояснений'),
+        unknown,
+        other
+      ];
+
+      if (s.issue === 'adaptation') return [
+        none,
+        opt('roles', 'Ожидания от новых ролей объясняются по-разному'),
+        opt('rules_differ', 'План и правила адаптации зависят от конкретного руководителя'),
+        opt('cross_team', 'Доступы, информация или передача задач задерживаются между подразделениями'),
+        opt('change_team', 'Команда сама проходит через изменения и не успевает поддерживать новичков'),
+        unknown,
+        other
+      ];
+
+      if (s.issue === 'communication') return [
+        none,
+        opt('roles', 'Роли и зоны ответственности понимают по-разному'),
+        opt('decision', 'Неясно, кто принимает окончательное решение'),
+        opt('cross_team', 'Трудности взаимодействия повторяются между подразделениями'),
+        opt('rules_differ', 'Правила общения или эскалации применяются по-разному'),
+        opt('change_team', 'Команда проходит через изменения или неопределенность'),
+        unknown,
+        other
+      ];
+
+      if (s.issue === 'attendance') return [
+        none,
+        opt('rules_differ', 'Правила графика и доступности применяются по-разному'),
+        opt('load_team', 'Нагрузка или график вызывают похожие трудности у нескольких сотрудников'),
+        opt('change_team', 'После изменений в графике или формате работы трудности появились у нескольких сотрудников'),
+        unknown,
+        other
+      ];
+
+      if (s.issue === 'rules') return [
+        none,
+        opt('rules_differ', 'Одно и то же правило применяется к сотрудникам по-разному'),
+        opt('roles', 'Неясно, кто отвечает за соблюдение или контроль правила'),
+        opt('cross_team', 'Разные подразделения по-разному понимают одно и то же правило'),
+        opt('change_team', 'Правило изменилось, но новая версия была объяснена не всем'),
+        unknown,
+        other
+      ];
+
+      if (s.issue === 'motivation') return [
+        none,
+        opt('load_team', 'Снижение участия заметно у нескольких сотрудников на фоне нагрузки'),
+        opt('change_team', 'Снижение участия появилось у нескольких сотрудников после изменений'),
+        opt('roles', 'У нескольких сотрудников нет ясности, как их вклад связан с результатом'),
+        opt('rules_differ', 'Признание, обратная связь или возможности распределяются непоследовательно'),
+        unknown,
+        other
+      ];
+
+      return [
+        none,
+        opt('roles', 'Роли и зоны ответственности понимают по-разному'),
+        opt('decision', 'Неясно, кто принимает окончательное решение'),
+        opt('cross_team', 'Та же трудность повторяется между подразделениями'),
+        opt('rules_differ', 'Одни и те же правила применяются по-разному'),
+        opt('load_team', 'Нагрузка создает похожие трудности у нескольких сотрудников'),
+        opt('change_team', 'После изменений похожие трудности появились у нескольких сотрудников'),
+        unknown,
+        other
+      ];
+    }
+
+    function getSnapshot() { return { ...state.answers }; }
+
+    function activeQuestions() {
+      for (let pass = 0; pass < 5; pass += 1) {
+        const snapshot = getSnapshot();
+        const active = questions.filter(q => !q.show || q.show(snapshot));
+        const activeIds = new Set(active.map(q => q.id));
+        let changed = false;
+
+        Object.keys(state.answers).forEach(k => {
+          if (k.endsWith('__other')) return;
+          if (!activeIds.has(k)) {
+            delete state.answers[k];
+            delete state.answers[k + '__other'];
+            changed = true;
+          }
+        });
+
+        active.forEach(q => {
+          const options = typeof q.options === 'function' ? q.options(getSnapshot()) : q.options;
+          const allowed = new Set((options || []).map(o => o.value));
+          const value = state.answers[q.id];
+          if (Array.isArray(value)) {
+            const clean = value.filter(v => allowed.has(v));
+            if (clean.length !== value.length) {
+              if (clean.length) state.answers[q.id] = clean;
+              else delete state.answers[q.id];
+              changed = true;
+            }
+          } else if (answered(value) && !allowed.has(value)) {
+            delete state.answers[q.id];
+            delete state.answers[q.id + '__other'];
+            changed = true;
+          }
+          const current = state.answers[q.id];
+          const hasOther = Array.isArray(current) ? current.includes('other') : current === 'other';
+          if (!hasOther && state.answers[q.id + '__other']) {
+            delete state.answers[q.id + '__other'];
+            changed = true;
+          }
+        });
+
+        if (!changed) break;
+      }
+      return questions.filter(q => !q.show || q.show(getSnapshot()));
+    }
+
+    function clearAnswersAfter(questionId) {
+      const index = questions.findIndex(q => q.id === questionId);
+      questions.slice(index + 1).forEach(q => {
+        delete state.answers[q.id];
+        delete state.answers[q.id + '__other'];
+      });
+    }
+
+    function qValue(q, key) { return typeof q[key] === 'function' ? q[key](getSnapshot()) : q[key]; }
+
+    function start() {
+      intro.classList.add('hidden');
+      results.classList.add('hidden');
+      quiz.classList.remove('hidden');
+      route = activeQuestions();
+      state.index = Math.min(state.index || 0, Math.max(0, route.length - 1));
+      renderQuestion();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderQuestion() {
+      route = activeQuestions();
+      if (state.index >= route.length) state.index = route.length - 1;
+      const q = route[state.index];
+      if (!q) return showResults();
+
+      el('questionMeta').textContent = q.section;
+      el('questionTitle').textContent = qValue(q, 'title');
+      el('questionHint').textContent = qValue(q, 'hint') || '';
+      el('validation').textContent = '';
+      optionsEl.className = 'options ' + (q.type === 'multi' ? 'multi' : 'single');
+      optionsEl.innerHTML = '';
+
+      const value = state.answers[q.id];
+      const options = qValue(q, 'options') || [];
+      options.forEach(o => {
+        const selected = q.type === 'multi' ? has(value, o.value) : value === o.value;
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'option' + (selected ? ' selected' : '');
+        button.dataset.value = o.value;
+        button.innerHTML = '<span class="option-marker"></span><span><span class="option-title"></span><span class="option-detail"></span></span>';
+        button.querySelector('.option-title').textContent = o.label;
+        const detail = button.querySelector('.option-detail');
+        detail.textContent = o.detail || '';
+        if (!o.detail) detail.remove();
+        button.addEventListener('click', () => selectOption(q, o));
+        optionsEl.appendChild(button);
+      });
+
+      const hasOther = q.type === 'multi' ? has(value, 'other') : value === 'other';
+      otherWrap.classList.toggle('hidden', !hasOther);
+      otherText.value = state.answers[q.id + '__other'] || '';
+      otherText.oninput = () => {
+        state.answers[q.id + '__other'] = otherText.value.trim();
+        saveState();
+      };
+
+      el('backBtn').disabled = state.index === 0;
+      el('nextBtn').textContent = state.index === route.length - 1 ? 'Получить разбор' : 'Дальше';
+      updateProgress();
+      saveState();
+    }
+
+    function selectOption(q, option) {
+      el('validation').textContent = '';
+      const before = JSON.stringify(state.answers[q.id] ?? null);
+      if (q.type === 'single') {
+        state.answers[q.id] = option.value;
+      } else {
+        let current = Array.isArray(state.answers[q.id]) ? [...state.answers[q.id]] : [];
+        if (option.exclusive) {
+          current = current.includes(option.value) ? [] : [option.value];
+        } else {
+          current = current.filter(v => {
+            const item = (qValue(q, 'options') || []).find(x => x.value === v);
+            return !(item && item.exclusive);
+          });
+          current = current.includes(option.value) ? current.filter(v => v !== option.value) : [...current, option.value];
+        }
+        state.answers[q.id] = current;
+      }
+      const after = JSON.stringify(state.answers[q.id] ?? null);
+      if (before !== after) clearAnswersAfter(q.id);
+      deleteInactiveAnswers();
+      saveState();
+      renderQuestion();
+    }
+
+    function deleteInactiveAnswers() { route = activeQuestions(); }
+
+    function validateCurrent() {
+      const q = route[state.index];
+      const value = state.answers[q.id];
+      if (!answered(value)) return 'Выберите подходящий вариант.';
+      const hasOther = q.type === 'multi' ? has(value, 'other') : value === 'other';
+      if (hasOther && !(state.answers[q.id + '__other'] || '').trim()) return 'Коротко опишите ситуацию в поле ниже.';
+      return '';
+    }
+
+    function next() {
+      const error = validateCurrent();
+      if (error) { el('validation').textContent = error; return; }
+      route = activeQuestions();
+      if (state.index >= route.length - 1) showResults();
+      else { state.index += 1; renderQuestion(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    }
+
+    function back() {
+      if (state.index > 0) { state.index -= 1; renderQuestion(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    }
+
+    function stageForQuestion(q) {
+      const sectionStage = {
+        'Ситуация': 1, 'Факты': 2, 'Масштаб': 2, 'Динамика': 2,
+        'Позиции сторон': 3, 'Рабочие условия': 3, 'Управление': 3, 'Команда и процессы': 3,
+        'Состояние и поддержка': 3, 'Контекст роли': 3, 'Что уже делали': 4
+      };
+      return sectionStage[q?.section] || 1;
+    }
+
+    const stageGoalFired = {};
+    function updateProgress() {
+      const stage = stageForQuestion(route[state.index]);
+      // Воронка по этапам: цель на каждый достигнутый этап, один раз за визит (возврат
+      // «Назад» повторную цель не шлёт — иначе этапы 2–3 накручивались бы хождением взад-вперёд).
+      if (stage > 1 && !stageGoalFired[stage]) {
+        stageGoalFired[stage] = true;
+        goal('b2b_tool_nechinite_stage_' + stage);
+      }
+      const percent = stage * 25;
+      el('progressText').textContent = 'Этап ' + stage + ' из 4';
+      el('progressPercent').textContent = 'Вопрос ' + (state.index + 1);
+      el('progressBar').style.width = percent + '%';
+    }
+
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (_) {}
+    }
+    function loadState() {
+      try { const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : null; } catch (_) { return null; }
+    }
+    function resetState() {
+      try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+      state = { answers: {}, index: 0 };
+      results.classList.add('hidden'); quiz.classList.add('hidden'); intro.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function labelFor(questionId, value, context = getSnapshot()) {
+      const q = questions.find(x => x.id === questionId);
+      if (!q) return value;
+      if (value === 'other') {
+        const ownText = String(context[questionId + '__other'] || '').trim();
+        if (ownText) return ownText;
+      }
+      const options = typeof q.options === 'function' ? q.options(context) : q.options;
+      const found = (options || []).find(o => o.value === value);
+      return found ? found.label : '';
+    }
+
+    function labelsFor(questionId, values, context = getSnapshot()) {
+      if (values === undefined || values === null || values === '') return [];
+      if (!Array.isArray(values)) return [valueToText(questionId, values, context)];
+      return values.filter(v => !['unknown','none','no_issue','no_signal','nothing'].includes(v)).map(v => labelFor(questionId, v, context)).filter(Boolean);
+    }
+    function valueToText(questionId, value, context = getSnapshot()) { return labelFor(questionId, value, context); }
+
+    function addUnique(arr, text) { if (text && !arr.includes(text)) arr.push(text); }
+    function lowerFirst(text) { return text ? text.charAt(0).toLowerCase() + text.slice(1) : text; }
+
+    function collectClarifications(s) {
+      const out = [];
+      if (s.factPresence === 'impression') addUnique(out, 'Нужен один конкретный эпизод вместо общего впечатления руководителя.');
+      if (s.factPresence === 'unknown') addUnique(out, 'Нужно получить у руководителя подробности конкретной ситуации.');
+      if (s.scope === 'unknown') addUnique(out, 'Неизвестно, насколько широко проявляется ситуация: в одном случае, нескольких задачах или у других сотрудников.');
+      if (s.onset === 'unknown') addUnique(out, 'Неизвестно, как ситуация менялась со времени первого случая.');
+      if (s.onset === 'insufficient') addUnique(out, 'Пока недостаточно наблюдений, чтобы оценить динамику ситуации.');
+      if (s.conversation === 'unknown') addUnique(out, 'Неизвестно, обсуждал ли руководитель ситуацию с сотрудником напрямую.');
+      if (any(s.employeeExplanation, ['unknown','no_explanation'])) addUnique(out, 'Позиция сотрудника и его объяснение ситуации пока не ясны.');
+      if (s.expectations === 'unknown') addUnique(out, 'Неизвестно, были ли ожидания и критерии результата согласованы заранее.');
+      if (has(s.resources, 'unknown')) addUnique(out, 'Неизвестно, какие рабочие препятствия подтверждаются фактами.');
+      if (has(s.management, 'unknown')) addUnique(out, 'Неизвестно, как руководитель сопровождал ситуацию.');
+      if (has(s.teamProcess, 'unknown')) addUnique(out, 'Неизвестно, есть ли общие условия, которые затрагивают других сотрудников или команды.');
+      if (has(s.stateSupport, 'unknown')) addUnique(out, 'Неизвестно, просил ли сотрудник изменить рабочие условия или предоставить информацию о поддержке.');
+      if (has(s.actions, 'unknown')) addUnique(out, 'Неизвестно, какие изменения уже внесли после ситуации и к чему они привели.');
+      if (s.roleStage === 'unknown') addUnique(out, 'Неизвестно, как давно сотрудник работает в этой роли.');
+      return out;
+    }
+
+    function buildResult(s) {
+      if (s.issue === 'emotion') return buildEmotionResult(s);
+      if (s.issue === 'adaptation') return buildAdaptationResult(s);
+
+      const knownFacts = [];
+      const cannot = [];
+      const clarifications = collectClarifications(s);
+      const managerQuestions = [];
+      const employeeQuestions = [];
+      const recs = [];
+      const owners = { manager: [], hr: [], employee: [] };
+      const zones = [];
+      const products = [];
+      const productKeys = new Set();
+
+      addUnique(knownFacts, 'Основная тема запроса: ' + (ISSUE_LABELS[s.issue] || 'рабочая ситуация') + '.');
+      if (s.factPresence === 'yes') addUnique(knownFacts, 'Жалоба основана на конкретной ситуации или наблюдаемом сигнале.');
+      if (s.factPresence === 'impression') addUnique(knownFacts, 'Пока есть только общее впечатление руководителя, без конкретного примера.');
+      if (s.factPresence === 'unknown') addUnique(knownFacts, 'HR пока не знает подробностей ситуации.');
+
+      labelsFor('detail', s.detail, s).forEach(x => addUnique(knownFacts, x + '.'));
+      if (known(s.scope)) addUnique(knownFacts, 'Масштаб: ' + valueToText('scope', s.scope, s).toLowerCase() + '.');
+      if (known(s.onset)) addUnique(knownFacts, 'Динамика: ' + valueToText('onset', s.onset, s).toLowerCase() + '.');
+
+      const noFacts = !hasUsableFact(s);
+      if (noFacts) {
+        addUnique(cannot, 'Пока нет проверяемого примера, не стоит переходить к оценке личных качеств или причин поведения: что произошло, когда, какое ожидание было нарушено и к чему это привело.');
+        if (s.issue === 'emotion') addUnique(cannot, 'Нельзя делать вывод о психологическом состоянии только по оценке или наблюдению руководителя. Нужен бережный разговор без требования раскрывать личные подробности.');
+        addUnique(managerQuestions, 'Какое конкретное действие или бездействие сотрудника вы хотите обсудить?');
+        addUnique(managerQuestions, 'Когда это произошло и кто был участником ситуации?');
+        addUnique(managerQuestions, 'Какое ожидание было согласовано заранее?');
+        addUnique(managerQuestions, 'Как ситуация повлияла на работу, людей или результат?');
+        addRec(recs, 'Сначала собрать факты', 'Сейчас есть оценка, но нет проверяемого события.', 'Без конкретного примера разговор может сместиться с рабочей ситуации на оценку личности человека.', 'Попросите руководителя описать один эпизод по схеме: действие, договоренность, последствие. Не начинайте разговор с сотрудником от имени HR до этого.', 'Руководитель собирает пример. HR помогает сохранить нейтральную формулировку.');
+        owners.manager.push('Привести один конкретный пример без ярлыков.');
+        owners.hr.push('Не обещать решение до того, как собраны факты и позиции сторон.');
+        owners.employee.push('Подключается после того, как сформулирована конкретная рабочая ситуация.');
+        zones.push({ status: 'unknown', title: 'Факты', text: 'Данных недостаточно. Это главный пробел, который нужно закрыть.' });
+        zones.push({ status: 'unknown', title: 'Рабочий контекст', text: 'Нельзя проверить ожидания, ресурсы и действия руководителя без описания события.' });
+        return finalizeResult(s, knownFacts, cannot, clarifications, zones, managerQuestions, employeeQuestions, recs, owners, products, 'Сейчас рано выбирать способ вмешательства. Сначала нужна конкретная рабочая ситуация.');
+      }
+
+      const employeePositionKnown = ['detailed','short','hr_instead'].includes(s.conversation) && known(s.employeeExplanation) && !any(s.employeeExplanation, ['unknown','no_explanation']);
+      if (!employeePositionKnown) {
+        addUnique(cannot, 'Нельзя утверждать, почему сотрудник поступил именно так: его позиция пока неизвестна или разговор не дал достаточно информации.');
+        addUnique(managerQuestions, 'Что сотрудник ответил, когда вы описали конкретную ситуацию?');
+      }
+
+      const expectationIssue = ['partial','after','no','different','unknown'].includes(s.expectations) || any(s.employeeExplanation, ['expectations']);
+      if (expectationIssue) {
+        const confirmed = ['after','no','different'].includes(s.expectations);
+        zones.push({ status: confirmed ? 'confirmed' : 'check', title: 'Ясность ожиданий', text: confirmed ? 'Ответы указывают, что ожидание, правило или границы роли не были достаточно ясны заранее.' : 'Есть сигнал, что стороны могут по-разному понимать ожидаемый результат. Это нужно проверить.' });
+        addUnique(cannot, 'Пока нельзя объяснять ситуацию только мотивацией или личными качествами: ожидания и критерии результата были неполными, поздними или понимаются по-разному.');
+        addUnique(managerQuestions, 'Какое конкретное действие вы ожидали увидеть и когда сообщили об этом сотруднику?');
+        addUnique(managerQuestions, 'По каким признакам сотрудник должен понять, что результат принят?');
+        addUnique(employeeQuestions, 'Как вы понимаете ожидаемый результат и критерии готовности?');
+        addUnique(employeeQuestions, 'Что в договоренности осталось для вас неясным?');
+        addRec(recs, 'Согласовать одно проверяемое ожидание', 'В ответах есть пробел в критериях, сроках, правилах или границах роли.', 'Требование «быть ответственнее» или «проявлять инициативу» нельзя выполнить одинаково, если стороны вкладывают в него разный смысл.', nextAction(s, 'clarified', expectationAction(s.issue), 'Ожидания уже уточняли. Возьмите одну следующую похожую задачу и проверьте, одинаково ли стороны понимают действие, срок и критерий результата. Зафиксируйте расхождение, если оно осталось.'), 'Руководитель формулирует ожидание. Сотрудник пересказывает его своими словами. HR помогает только со структурой.');
+        owners.manager.push('Сформулировать ожидаемое действие, срок и критерий результата.');
+        owners.employee.push('Уточнить непонятные условия до начала следующей задачи.');
+      }
+
+      const resourceSignals = labelsFor('resources', s.resources, s);
+      if (resourceSignals.length || any(s.employeeExplanation, ['time','capacity','priorities','dependencies','overload','skills'])) {
+        const text = resourceSignals.length ? resourceSignals.slice(0,3).join('; ') : 'сотрудник называет рабочие препятствия';
+        zones.push({ status: has(s.resources, 'unknown') ? 'check' : 'confirmed', title: 'Ресурсы и препятствия', text: 'Нужно учесть: ' + text.toLowerCase() + '.' });
+        addUnique(cannot, 'Нельзя оценивать результат отдельно от доступных времени, информации, полномочий, навыков и зависимостей.');
+        addUnique(managerQuestions, 'Какие препятствия сотрудник мог устранить сам, а какие зависят от руководителя или процесса?');
+        addUnique(employeeQuestions, 'Что сильнее всего мешало выполнить договоренность?');
+        addUnique(employeeQuestions, 'О каком препятствии вы сообщили заранее, а о каком только после ситуации?');
+        addRec(recs, 'Разделить препятствия по зоне влияния', 'В ситуации есть рабочие ограничения или сотрудник прямо о них говорит.', 'Общий призыв изменить поведение не устраняет зависимость от других команд, нехватку информации или нереалистичный объем задач.', nextAction(s, 'load', 'На встрече составьте два списка: что меняет сотрудник и что должен изменить руководитель или процесс. Для каждого пункта назначьте срок и владельца.', 'Рабочие условия уже меняли. Сравните две ситуации до и после изменения: что стало лучше, какое препятствие осталось и кто может его убрать.'), 'Руководитель снимает организационные препятствия. Сотрудник заранее сообщает о рисках. HR подключается к межкомандным вопросам.');
+        owners.manager.push('Проверить нагрузку, доступы, зависимости и реалистичность срока.');
+        owners.employee.push('Сообщать о рисках до того, как договоренность сорвана.');
+      }
+
+      const managementSignals = labelsFor('management', s.management, s);
+      const negativeManagement = any(s.management, ['vague_feedback','limited_contact','no_support','micromanagement','reverses','mistake_risk','pressure','public_criticism']);
+      const managementProblem = negativeManagement || ['claim_only','hr_instead','no'].includes(s.conversation);
+      if (managementProblem) {
+        zones.push({ status: has(s.management, 'unknown') ? 'check' : 'confirmed', title: 'Управленческая практика', text: 'Есть условия, которые зависят от ясности обратной связи, границ самостоятельности или прямого разговора руководителя.' });
+        addUnique(cannot, 'Рабочую обратную связь о результатах и ожиданиях проводит непосредственный руководитель. HR может помочь со структурой и подключиться как нейтральная сторона.');
+        addUnique(managerQuestions, 'Какая часть разговора относится к роли руководителя, а где нужна поддержка HR?');
+        addUnique(managerQuestions, 'Какие особенности постановки задач, контроля или обратной связи могли влиять на ситуацию?');
+        addRec(recs, 'Вернуть руководителю прямой рабочий разговор', 'Прямой разговор руководителя с сотрудником еще не состоялся, был кратким или ограничился общей оценкой.', 'Обратная связь о результатах и ожиданиях относится к роли руководителя. Если ее полностью проводит HR, сотрудник не получает ясной связи с рабочей задачей.', nextAction(s, 'feedback', 'HR помогает подготовить разговор. Руководитель сам описывает факт, влияние и ожидаемое действие, затем слушает позицию сотрудника.', 'Конкретную обратную связь уже давали. На следующей встрече проверьте, что сотрудник понял, с чем согласился и какое действие обязался изменить. Зафиксируйте дату проверки.'), 'Руководитель проводит разговор. HR готовит структуру и подключается только при конфликте ролей, риске или необходимости нейтральной стороны.');
+        owners.manager.push('Провести прямой разговор на конкретном примере.');
+        owners.hr.push('Не заменять руководителя в обратной связи о результатах.');
+      }
+
+      const autonomyIssue = ['initiative','responsibility'].includes(s.issue) && (any(s.management, ['micromanagement','reverses','mistake_risk']) || ['partial','after','no','different'].includes(s.expectations) || any(s.employeeExplanation, ['fear']));
+      if (autonomyIssue) {
+        zones.push({ status: 'confirmed', title: 'Самостоятельность и полномочия', text: 'Ответы указывают, что осторожность сотрудника может быть связана с контролем, отменой решений или неясными полномочиями.' });
+        addUnique(cannot, 'Пока нельзя называть сотрудника безответственным: среда может поощрять постоянное согласование и избегание ошибки.');
+        addUnique(managerQuestions, 'Какие решения сотрудник вправе принимать без согласования?');
+        addUnique(managerQuestions, 'Что произойдет, если решение окажется неидеальным, но принято в согласованных границах?');
+        addUnique(employeeQuestions, 'Какие решения вы готовы принимать самостоятельно уже сейчас?');
+        addUnique(employeeQuestions, 'В каких ситуациях вам действительно нужно согласование?');
+        addRec(recs, 'Зафиксировать границы самостоятельных решений', 'В ответах есть контроль, отмена решений, страх ошибки или неясные полномочия.', 'Самостоятельность не появляется из общего призыва. Сотруднику нужны границы: что он решает сам, когда сообщает о риске и когда обязан согласовать действие.', 'Выберите три типовых решения. Для каждого зафиксируйте: принимает сотрудник сам, согласует заранее или сообщает после решения. Через две недели разберите два примера.', 'Руководитель передает полномочия и не отменяет решение без разбора. Сотрудник действует в согласованных границах.');
+        owners.manager.push('Согласовать границы решений и допустимой ошибки.');
+        owners.employee.push('Принимать решения в согласованных границах и сообщать о рисках.');
+      }
+
+      const teamSignals = labelsFor('teamProcess', s.teamProcess, s);
+      const systemic = ['others','several_people'].includes(s.scope) || any(s.teamProcess, ['others_same','roles','decision','cross_team','rules_differ','load_team','change_team']);
+      if (systemic) {
+        zones.push({ status: has(s.teamProcess, 'unknown') ? 'check' : 'confirmed', title: 'Команда и процесс', text: 'Похожая трудность выходит за пределы одного человека. Индивидуальный разговор может не изменить общую причину.' });
+        addUnique(cannot, 'Нельзя считать ситуацию только личной трудностью сотрудника, если похожие сигналы есть у других людей или повторяются между командами.');
+        addUnique(managerQuestions, 'У кого еще возникает похожая трудность и в каких точках процесса?');
+        addUnique(managerQuestions, 'Как сейчас распределены роли и право окончательного решения?');
+        addRec(recs, 'Проверить общий процесс, а не только одного сотрудника', 'Похожая трудность встречается у нескольких людей, в разных задачах или между подразделениями.', 'Повторяемость обычно указывает на общее условие: нагрузку, роли, правила передачи задач, изменения или стиль управления.', nextAction(s, 'process', 'Соберите 3–5 примеров из разных случаев. Отметьте общую точку: этап процесса, роль, решение, нагрузка или правило. Назначьте владельца изменения.', 'Процесс уже меняли. Сравните 3–5 случаев до и после изменения и проверьте, исчезла ли общая точка сбоя. Не добавляйте новое изменение, пока не понятен эффект предыдущего.'), 'HR помогает собрать закономерность. Руководители меняют общий процесс. Сотрудники приводят примеры без оценок личности.');
+        owners.hr.push('Проверить, повторяется ли сигнал в других командах и данных опросов.');
+        owners.manager.push('Изменить общее условие, если трудность повторяется у нескольких людей.');
+      }
+
+      const skillSignal = any(s.resources, ['skills']) || any(s.employeeExplanation, ['skills']) || s.issue === 'adaptation';
+      if (skillSignal) {
+        zones.push({ status: s.roleStage === 'unknown' || !known(s.roleStage) ? 'check' : 'confirmed', title: 'Навык и адаптация', text: 'Есть сигнал о нехватке опыта, навыка или опоры в новой роли. Его нужно проверять на конкретной задаче.' });
+        addUnique(managerQuestions, 'Какой конкретный навык требуется и по какому поведению вы поймете, что он освоен?');
+        addUnique(employeeQuestions, 'В какой части задачи вам не хватает знания, практики или обратной связи?');
+        addRec(recs, 'Собрать короткий план развития', 'Сотрудник или HR указывает на нехватку навыка, опыта либо адаптацию к новой роли.', 'Навык развивается через практику и обратную связь. Общая оценка уровня сотрудника не показывает, чему именно учиться.', nextAction(s, 'mentoring', 'Выберите один навык, одну рабочую задачу для практики и один критерий прогресса. Назначьте наставника или точку проверки через 1–2 недели.', 'Обучение или наставник уже были. Проверьте навык на одной рабочей задаче: какой критерий достигнут, где сохраняется разрыв и нужна ли другая практика вместо еще одного общего обучения.'), 'Руководитель дает задачу и обратную связь. Сотрудник практикуется. HR помогает подобрать обучение при необходимости.');
+        owners.manager.push('Назвать один развиваемый навык и дать задачу для практики.');
+        owners.employee.push('Согласовать способ практики и критерий прогресса.');
+      }
+
+      const stateSignal = any(s.stateSupport, ['asks_support','work_adjustment']) || any(s.employeeExplanation, ['stress','personal','wellbeing']) || any(s.detail, ['self_report']);
+      const onlyObserved = has(s.stateSupport, 'observed_only') || any(s.detail, ['work_change','tears','irritability']);
+      if (stateSignal || onlyObserved) {
+        zones.push({ status: stateSignal ? 'confirmed' : 'check', title: 'Состояние сотрудника', text: stateSignal ? 'Сотрудник сам сообщил о трудном состоянии, перегрузке, личных обстоятельствах или запросе на поддержку.' : 'Есть наблюдаемое изменение, но позиция сотрудника пока неизвестна.' });
+        if (onlyObserved && !stateSignal) addUnique(cannot, 'Нельзя делать вывод о психологическом состоянии только по наблюдению руководителя или HR. Нужен бережный разговор без требования раскрывать личные подробности.');
+        addUnique(managerQuestions, 'Какие временные рабочие меры можно обсудить без запроса личных подробностей?');
+        addUnique(employeeQuestions, 'Нужны ли вам временные изменения в рабочей нагрузке, сроках или способе взаимодействия?');
+        addUnique(employeeQuestions, 'Хотите ли вы получить информацию о конфиденциальной психологической поддержке?');
+        addRec(recs, 'Отделить поддержку от оценки результатов', 'Есть слова сотрудника о стрессе, перегрузке или личных обстоятельствах либо заметное изменение поведения.', 'Поддержка может быть нужна, но она не заменяет ясные рабочие договоренности. Сотрудник не обязан раскрывать HR личные подробности.', nextAction(s, 'support', 'Спросите, какие рабочие меры помогут в ближайший период. Информацию о психологической поддержке предложите добровольно, без передачи содержания обращения руководителю.', 'Поддержку уже предлагали. Не запрашивайте содержание обращения. Уточните только, нужны ли сотруднику рабочие меры и знает ли он, как воспользоваться доступом, если сам этого хочет.'), 'Руководитель обсуждает рабочие условия. HR обеспечивает доступ к поддержке. Сотрудник сам решает, пользоваться ли ею.');
+        owners.hr.push('Сохранить добровольность и конфиденциальность психологической поддержки.');
+        owners.manager.push('Обсудить рабочие меры без запроса личных подробностей.');
+        owners.employee.push('Самостоятельно решить, нужна ли психологическая поддержка.');
+      }
+
+      const clearConditions = ['clear_written','clear_spoken'].includes(s.expectations) && (has(s.resources,'none') || !known(s.resources)) && (has(s.management,'supportive') || has(s.management,'no_issue') || !known(s.management));
+      const repeated = ['same_tasks','overall'].includes(s.scope) || any(s.detail, ['repeated','repeated_moves','rework']);
+      if (['rules','attendance','quality','deadline'].includes(s.issue) && clearConditions && repeated) {
+        zones.push({ status: 'confirmed', title: 'Соблюдение договоренностей', text: 'Ожидания были понятны, явные препятствия не подтверждены, а ситуация повторяется. Нужен прямой разговор о результате и последствиях.' });
+        addUnique(cannot, 'Наличие стресса или личных обстоятельств не отменяет рабочие договоренности. Поддержку и обсуждение результата нужно вести параллельно, не подменяя одно другим.');
+        addRec(recs, 'Зафиксировать договоренность и последствия повторения', 'Ситуация повторяется при понятных ожиданиях и без подтвержденных организационных препятствий.', 'Когда базовые условия обеспечены, лучше не искать скрытое психологическое объяснение вместо разговора о результате.', nextAction(s, 'formal', 'Руководитель описывает повторяемый факт, ожидаемое действие, срок проверки и последствия нового нарушения в соответствии с правилами компании.', 'Формальный план уже использовали. Сверьте фактическое выполнение, ранее согласованный срок и следующий шаг по внутреннему порядку компании. Не начинайте новый неформальный цикл без решения по предыдущему.'), 'Руководитель отвечает за результат. HR проверяет корректность процедуры. Сотрудник решает, готов ли соблюдать договоренность.');
+        owners.manager.push('Зафиксировать ожидаемое поведение и срок проверки.');
+        owners.hr.push('Проверить соответствие внутреннему порядку компании.');
+      }
+
+      if (zones.length === 0) {
+        zones.push({ status: 'check', title: 'Причина не определена', text: 'Ответы не подтверждают одну ведущую зону. Нужен разговор с обеими сторонами на конкретном примере.' });
+        addUnique(cannot, 'Сейчас недостаточно оснований, чтобы связывать ситуацию с мотивацией, навыком, состоянием или рабочей средой.');
+        addRec(recs, 'Провести совместную проверку гипотез', 'В ответах нет устойчивого сигнала по одной зоне.', 'Попытка сразу выбрать объяснение создаст риск ошибки.', 'Руководитель описывает факт и ожидание. Сотрудник описывает свою позицию и препятствия. После этого стороны выбирают один следующий шаг и дату проверки.', 'Руководитель и сотрудник участвуют в разговоре. HR помогает удерживать факты и договоренности.');
+      }
+
+      if (s.conversation === 'detailed') addUnique(knownFacts, 'Руководитель уже обсудил ситуацию с сотрудником на конкретных примерах.');
+      if (s.conversation === 'no') addUnique(knownFacts, 'Прямого разговора руководителя с сотрудником пока не было.');
+      labelsFor('employeeExplanation', s.employeeExplanation, s).forEach(x => addUnique(knownFacts, 'Позиция сотрудника: ' + lowerFirst(x) + '.'));
+      labelsFor('actions', s.actions, s).forEach(x => addUnique(knownFacts, 'Уже пробовали: ' + lowerFirst(x) + '.'));
+
+      if (!employeePositionKnown && !['no','claim_only','unknown'].includes(s.conversation)) addUnique(employeeQuestions, 'Как вы видите эту ситуацию и с чем не согласны в описании руководителя?');
+      if (employeeQuestions.length === 0 && s.conversation !== 'detailed') addUnique(employeeQuestions, 'Как вы описали бы эту ситуацию со своей стороны?');
+      if (managerQuestions.length === 0) addUnique(managerQuestions, 'Какое конкретное изменение вы хотите увидеть в следующей похожей ситуации?');
+
+      selectProductsAndTrainings(s, { systemic, autonomyIssue, managementProblem, skillSignal, stateSignal, onlyObserved }, products, productKeys);
+
+      if (owners.manager.length === 0) owners.manager.push('Назвать факт, ожидаемый результат и срок проверки.');
+      if (owners.hr.length === 0) owners.hr.push('Помочь сторонам разделить факты, оценки и зоны ответственности.');
+      if (owners.employee.length === 0) owners.employee.push('Описать свою позицию, препятствия и готовность к новой договоренности.');
+
+      const summary = buildNeutralSummary(s);
+      return finalizeResult(s, knownFacts, cannot, clarifications, topZones(zones), managerQuestions.slice(0,6), employeeQuestions.slice(0,6), recs.slice(0,5), owners, products.slice(0,3), summary);
+    }
+
+    function addCommonKnownFacts(s, knownFacts) {
+      addUnique(knownFacts, 'Основная тема запроса: ' + (ISSUE_LABELS[s.issue] || 'рабочая ситуация') + '.');
+      if (s.factPresence === 'yes') addUnique(knownFacts, 'Жалоба основана на конкретной ситуации или наблюдаемом сигнале.');
+      if (s.factPresence === 'impression') addUnique(knownFacts, 'Пока есть только общее впечатление руководителя, без конкретного примера.');
+      if (s.factPresence === 'unknown') addUnique(knownFacts, 'HR пока не знает подробностей ситуации.');
+      labelsFor('detail', s.detail, s).forEach(x => addUnique(knownFacts, x + '.'));
+      if (known(s.scope)) {
+        const scope = valueToText('scope', s.scope, s);
+        if (scope) addUnique(knownFacts, 'Масштаб: ' + scope.toLowerCase() + '.');
+      }
+      if (known(s.onset)) {
+        const onset = valueToText('onset', s.onset, s);
+        if (onset) addUnique(knownFacts, 'Динамика: ' + onset.toLowerCase() + '.');
+      }
+      if (s.conversation === 'detailed') addUnique(knownFacts, 'Руководитель уже обсудил ситуацию с сотрудником на конкретных примерах.');
+      if (s.conversation === 'short') addUnique(knownFacts, 'Конкретный эпизод обсудили, но позицию сотрудника уточнили не полностью.');
+      if (s.conversation === 'hr_instead') addUnique(knownFacts, 'Разговор провел HR вместо руководителя.');
+      if (s.conversation === 'claim_only') addUnique(knownFacts, 'Разговор прошел без конкретного эпизода: прозвучала общая оценка.');
+      if (s.conversation === 'no') addUnique(knownFacts, 'Прямого разговора руководителя с сотрудником пока не было.');
+      labelsFor('employeeExplanation', s.employeeExplanation, s).forEach(x => addUnique(knownFacts, 'Позиция сотрудника: ' + lowerFirst(x) + '.'));
+      labelsFor('resources', s.resources, s).forEach(x => addUnique(knownFacts, 'Рабочий фактор: ' + lowerFirst(x) + '.'));
+      labelsFor('management', s.management, s).forEach(x => addUnique(knownFacts, 'Действия руководителя: ' + lowerFirst(x) + '.'));
+      labelsFor('actions', s.actions, s).forEach(x => addUnique(knownFacts, 'Уже пробовали: ' + lowerFirst(x) + '.'));
+    }
+
+    function buildEmotionResult(s) {
+      const knownFacts = [];
+      const cannot = [];
+      const clarifications = collectClarifications(s);
+      const managerQuestions = [];
+      const employeeQuestions = [];
+      const recs = [];
+      const owners = { manager: [], hr: [], employee: [] };
+      const zones = [];
+      const products = [];
+      const productKeys = new Set();
+      addCommonKnownFacts(s, knownFacts);
+
+      if (!hasUsableFact(s)) {
+        addUnique(cannot, 'Нельзя делать вывод о состоянии сотрудника по общей оценке руководителя. Нужен один наблюдаемый пример: что именно изменилось, когда и как это проявилось в работе или взаимодействии.');
+        addUnique(cannot, 'Нельзя ставить диагноз или требовать раскрыть личные причины изменения.');
+        addUnique(managerQuestions, 'Какое конкретное изменение вы заметили в поведении, работе или взаимодействии сотрудника?');
+        addUnique(managerQuestions, 'Когда это стало заметно и что изменилось в рабочем контексте в тот же период?');
+        addUnique(managerQuestions, 'Что сотрудник сам говорит о своем состоянии и нужна ли ему рабочая поддержка?');
+        addRec(recs, 'Сначала отделить наблюдение от оценки', 'Сейчас есть тревога за состояние сотрудника, но нет проверяемого примера.', 'Фраза «слишком эмоциональный» описывает впечатление руководителя, а не факт и не состояние сотрудника.', 'Попросите руководителя назвать одно наблюдаемое изменение: что сотрудник стал делать иначе, когда это началось и как повлияло на работу. После этого проведите бережный разговор без вопросов о диагнозах и личных подробностях.', 'Руководитель описывает наблюдение. HR помогает сохранить нейтральную формулировку.');
+        zones.push({ status: 'unknown', title: 'Наблюдаемые факты', text: 'Пока нет конкретного примера, на котором можно строить разговор.' });
+        zones.push({ status: 'unknown', title: 'Позиция сотрудника', text: 'Неизвестно, как сам сотрудник описывает происходящее и нужна ли ему поддержка.' });
+        owners.manager.push('Назвать наблюдаемое изменение без оценки личности.');
+        owners.hr.push('Не делать выводов о состоянии и не запрашивать личные подробности.');
+        owners.employee.push('Подключается к разговору после нейтрального описания наблюдений.');
+        return finalizeResult(s, knownFacts, cannot, clarifications, zones, managerQuestions, employeeQuestions, recs, owners, products, 'Сейчас рано объяснять причины изменения. Сначала нужен конкретный наблюдаемый пример и позиция сотрудника.');
+      }
+
+      const directStateSignal = any(s.stateSupport, ['asks_support','work_adjustment']) || any(s.employeeExplanation, ['stress','personal','wellbeing','overload']) || any(s.detail, ['self_report']);
+      const observedSignal = any(s.detail, ['work_change','tears','irritability']) || has(s.stateSupport, 'observed_only');
+      const employeeViewKnown = ['detailed','hr_instead'].includes(s.conversation) && known(s.employeeExplanation) && !any(s.employeeExplanation, ['unknown','no_explanation']);
+      const workFactorLabels = labelsFor('resources', s.resources, s);
+      const workFactorSignal = workFactorLabels.length > 0 || any(s.employeeExplanation, ['overload','capacity','priorities','relationships']);
+      const managementConcern = ['no','short','claim_only','hr_instead','unknown','pressure','public_criticism'].includes(s.conversation) || any(s.management, ['avoids_talk','pressure','public_criticism']);
+      const systemic = ['others','several_people'].includes(s.scope) || any(s.teamProcess, ['others_same','load_team','change_team','cross_team','roles','decision']);
+      const supportDeclined = has(s.stateSupport, 'declines_support');
+
+      if (directStateSignal) zones.push({ status: 'confirmed', title: 'Слова сотрудника', text: 'Сотрудник сам говорит о трудном состоянии, перегрузке, личных обстоятельствах или запросе на поддержку.' });
+      else zones.push({ status: 'check', title: 'Наблюдаемое изменение', text: 'Изменение заметили руководитель или HR, но само по себе наблюдение не подтверждает состояние сотрудника.' });
+
+      if (!employeeViewKnown) {
+        addUnique(cannot, 'Нельзя утверждать, что происходит с сотрудником и почему: его позиция пока не собрана или разговор не дал достаточно информации.');
+        addUnique(managerQuestions, 'Что сотрудник сам говорит о замеченном изменении и считает ли он, что ему нужна поддержка?');
+      }
+      if (observedSignal && !directStateSignal) addUnique(cannot, 'Нельзя делать вывод о психологическом состоянии только по наблюдению руководителя или HR. Нужен бережный разговор без требования раскрывать личные причины.');
+      if (any(s.employeeExplanation, ['disagrees'])) addUnique(cannot, 'Оценку руководителя важно считать гипотезой, если сотрудник не согласен с тем, что его состояние изменилось.');
+
+      if (workFactorSignal) {
+        const text = workFactorLabels.length ? workFactorLabels.slice(0,3).join('; ') : 'изменения в нагрузке, роли, команде или взаимодействии';
+        zones.push({ status: has(s.resources, 'unknown') ? 'check' : 'confirmed', title: 'Рабочий контекст', text: 'Нужно проверить: ' + text.toLowerCase() + '.' });
+        addUnique(cannot, 'Нельзя объяснять изменение только личными причинами, пока не проверены нагрузка, роль, отношения, поддержка и изменения в работе.');
+        addUnique(managerQuestions, 'Что изменилось в нагрузке, роли, команде или взаимодействии в тот же период?');
+        addUnique(employeeQuestions, 'Какие рабочие условия сейчас сильнее всего влияют на ваше состояние и способность работать?');
+        addRec(recs, 'Проверить рабочие факторы, совпавшие с изменением', 'Изменение состояния совпало с рабочими факторами или сотрудник сам связывает его с работой.', 'Поддержка сотрудника не устраняет перегрузку, неясность роли или напряжение во взаимодействии, если эти условия остаются прежними.', nextAction(s, 'load', 'На встрече проверьте пять зон: нагрузка, роль и ожидания, поддержка, отношения, изменения. Выберите один фактор, который можно изменить в ближайшие 1–2 недели, и назначьте дату проверки.', 'Рабочие условия уже меняли. Сравните состояние и работу сотрудника до и после изменения. Оставьте только ту меру, которая действительно помогла.'), 'Руководитель меняет рабочие условия в своей зоне ответственности. HR помогает, если причина затрагивает команду или несколько подразделений.');
+        owners.manager.push('Проверить и при необходимости изменить рабочие условия.');
+      }
+
+      if (managementConcern || labelsFor('management', s.management, s).length) {
+        zones.push({ status: managementConcern ? 'confirmed' : 'check', title: 'Разговор и поддержка', text: 'Важно проверить, как руководитель говорит о наблюдаемом изменении и какую рабочую помощь предлагает.' });
+        if (['pressure','public_criticism'].includes(s.conversation) || any(s.management, ['pressure','public_criticism'])) addUnique(cannot, 'Не стоит запрашивать личные причины, которые сотрудник не готов обсуждать, или разбирать его состояние при других людях.');
+        addUnique(managerQuestions, 'Как описать наблюдение без оценки личности и вопроса «что с вами не так»?');
+        addRec(recs, 'Провести бережный разговор о наблюдаемом изменении', 'Руководитель или HR заметили изменение, а позиция сотрудника собрана не полностью либо в разговоре не удалось отделить наблюдаемые факты от оценок.', 'Наблюдение не равно диагнозу. Задача разговора: понять рабочие потребности сотрудника, а не получить личное объяснение.', has(s.actions, 'follow_up') ? 'На повторной встрече уточните, помогли ли согласованные рабочие меры и нужна ли другая поддержка. Не просите рассказывать о содержании сессий с психологом.' : 'Назовите конкретное наблюдение, спросите, как сотрудник сам описывает ситуацию и какая рабочая помощь ему нужна. Не задавайте вопросов о диагнозах и личных подробностях.', 'Руководитель проводит разговор. HR помогает подготовить формулировки и следит за добровольностью поддержки.');
+        owners.manager.push('Провести бережный разговор на основе наблюдаемых фактов.');
+        owners.hr.push('Не заменять разговор руководителя и не собирать личные объяснения.');
+      }
+
+      addUnique(managerQuestions, 'Какие временные рабочие меры можно предложить без запроса личных подробностей?');
+      addUnique(employeeQuestions, 'Как вы сами описали бы происходящее и что сейчас важно учесть в работе?');
+      addUnique(employeeQuestions, 'Нужны ли вам временные изменения в нагрузке, сроках или способе взаимодействия?');
+      if (!supportDeclined) addUnique(employeeQuestions, 'Хотите ли вы получить информацию о конфиденциальных сессиях с психологом?');
+
+      if (directStateSignal || observedSignal) {
+        addRec(recs, 'Согласовать временные рабочие меры', 'Есть слова сотрудника о трудном состоянии или наблюдаемое изменение, которое влияет на рабочее взаимодействие.', 'Временная мера снижает нагрузку сейчас, но не превращается в бессрочное исключение без повторной оценки.', 'Выберите одну или две меры на 1–2 недели: изменить объем задач, срок, приоритеты или формат взаимодействия. Сразу назначьте дату, когда стороны проверят результат.', 'Руководитель согласует рабочие меры. Сотрудник говорит, что помогает, без раскрытия личных причин. HR подключается при необходимости.');
+        owners.employee.push('Сообщить, какие рабочие меры помогают и что нужно пересмотреть.');
+      }
+
+      if (systemic) {
+        zones.push({ status: 'confirmed', title: 'Командный масштаб', text: 'Похожие сигналы есть у нескольких сотрудников или совпадают с общей нагрузкой и изменениями.' });
+        addUnique(cannot, 'Нельзя сводить повторяющиеся сигналы к личной устойчивости отдельных сотрудников.');
+        addUnique(managerQuestions, 'Какие общие изменения, нагрузка или правила совпали с похожими сигналами у нескольких сотрудников?');
+        addRec(recs, 'Проверить командный масштаб', 'Похожие сигналы заметны у нескольких сотрудников или на фоне общих изменений.', 'Повторяемость может указывать на общую нагрузку, стиль управления, неясность ролей или изменения в компании.', nextAction(s, 'process', 'Соберите обезличенные данные о нагрузке, ролях, поддержке, отношениях и изменениях. Не собирайте личные объяснения сотрудников. По итогам выберите одно общее условие для изменения.', 'Командный процесс уже меняли. Сравните обезличенные данные до и после изменения и проверьте, снизилась ли выраженность общего сигнала.'), 'HR собирает обезличенную картину. Руководители меняют общие условия. Сотрудники участвуют добровольно.');
+        owners.hr.push('Проверить масштаб через обезличенные данные и диагностику команды.');
+        addProduct(products, productKeys, 'diagnostics', PRODUCTS.diagnostics, 'Диагностика команды');
+      }
+
+      if (!supportDeclined) {
+        addRec(recs, 'Предложить психологическую поддержку добровольно', directStateSignal ? 'Сотрудник сам говорит о трудном состоянии или просит поддержку.' : 'Есть наблюдаемое изменение, поэтому сотруднику можно дать информацию о доступной поддержке без предположений о причинах.', 'Сессии с психологом могут помочь сотруднику, но не заменяют изменения рабочей нагрузки, роли или действий руководителя.', has(s.actions, 'support') ? 'Поддержку уже предлагали. Убедитесь, что сотрудник знает, как записаться, и не запрашивайте содержание обращения.' : 'Коротко расскажите о конфиденциальных сессиях с психологом и оставьте решение за сотрудником. Не связывайте согласие на поддержку с оценкой его работы.', 'HR обеспечивает доступ и конфиденциальность. Сотрудник сам решает, пользоваться ли поддержкой.');
+        addProduct(products, productKeys, 'support', PRODUCTS.support, 'Индивидуальная поддержка');
+        owners.hr.push('Обеспечить добровольный доступ к конфиденциальным сессиям с психологом.');
+      }
+
+      if (systemic && (workFactorSignal || any(s.teamProcess, ['load_team','change_team']))) addProduct(products, productKeys, 'stress', { ...TRAININGS.stress, cta: 'Посмотреть тренинг' }, 'Тренинг Alter для бизнеса');
+
+      if (owners.manager.length === 0) owners.manager.push('Провести разговор на основе наблюдаемых фактов и обсудить рабочие меры.');
+      if (owners.hr.length === 0) owners.hr.push('Сохранить добровольность поддержки и помочь проверить рабочий контекст.');
+      if (owners.employee.length === 0) owners.employee.push('Самостоятельно решить, какая поддержка нужна, и сообщить о рабочих потребностях.');
+
+      let summary = 'Руководитель или HR разбирают изменение в эмоциональном состоянии сотрудника. ';
+      summary += directStateSignal ? 'Сотрудник сам сообщил о трудном состоянии или запросе на поддержку. ' : 'Пока есть наблюдение со стороны руководителя или HR, которое нужно сверить с позицией сотрудника. ';
+      if (systemic) summary += 'Похожие сигналы могут выходить за пределы одного человека. ';
+      if (!employeeViewKnown) summary += 'Позиция сотрудника собрана не полностью. ';
+      summary += 'Следующие шаги должны одновременно учитывать рабочие условия и добровольность психологической поддержки.';
+
+      return finalizeResult(s, knownFacts, cannot, clarifications, topZones(zones), managerQuestions.slice(0,6), employeeQuestions.slice(0,6), recs.slice(0,5), owners, products.slice(0,3), summary);
+    }
+
+    function buildAdaptationResult(s) {
+      const knownFacts = [];
+      const cannot = [];
+      const clarifications = collectClarifications(s);
+      const managerQuestions = [];
+      const employeeQuestions = [];
+      const recs = [];
+      const owners = { manager: [], hr: [], employee: [] };
+      const zones = [];
+      const products = [];
+      const productKeys = new Set();
+      addCommonKnownFacts(s, knownFacts);
+
+      if (!hasUsableFact(s)) {
+        addUnique(cannot, 'Пока не описано, что именно не складывается в адаптации, рано делать вывод о соответствии сотрудника новой роли.');
+        addUnique(managerQuestions, 'Что именно не получается: задачи роли, взаимодействие, правила, приоритеты или получение обратной связи?');
+        addUnique(managerQuestions, 'Как давно сотрудник работает в роли и какой результат ожидался к этому моменту?');
+        addUnique(managerQuestions, 'Какой план адаптации, доступы и поддержка были предоставлены?');
+        addRec(recs, 'Сначала сформулировать трудность адаптации', 'Сейчас есть общая оценка, но нет конкретного эпизода.', 'Без примера невозможно отличить нехватку навыка от неясной роли, слабого ввода в должность или трудностей во взаимодействии.', 'Попросите руководителя описать один эпизод: задача или взаимодействие, ожидаемое действие, доступная поддержка и фактический результат.', 'Руководитель приводит пример. HR помогает проверить условия адаптации.');
+        zones.push({ status: 'unknown', title: 'Конкретная трудность', text: 'Неясно, что именно не складывается в адаптации.' });
+        zones.push({ status: 'unknown', title: 'Условия адаптации', text: 'Нельзя оценить план, ресурсы и поддержку без конкретного примера.' });
+        owners.manager.push('Назвать конкретную трудность и ожидаемый результат периода адаптации.');
+        owners.hr.push('Проверить, какие условия адаптации были предоставлены.');
+        owners.employee.push('Подключается после формулировки конкретной ситуации.');
+        return finalizeResult(s, knownFacts, cannot, clarifications, zones, managerQuestions, employeeQuestions, recs, owners, products, 'Сейчас рано оценивать успешность адаптации. Сначала нужна конкретная ситуация и проверка условий входа в роль.');
+      }
+
+      const employeeViewKnown = ['detailed','hr_instead'].includes(s.conversation) && known(s.employeeExplanation) && !any(s.employeeExplanation, ['unknown','no_explanation']);
+      const earlyStage = ['under3','three6','internal_new'].includes(s.roleStage);
+      const clarityIssue = ['partial','after','no','different','unknown'].includes(s.expectations) || any(s.employeeExplanation, ['expectations','guidance','manager_contact']);
+      const onboardingGap = any(s.resources, ['information','dependencies']) || any(s.management, ['limited_contact','no_support']) || any(s.employeeExplanation, ['information','guidance','support']);
+      const skillSignal = any(s.detail, ['role_tasks']) || any(s.resources, ['skills']) || any(s.employeeExplanation, ['skills']);
+      const relationshipSignal = any(s.detail, ['team_contact','manager_contact']) || any(s.employeeExplanation, ['guidance','manager_contact']) || any(s.management, ['avoids_talk','vague_feedback','public_criticism','micromanagement']);
+      const workloadSignal = any(s.resources, ['workload','conflicting_priorities']) || any(s.employeeExplanation, ['overload','capacity','priorities']);
+      const systemic = ['others','several_people'].includes(s.scope) || any(s.teamProcess, ['others_same','roles','decision','cross_team','rules_differ','change_team']);
+      const stateSignal = any(s.stateSupport, ['asks_support','work_adjustment']) || any(s.employeeExplanation, ['stress','personal','wellbeing']);
+
+      if (!employeeViewKnown) {
+        addUnique(cannot, 'Нельзя объяснять трудности адаптации только характеристиками сотрудника: его позиция пока не собрана или разговор не дал достаточно информации.');
+        addUnique(managerQuestions, 'Как сотрудник сам объясняет, что мешает ему освоиться в роли или команде?');
+      }
+      if (earlyStage) addUnique(cannot, 'Нельзя сравнивать сотрудника с полностью адаптированными коллегами без учета времени в роли, сложности задач и доступной поддержки.');
+
+      if (clarityIssue) {
+        zones.push({ status: ['after','no','different'].includes(s.expectations) ? 'confirmed' : 'check', title: 'Роль и ожидания', text: 'Есть сигнал, что задачи, приоритеты, полномочия или критерии успешной адаптации понимаются по-разному.' });
+        addUnique(cannot, 'Нельзя оценивать адаптацию только по общему впечатлению, если ожидания от роли и критерии прогресса не были ясны заранее.');
+        addUnique(managerQuestions, 'Какие 3–5 результатов сотрудник должен показать на текущем этапе адаптации?');
+        addUnique(managerQuestions, 'Какие приоритеты и полномочия должны быть понятны сотруднику уже сейчас?');
+        addUnique(employeeQuestions, 'Что в роли, приоритетах или полномочиях остается для вас неясным?');
+        addRec(recs, 'Уточнить роль и критерии успешной адаптации', 'В ответах есть расхождение в ожиданиях, приоритетах или границах роли.', 'Формулировка «не адаптировался» не показывает, какой именно результат ожидается и к какому сроку.', nextAction(s, 'clarified', 'Зафиксируйте 3–5 результатов на ближайшие 2–4 недели, приоритеты и границы решений. Попросите сотрудника пересказать договоренность своими словами.', 'Ожидания уже уточняли. Проверьте на одной рабочей неделе, одинаково ли стороны понимают приоритеты и критерии прогресса. Зафиксируйте оставшееся расхождение.'), 'Руководитель формулирует ожидания. Сотрудник уточняет непонятное. HR помогает со структурой плана адаптации.');
+        owners.manager.push('Зафиксировать результаты, приоритеты и границы роли на ближайший этап.');
+      }
+
+      if (earlyStage || onboardingGap) {
+        zones.push({ status: onboardingGap ? 'confirmed' : 'check', title: 'План и ресурсы адаптации', text: 'Нужно проверить доступы, материалы, наставника, регулярность обратной связи и реалистичность нагрузки.' });
+        addUnique(managerQuestions, 'Какой план адаптации был согласован и что из него уже выполнено?');
+        addUnique(managerQuestions, 'Каких доступов, материалов, контактов или решений сотруднику не хватает?');
+        addUnique(employeeQuestions, 'Каких доступов, материалов, примеров или контактов вам не хватает?');
+        addUnique(employeeQuestions, 'Какая поддержка помогла бы быстрее освоиться в роли?');
+        addRec(recs, 'Собрать план адаптации на ближайшие 2–4 недели', 'Сотрудник находится в новой роли или в ответах есть пробелы в доступах, поддержке и вводе в должность.', 'Адаптация становится управляемой, когда у нее есть этапы, владельцы и понятные точки проверки.', has(s.actions, 'onboarding') ? 'План уже составлен. Проверьте, какие пункты выполнены, где есть задержка и кто должен снять препятствие. Не добавляйте новые задачи, пока не понятен статус текущего этапа.' : 'Составьте короткий план: 3–5 результатов, нужные доступы, наставник, регулярные встречи и дата проверки. Укажите, что делает руководитель, сотрудник и HR.', 'Руководитель владеет планом адаптации. HR помогает с процессом. Сотрудник сообщает о пробелах до контрольной даты.');
+        owners.hr.push('Проверить, что план адаптации, доступы и поддержка действительно доступны.');
+      }
+
+      if (skillSignal) {
+        zones.push({ status: 'confirmed', title: 'Навык и практика', text: 'Есть конкретный сигнал о нехватке навыка или практики в новой роли.' });
+        addUnique(cannot, 'Нельзя ограничиваться общей оценкой уровня сотрудника. Нужно назвать навык и проверить его на конкретной рабочей задаче.');
+        addUnique(managerQuestions, 'Какой конкретный навык нужен и по какому поведению будет видно прогресс?');
+        addUnique(employeeQuestions, 'В какой части задачи вам не хватает знания, практики или обратной связи?');
+        addRec(recs, 'Дать практику по одному навыку', 'Ответы указывают на нехватку навыка или опыта.', 'Навык развивается через конкретную задачу, пример и обратную связь, а не через общее требование «быстрее освоиться».', nextAction(s, 'mentoring', 'Выберите один навык, одну рабочую задачу для практики и один критерий прогресса. Назначьте наставника или разбор через 1–2 недели.', 'Наставник или обучение уже были. Проверьте навык на одной рабочей задаче: что освоено, где сохраняется разрыв и какая следующая практика нужна.'), 'Руководитель дает задачу и обратную связь. Сотрудник практикуется. HR помогает подобрать обучение при необходимости.');
+        owners.employee.push('Практиковать согласованный навык и запрашивать обратную связь.');
+      }
+
+      if (relationshipSignal) {
+        zones.push({ status: 'confirmed', title: 'Контакт с руководителем и командой', text: 'Трудность связана не только с задачами роли, но и с получением обратной связи или взаимодействием.' });
+        addUnique(cannot, 'Нельзя передавать HR ответственность за адаптацию, если руководитель не выстроил регулярный контакт и обратную связь.');
+        addUnique(managerQuestions, 'В каком конкретном взаимодействии с руководителем или командой возникает трудность?');
+        addUnique(managerQuestions, 'Как часто проходят короткие встречи по адаптации и какие вопросы на них обсуждаются?');
+        addUnique(employeeQuestions, 'В каком взаимодействии с руководителем или командой вам сложнее всего?');
+        addUnique(employeeQuestions, 'Какой формат обратной связи поможет вам быстрее корректировать действия?');
+        addRec(recs, 'Настроить регулярные встречи по адаптации', 'В ответах есть трудности контакта с руководителем, командой или получением обратной связи.', 'Редкие или оценочные разговоры не дают сотруднику быстро корректировать действия в новой роли.', any(s.management, ['regular_checkins','supportive']) ? 'Регулярные встречи уже есть. Проверьте их содержание: на каждой встрече должны быть один факт, один вопрос сотрудника, один следующий шаг и дата проверки.' : 'На 4 недели назначьте короткую еженедельную встречу. Обсуждайте: что получилось, где есть препятствие, какой следующий шаг и какая помощь нужна.', 'Руководитель проводит встречи. Сотрудник готовит вопросы и примеры. HR подключается, если трудность связана с процессом или конфликтом.');
+        owners.manager.push('Давать регулярную конкретную обратную связь и быть доступным для вопросов.');
+      }
+
+      if (workloadSignal) {
+        zones.push({ status: 'confirmed', title: 'Нагрузка и приоритеты', text: 'Нагрузка или частая смена приоритетов могут мешать освоить роль.' });
+        addUnique(managerQuestions, 'Соответствует ли сложность и объем задач текущему этапу адаптации?');
+        addUnique(employeeQuestions, 'Какие задачи или смена приоритетов сильнее всего мешают освоиться?');
+        addRec(recs, 'Сверить нагрузку с этапом адаптации', 'Сотрудник или HR указывает на высокую нагрузку либо противоречивые приоритеты.', 'Если сотрудник одновременно осваивает роль и закрывает полный объем сложных задач, трудно понять, где нехватка навыка, а где нереалистичная нагрузка.', nextAction(s, 'load', 'На 1–2 недели сократите число приоритетов и оставьте задачи, которые проверяют ключевые навыки роли. После этого оцените прогресс.', 'Нагрузку уже меняли. Сравните прогресс до и после изменения и решите, можно ли возвращать следующий уровень сложности.'), 'Руководитель управляет приоритетами. Сотрудник заранее сообщает о перегрузке.');
+      }
+
+      if (systemic) {
+        zones.push({ status: 'confirmed', title: 'Процесс адаптации', text: 'Похожая трудность встречается у других сотрудников или связана с общими правилами и ролями.' });
+        addUnique(cannot, 'Нельзя считать трудность индивидуальной, если похожие сигналы повторяются у других новых сотрудников.');
+        addUnique(managerQuestions, 'У кого еще возникает похожая трудность и на каком этапе адаптации?');
+        addRec(recs, 'Проверить общий процесс адаптации', 'Похожая трудность встречается у нескольких сотрудников или в разных командах.', 'Повторяемость чаще указывает на пробел в процессе: доступах, ролях, наставничестве, обратной связи или нагрузке.', nextAction(s, 'process', 'Соберите 3–5 обезличенных примеров и отметьте общий этап сбоя. Измените один элемент процесса и назначьте дату проверки.', 'Процесс уже меняли. Сравните случаи до и после изменения и проверьте, исчез ли общий этап сбоя.'), 'HR собирает закономерность. Руководители меняют общий процесс.');
+        owners.hr.push('Проверить повторяемость трудности у других сотрудников и команд.');
+        addProduct(products, productKeys, 'diagnostics', PRODUCTS.diagnostics, 'Диагностика команды');
+      }
+
+      if (zones.length === 0) {
+        zones.push({ status: 'check', title: 'Следующая точка адаптации', text: 'Ответы не подтверждают одну ведущую причину. Нужна контрольная встреча на конкретном примере.' });
+        addUnique(cannot, 'Сейчас недостаточно оснований, чтобы связывать трудность только с навыком, мотивацией или отношениями в команде.');
+        addUnique(managerQuestions, 'Какой конкретный прогресс вы ожидаете увидеть к следующей точке проверки?');
+        addUnique(employeeQuestions, 'Что поможет вам увереннее работать в роли в ближайшие две недели?');
+        addRec(recs, 'Провести контрольную встречу по адаптации', 'В ответах нет устойчивого сигнала по одной зоне.', 'Короткая контрольная встреча помогает проверить факты до того, как делать вывод о сотруднике или менять весь план адаптации.', 'Выберите одну реальную ситуацию. Сверьте ожидание, доступные ресурсы, позицию сотрудника и один следующий шаг. Назначьте дату проверки через 1–2 недели.', 'Руководитель и сотрудник участвуют в разговоре. HR помогает сохранить структуру и договоренности.');
+      }
+
+      if (stateSignal && !has(s.stateSupport, 'declines_support')) {
+        addProduct(products, productKeys, 'support', PRODUCTS.support, 'Индивидуальная поддержка');
+        owners.hr.push('Предложить конфиденциальную психологическую поддержку добровольно.');
+      }
+      if (skillSignal) addProduct(products, productKeys, 'development', { ...TRAININGS.development, cta: 'Посмотреть тренинг' }, 'Тренинг Alter для бизнеса');
+      if (relationshipSignal && products.length < 3) addProduct(products, productKeys, 'oneToOne', { ...TRAININGS.oneToOne, cta: 'Посмотреть тренинг' }, 'Тренинг Alter для бизнеса');
+
+      if (managerQuestions.length === 0) addUnique(managerQuestions, 'Какой конкретный прогресс вы ожидаете увидеть к следующей точке проверки?');
+      if (employeeQuestions.length === 0) addUnique(employeeQuestions, 'Что поможет вам увереннее работать в роли в ближайшие две недели?');
+      if (owners.manager.length === 0) owners.manager.push('Согласовать план адаптации, поддержку и точки проверки.');
+      if (owners.hr.length === 0) owners.hr.push('Проверить условия адаптации и помочь разделить роли.');
+      if (owners.employee.length === 0) owners.employee.push('Сообщать о пробелах в информации, практике и поддержке до контрольной даты.');
+
+      let summary = 'Разбирается адаптация сотрудника к роли или команде. ';
+      if (earlyStage) summary += 'Сотрудник находится на раннем этапе или недавно сменил роль. ';
+      if (clarityIssue || onboardingGap) summary += 'Ответы указывают на необходимость проверить ожидания, план адаптации и доступные ресурсы. ';
+      if (skillSignal) summary += 'Есть отдельный сигнал о навыке, который нужно проверять на конкретной задаче. ';
+      if (!employeeViewKnown) summary += 'Позиция сотрудника собрана не полностью. ';
+      summary += 'Оценивать результат стоит после согласованного периода, поддержки и точки проверки.';
+
+      return finalizeResult(s, knownFacts, cannot, clarifications, topZones(zones), managerQuestions.slice(0,6), employeeQuestions.slice(0,6), recs.slice(0,5), owners, products.slice(0,3), summary);
+    }
+
+    function expectationAction(issue) {
+      if (['initiative','responsibility'].includes(issue)) return 'Запишите, какие решения сотрудник принимает сам, какие согласует заранее и в каких случаях обязан сообщить о риске.';
+      if (issue === 'rules') return 'Покажите конкретное правило, пример соблюдения и последствия повторного нарушения. Убедитесь, что правило применялось последовательно.';
+      if (issue === 'attendance') return 'Зафиксируйте рабочие часы, допустимый срок предупреждения и канал сообщения об отсутствии.';
+      if (issue === 'adaptation') return 'Согласуйте задачи на ближайшие две недели, доступную поддержку и критерии успешной адаптации.';
+      return 'Сформулируйте одно ожидаемое действие, срок и наблюдаемый критерий результата. Попросите сотрудника пересказать договоренность своими словами.';
+    }
+
+    function addRec(arr, title, basis, why, action, owner) {
+      if (!arr.some(r => r.title === title)) arr.push({ title, basis, why, action, owner });
+    }
+
+    function nextAction(s, completedKey, firstStep, followUp) {
+      return has(s.actions, completedKey) ? followUp : firstStep;
+    }
+
+    function topZones(zones) {
+      const statusOrder = { confirmed: 0, check: 1, unknown: 2 };
+      const titleOrder = {
+        'Самостоятельность и полномочия': 0,
+        'Команда и процесс': 1,
+        'Ясность ожиданий': 2,
+        'Управленческая практика': 3,
+        'Соблюдение договоренностей': 4,
+        'Слова сотрудника': 5,
+        'Наблюдаемое изменение': 5,
+        'Рабочий контекст': 6,
+        'Разговор и поддержка': 7,
+        'Командный масштаб': 8,
+        'Роль и ожидания': 1,
+        'План и ресурсы адаптации': 2,
+        'Навык и практика': 3,
+        'Контакт с руководителем и командой': 4,
+        'Нагрузка и приоритеты': 5,
+        'Процесс адаптации': 6,
+        'Состояние сотрудника': 7,
+        'Навык и адаптация': 8,
+        'Ресурсы и препятствия': 9,
+        'Факты': 10
+      };
+      return [...zones]
+        .filter((z,i,a) => a.findIndex(x => x.title === z.title) === i)
+        .sort((a,b) => (statusOrder[a.status] - statusOrder[b.status]) || ((titleOrder[a.title] ?? 99) - (titleOrder[b.title] ?? 99)))
+        .slice(0,3);
+    }
+
+    function addProduct(products, keys, key, item, tag) {
+      if (!item || keys.has(key)) return;
+      keys.add(key);
+      products.push({ ...item, tag });
+    }
+
+    function selectProductsAndTrainings(s, flags, products, keys) {
+      if (flags.systemic) {
+        addProduct(products, keys, 'diagnostics', PRODUCTS.diagnostics, 'Диагностика команды');
+      }
+      if (flags.stateSignal && !has(s.stateSupport,'declines_support')) addProduct(products, keys, 'support', PRODUCTS.support, 'Индивидуальная поддержка');
+
+      const candidates = [];
+      if (flags.autonomyIssue) candidates.push(['delegation', TRAININGS.delegation, 10]);
+      if (flags.managementProblem && any(s.management, ['vague_feedback','public_criticism'])) candidates.push(['feedback', TRAININGS.feedback, 10]);
+      if (flags.managementProblem && ['no','claim_only','hr_instead'].includes(s.conversation)) candidates.push(['oneToOne', TRAININGS.oneToOne, 8]);
+      if (s.issue === 'communication' || any(s.teamProcess, ['cross_team'])) candidates.push(['conflict', TRAININGS.conflict, 9]);
+      if (s.issue === 'communication' && !any(s.detail, ['manager_conflict','peer_conflict','sharp'])) candidates.push(['communication', TRAININGS.communication, 8]);
+      if (any(s.teamProcess, ['change_team'])) candidates.push(['instability', TRAININGS.instability, 8]);
+      if (s.issue === 'motivation' && (flags.systemic || any(s.management, ['vague_feedback']))) candidates.push(['motivation', TRAININGS.motivation, 7]);
+      if (flags.skillSignal) candidates.push(['development', TRAININGS.development, 8]);
+      if (any(s.teamProcess, ['load_team'])) candidates.push(['burnout', TRAININGS.burnout, 8]);
+      if ((s.issue === 'emotion' || any(s.employeeExplanation, ['stress','wellbeing'])) && flags.systemic) candidates.push(['stress', TRAININGS.stress, 7]);
+      if (s.issue === 'communication' && any(s.detail, ['feedback_reaction','sharp'])) candidates.push(['emotionalIntelligence', TRAININGS.emotionalIntelligence, 6]);
+
+      candidates.sort((a,b) => b[2]-a[2]).slice(0,2).forEach(([key,item]) => addProduct(products, keys, key, { ...item, cta: 'Посмотреть тренинг' }, 'Тренинг Alter для бизнеса'));
+    }
+
+    function buildNeutralSummary(s) {
+      let text = 'Руководитель описывает трудность, связанную с темой «' + (ISSUE_LABELS[s.issue] || 'рабочая ситуация') + '». ';
+      if (s.factPresence === 'yes') text += 'Есть конкретная ситуация или наблюдаемый сигнал. ';
+      if (['others','several_people'].includes(s.scope) || any(s.teamProcess, ['others_same','roles','decision','cross_team','load_team','change_team'])) text += 'Часть ответов указывает, что ситуация может выходить за пределы одного сотрудника. ';
+      const positionKnown = ['detailed','short','hr_instead'].includes(s.conversation) && known(s.employeeExplanation) && !any(s.employeeExplanation, ['unknown','no_explanation']);
+      if (positionKnown) text += 'Позиция сотрудника частично учтена. ';
+      else text += 'Позиция сотрудника пока собрана не полностью. ';
+      text += 'Ниже только выводы, которые можно сделать из введенных данных, и вопросы для проверки неизвестного.';
+      return text;
+    }
+
+    function finalizeResult(s, knownFacts, cannot, clarifications, zones, managerQuestions, employeeQuestions, recs, owners, products, summary) {
+      return { summary, knownFacts, cannot, clarifications, zones, managerQuestions, employeeQuestions, recs, owners, products };
+    }
+
+    function showResults() {
+      const s = getSnapshot();
+      const data = buildResult(s);
+      quiz.classList.add('hidden'); intro.classList.add('hidden'); results.classList.remove('hidden');
+      results.innerHTML = renderResults(data);
+      bindResultButtons();
+      saveState();
+      // Ключевая цель инструмента: человек дошёл до разбора. Параметры — тип запроса и сколько
+      // продуктов Alter оказались уместны (в отчётах видно, на каких ситуациях инструмент
+      // вообще ничего не рекомендует).
+      goal('b2b_tool_nechinite_result', { issue: s.issue || '', products: data.products.length });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function escapeHtml(str) {
+      return String(str ?? '').replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+    }
+
+    function renderList(items) {
+      if (!items || !items.length) return '<p style="color:var(--muted)">Нет данных для этого блока.</p>';
+      return '<ul class="plain-list">' + items.map(x => '<li>' + escapeHtml(x) + '</li>').join('') + '</ul>';
+    }
+
+    function renderResults(data) {
+      const zones = data.zones.map(z => '<div class="zone"><span class="status ' + z.status + '">' + statusLabel(z.status) + '</span><h3>' + escapeHtml(z.title) + '</h3><p>' + escapeHtml(z.text) + '</p></div>').join('');
+      const recs = data.recs.map(r => '<article class="rec"><div class="rec-head"><h3>' + escapeHtml(r.title) + '</h3></div><div class="rec-body"><div class="rec-cell"><b>Основание</b><p>' + escapeHtml(r.basis) + '</p></div><div class="rec-cell"><b>Почему это важно</b><p>' + escapeHtml(r.why) + '</p></div><div class="rec-cell"><b>Что сделать</b><p>' + escapeHtml(r.action) + '</p></div><div class="rec-cell"><b>Кто отвечает</b><p>' + escapeHtml(r.owner) + '</p></div></div></article>').join('');
+      const products = data.products.length ? '<div class="alter-grid">' + data.products.map(p => '<article class="alter-card"><span class="tag">' + escapeHtml(p.tag) + '</span><h3>' + escapeHtml(p.title) + '</h3><p>' + escapeHtml(p.desc) + '</p><a href="' + escapeHtml(p.url) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(p.cta || 'Подробнее') + '</a></article>').join('') + '</div>' : '<div class="no-product"><b>Сейчас продукты Alter для бизнеса не являются главным следующим шагом.</b><br>Сначала стоит прояснить рабочую договоренность, провести обратную связь или выполнить внутреннюю процедуру компании. Это честнее, чем предлагать психологическую поддержку вместо управленческого решения.</div>';
+
+      const clarifications = data.clarifications.length ? '<section class="card result-section"><h2>Что нужно уточнить</h2>' + renderList(data.clarifications) + '</section>' : '';
+
+      return `
+        <section class="card result-hero">
+          <div class="eyebrow">Разбор готов</div><h1>Персональный разбор ситуации</h1>
+          <p class="lead" style="margin-bottom:0">Ниже собраны факты из ваших ответов, ограничения выводов, вопросы для следующего разговора и распределение ответственности.</p>
+        </section>
+
+        <section class="card result-section"><h2>Ситуация без оценок</h2><div class="summary-box">${escapeHtml(data.summary)}</div></section>
+        <details class="card result-details">
+          <summary>Что известно из ваших ответов</summary>
+          <div class="result-details-body">${renderList(data.knownFacts)}</div>
+        </details>
+        ${clarifications}
+        <section class="card result-section"><h2>Чего пока нельзя утверждать</h2><div class="warning-box">${renderList(data.cannot)}</div></section>
+        <section class="card result-section"><h2>Основные зоны разбора</h2><div class="zone-grid">${zones}</div></section>
+
+        <section class="card result-section">
+          <h2>Вопросы для следующего разговора</h2>
+          <div class="questions-grid">
+            <div class="question-set"><h3>Руководителю</h3>${ordered(data.managerQuestions)}</div>
+            <div class="question-set"><h3>Сотруднику</h3>${data.employeeQuestions.length ? ordered(data.employeeQuestions) : '<p style="color:var(--muted)">Сначала соберите факты и сформулируйте конкретную рабочую ситуацию.</p>'}</div>
+          </div>
+        </section>
+
+        <section class="card result-section"><h2>Что делать дальше</h2><div class="rec-list">${recs}</div></section>
+
+        <section class="card result-section">
+          <h2>Кто за что отвечает</h2>
+          <div class="owner-grid">
+            <div class="owner-card"><h3>Руководитель</h3>${unordered(data.owners.manager)}</div>
+            <div class="owner-card"><h3>HR</h3>${unordered(data.owners.hr)}</div>
+            <div class="owner-card"><h3>Сотрудник</h3>${unordered(data.owners.employee)}</div>
+          </div>
+        </section>
+
+        <section class="card result-section"><h2>Какая поддержка Alter для бизнеса может быть уместна</h2><p>Рекомендации ниже связаны с вашими ответами. Тренинг или диагностика могут дополнить работу HR, но не заменяют разбор процессов, нагрузки, ролей, действий руководителя, постановку задач, обратную связь и внутренние процедуры компании.</p>${products}</section>
+
+        <section class="card result-section rating-section" id="ratingSection">
+          <h2>Насколько полезен был этот разбор?</h2>
+          <p>Поставьте оценку от 1 до 10. Она поможет улучшать вопросы и рекомендации инструмента.</p>
+          <div class="rating-scale" role="radiogroup" aria-label="Оценка полезности инструмента от 1 до 10">
+            ${Array.from({length:10}, (_,i) => `<button class="rating-btn" type="button" data-rating="${i+1}" role="radio" aria-checked="false" aria-label="${i+1} из 10">${i+1}</button>`).join('')}
+          </div>
+          <div class="rating-labels"><span>Совсем не помог</span><span>Очень помог</span></div>
+
+          <div class="feedback-form">
+            <label for="ratingComment">Что можно улучшить? Что вам понравилось?</label>
+            <textarea id="ratingComment" maxlength="1500" placeholder="Напишите несколько слов о вопросах, рекомендациях или удобстве инструмента"></textarea>
+            <p class="feedback-help">Комментарий можно оставить после выбора оценки.</p>
+
+            <div class="attachment-row">
+              <label class="attachment-button" for="ratingScreenshots">＋ Прикрепить скриншоты</label>
+              <input class="attachment-input" id="ratingScreenshots" type="file" accept="image/png,image/jpeg,image/webp" multiple>
+              <span class="attachment-note">До 3 изображений, не более 5 МБ каждое. Не прикладывайте скриншоты с именами, контактами и другими данными сотрудников</span>
+            </div>
+            <div class="screenshot-list" id="screenshotList" aria-live="polite"></div>
+
+            <div class="feedback-submit-row">
+              <button id="submitRatingBtn" class="btn btn-primary" type="button" disabled>Отправить отзыв</button>
+              <p class="rating-status" id="ratingStatus" aria-live="polite"></p>
+            </div>
+          </div>
+        </section>
+
+        <section class="card result-section final-actions">
+          <div class="result-toolbar">
+            <button id="printBtn" class="btn btn-primary" type="button">Сохранить как PDF</button>
+            <button id="editBtn" class="btn btn-secondary" type="button">Изменить ответы</button>
+            <button id="resetBtn" class="btn btn-quiet" type="button">Начать заново</button>
+          </div>
+        </section>
+
+        <section class="card result-section">
+          <div class="share">
+            <p><b>Понравился разбор? Поделитесь инструментом</b>Отправьте ссылку руководителям: им он поможет описывать ситуацию фактами и приходить к HR с конкретным запросом. И коллегам-HR, чтобы разбирать такие обращения по одной логике.</p>
+            <button id="shareBtn" class="btn btn-secondary" type="button">Скопировать ссылку</button>
+          </div>
+        </section>
+      `;
+    }
+
+    function statusLabel(status) {
+      return status === 'confirmed' ? 'Подтверждено ответами' : status === 'check' ? 'Нужно проверить' : 'Данных недостаточно';
+    }
+    function ordered(items) { return '<ol>' + items.map(x => '<li>' + escapeHtml(x) + '</li>').join('') + '</ol>'; }
+    function unordered(items) { return '<ul>' + [...new Set(items)].map(x => '<li>' + escapeHtml(x) + '</li>').join('') + '</ul>'; }
+
+    function resultToText(data) {
+      const block = (title, items) => '\n' + title.toUpperCase() + '\n' + (items.length ? items.map((x,i) => (i+1) + '. ' + x).join('\n') : 'Нет данных') + '\n';
+      let text = 'НЕ «ЧИНИТЕ» СОТРУДНИКА. РАЗБОР СИТУАЦИИ\n\n' + data.summary + '\n';
+      text += block('Что известно из ваших ответов', data.knownFacts);
+      if (data.clarifications.length) text += block('Что нужно уточнить', data.clarifications);
+      text += block('Чего пока нельзя утверждать', data.cannot);
+      text += block('Вопросы руководителю', data.managerQuestions);
+      text += block('Вопросы сотруднику', data.employeeQuestions);
+      text += '\nЧТО ДЕЛАТЬ ДАЛЬШЕ\n' + data.recs.map((r,i) => `${i+1}. ${r.title}\nОснование: ${r.basis}\nПочему: ${r.why}\nЧто сделать: ${r.action}\nКто отвечает: ${r.owner}`).join('\n\n');
+      if (data.products.length) text += '\n\nПОДДЕРЖКА ALTER ДЛЯ БИЗНЕСА\n' + data.products.map(p => p.title + ': ' + p.url).join('\n');
+      return text;
+    }
+
+    function ratingPayload(rating, comment = '', files = []) {
+      return {
+        event: 'alter_tool_rating',
+        tool: 'ne_chinite_sotrudnika',
+        version: TOOL_VERSION,
+        rating,
+        comment: String(comment || '').trim(),
+        screenshots: files.map(file => ({ name: file.name, type: file.type, size: file.size })),
+        timestamp: new Date().toISOString()
+      };
+    }
+
+    async function submitToolRating(rating, comment = '', files = []) {
+      const payload = ratingPayload(rating, comment, files);
+      try { localStorage.setItem(RATING_STORAGE_KEY, JSON.stringify(payload)); } catch (_) {}
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(payload);
+      window.dispatchEvent(new CustomEvent('alterToolRating', { detail: { ...payload, files } }));
+
+      if (RATING_ENDPOINT) {
+        const formData = new FormData();
+        formData.append('event', payload.event);
+        formData.append('tool', payload.tool);
+        formData.append('version', payload.version);
+        formData.append('rating', String(payload.rating));
+        formData.append('comment', payload.comment);
+        formData.append('timestamp', payload.timestamp);
+        // Адрес страницы передаём полем, а не полагаемся на Referer: запрос к воркеру
+        // кросс-доменный, и браузер по умолчанию обрезает Referer до одного домена —
+        // в журнале отзывов вместо страницы оказывался просто «https://alter.ru/».
+        formData.append('page', location.href);
+        files.forEach(file => formData.append('screenshots', file, file.name));
+        // keepalive здесь нельзя: браузеры ограничивают тело keepalive-запроса 64 КБ, и
+        // отправка с любым прикреплённым скриншотом падала бы с «Failed to fetch». Человек
+        // в момент отправки остаётся на странице, переживать запрос уходу со страницы не нужно.
+        const res = await fetch(RATING_ENDPOINT, { method: 'POST', body: formData });
+        if (!res.ok) throw new Error('rating endpoint ' + res.status);
+      }
+      return payload;
+    }
+
+    function bindRating() {
+      const buttons = [...document.querySelectorAll('.rating-btn')];
+      const status = el('ratingStatus');
+      const comment = el('ratingComment');
+      const input = el('ratingScreenshots');
+      const list = el('screenshotList');
+      const submit = el('submitRatingBtn');
+      let selectedRating = null;
+      let selectedFiles = [];
+      let saved = null;
+      try { saved = JSON.parse(localStorage.getItem(RATING_STORAGE_KEY) || 'null'); } catch (_) {}
+
+      const select = rating => {
+        selectedRating = Number(rating);
+        buttons.forEach(button => {
+          const selected = Number(button.dataset.rating) === selectedRating;
+          button.classList.toggle('selected', selected);
+          button.setAttribute('aria-checked', selected ? 'true' : 'false');
+        });
+        submit.disabled = !selectedRating;
+      };
+
+      const renderFiles = () => {
+        list.innerHTML = '';
+        selectedFiles.forEach((file, index) => {
+          const item = document.createElement('div');
+          item.className = 'screenshot-item';
+          const img = document.createElement('img');
+          img.alt = `Прикрепленный скриншот ${index + 1}`;
+          const url = URL.createObjectURL(file);
+          img.src = url;
+          img.addEventListener('load', () => URL.revokeObjectURL(url), { once: true });
+          const remove = document.createElement('button');
+          remove.className = 'screenshot-remove';
+          remove.type = 'button';
+          remove.setAttribute('aria-label', `Удалить скриншот ${index + 1}`);
+          remove.textContent = '×';
+          remove.addEventListener('click', () => {
+            selectedFiles.splice(index, 1);
+            renderFiles();
+          });
+          item.append(img, remove);
+          list.append(item);
+        });
+      };
+
+      if (saved?.rating) {
+        select(saved.rating);
+        comment.value = saved.comment || '';
+        status.textContent = `Ранее вы поставили ${saved.rating} из 10. Оценку и комментарий можно изменить.`;
+      }
+
+      buttons.forEach(button => button.addEventListener('click', () => {
+        select(Number(button.dataset.rating));
+        status.textContent = 'Оценка выбрана. Добавьте комментарий или отправьте отзыв.';
+      }));
+
+      input.addEventListener('change', () => {
+        const files = [...input.files];
+        const validTypes = new Set(['image/png', 'image/jpeg', 'image/webp']);
+        const accepted = [];
+        const errors = [];
+        for (const file of files) {
+          if (!validTypes.has(file.type)) errors.push(`${file.name}: неподдерживаемый формат`);
+          else if (file.size > 5 * 1024 * 1024) errors.push(`${file.name}: файл больше 5 МБ`);
+          else accepted.push(file);
+        }
+        selectedFiles = [...selectedFiles, ...accepted].slice(0, 3);
+        if (accepted.length + selectedFiles.length > 3 || files.length > accepted.length && selectedFiles.length >= 3) {
+          errors.push('Можно прикрепить не больше 3 изображений');
+        }
+        input.value = '';
+        renderFiles();
+        status.textContent = errors.length ? errors.join('. ') : `${selectedFiles.length} из 3 скриншотов прикреплено.`;
+      });
+
+      submit.addEventListener('click', async () => {
+        if (!selectedRating) return;
+        submit.disabled = true;
+        status.textContent = 'Отправляем отзыв…';
+        try {
+          await submitToolRating(selectedRating, comment.value, selectedFiles);
+          goal('b2b_tool_nechinite_rating', { rating: selectedRating, screenshots: selectedFiles.length });
+          status.textContent = `Спасибо! Оценка ${selectedRating} из 10 и комментарий сохранены.`;
+        } catch (_) {
+          status.textContent = 'Не удалось отправить отзыв. Попробуйте еще раз.';
+        } finally {
+          submit.disabled = false;
+        }
+      });
+    }
+
+    function bindResultButtons() {
+      el('printBtn').addEventListener('click', () => { goal('b2b_tool_nechinite_pdf'); document.querySelectorAll('.result-details').forEach(item => item.open = true); window.print(); });
+      // Переход на продуктовую страницу Alter из блока рекомендаций — коммерческая цель
+      // инструмента. Слушаем на контейнере результатов: карточки перерисовываются целиком.
+      results.addEventListener('click', e => {
+        const link = e.target.closest && e.target.closest('.alter-card a');
+        if (!link) return;
+        const utmContent = (link.getAttribute('href').match(/utm_content=([^&]+)/) || [])[1] || '';
+        goal('b2b_tool_nechinite_product_click', { product: decodeURIComponent(utmContent) });
+      });
+      el('editBtn').addEventListener('click', () => { results.classList.add('hidden'); quiz.classList.remove('hidden'); route = activeQuestions(); state.index = Math.max(0, route.length - 1); renderQuestion(); window.scrollTo({top:0,behavior:'smooth'}); });
+      el('resetBtn').addEventListener('click', () => { if (confirm('Удалить ответы и начать новый разбор?')) resetState(); });
+      const shareBtn = el('shareBtn');
+      if (shareBtn) shareBtn.addEventListener('click', async () => {
+        // Без query-строки: в адресе могут остаться utm предыдущего перехода, делиться ими незачем.
+        const url = location.origin + location.pathname;
+        if (navigator.share) {
+          // Системное окно «Поделиться» (в основном мобильные). Отказ в нём — не «поделился»,
+          // поэтому цель шлём только после успешного завершения.
+          try { await navigator.share({ title: document.title, url }); goal('b2b_tool_nechinite_share', { method: 'native' }); } catch (_) {}
+          return;
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          shareBtn.textContent = 'Ссылка скопирована';
+          goal('b2b_tool_nechinite_share', { method: 'copy' });
+        } catch (_) {
+          // Буфер обмена может быть запрещён политикой браузера — тогда просто показываем адрес.
+          // Человек ссылку всё равно получил, поэтому цель шлём, но отдельным значением.
+          shareBtn.textContent = url;
+          goal('b2b_tool_nechinite_share', { method: 'fallback' });
+        }
+        setTimeout(() => { shareBtn.textContent = 'Скопировать ссылку'; }, 2600);
+      });
+      bindRating();
+    }
+
+    const QUALITY_CRITERIA = {
+      1: 'Факты, границы и отсутствие необоснованных выводов',
+      2: 'Нейтральный и этичный язык без ярлыков и обвинений',
+      3: 'Учет позиции сотрудника и добровольность поддержки',
+      4: 'Явная работа с неизвестными и ограничениями вывода',
+      5: 'Организационная и психологическая корректность логики',
+      6: 'Понятное распределение ответственности и конкретные действия',
+      7: 'Уместность продуктовых рекомендаций Alter для бизнеса',
+      8: 'Качество вопросов и вариантов ответа',
+      9: 'Последовательное ветвление без повторов',
+      10: 'Техническая устойчивость, приватность и сбор обратной связи'
+    };
+
+    // Встроенная проверка логики. Запускается через ?autotest=1 и не видна обычному пользователю.
+    function runAutotests() {
+      const checks = [];
+      const assert = (criterion, name, condition, details='') => checks.push({ criterion, name, pass: Boolean(condition), details });
+      const scenario = answers => buildResult(answers);
+
+      const base = {
+        issue:'deadline', factPresence:'yes', detail:['missed'], scope:'one_event', onset:'insufficient',
+        conversation:'detailed', employeeExplanation:['capacity'], expectations:'clear_spoken', resources:['none'],
+        management:'supportive', teamProcess:['none'], actions:['nothing']
+      };
+
+      // 1. Факты и отсутствие ярлыков
+      let r = scenario({ issue:'vague', factPresence:'impression' });
+      assert(1, 'Без фактов нет выдуманной причины', r.cannot.some(x => x.includes('проверяемого примера')), JSON.stringify(r));
+      assert(1, 'Без фактов продукт не предлагается', r.products.length === 0, JSON.stringify(r.products));
+      assert(1, 'В основной теме нет неконтролируемой ветки «Другая ситуация»', !questions.find(q => q.id === 'issue').options().some(o => o.value === 'other'), '');
+
+      // 2. Нейтральность формулировок
+      const issueLabels = questions.find(q => q.id === 'issue').options({}).map(o => o.label).join(' ');
+      assert(2, 'Первый вопрос не закрепляет ярлык «не берет ответственность»', !issueLabels.includes('не берет ответственность'), issueLabels);
+      assert(2, 'В первом вопросе нет формулировки «отсутствие инициативы»', !issueLabels.toLowerCase().includes('отсутствие инициативы'), issueLabels);
+      assert(2, 'Заголовок маркирует метафору кавычками', document.title.includes('«чините»'), document.title);
+      assert(2, 'В рекомендациях нет формулировки о разговоре как претензии', !JSON.stringify(scenario({ ...base, issue:'emotion', detail:['work_change'], employeeExplanation:['no_explanation'], stateSupport:['observed_only'] })).includes('разговор был построен как претензия'), '');
+
+      // 3. Корректность позиции сотрудника
+      r = scenario({ ...base, employeeExplanation:['no_explanation'] });
+      assert(3, 'Отсутствие объяснения не считается известной позицией', r.summary.includes('собрана не полностью'), r.summary);
+      assert(3, 'Неясная позиция вынесена в уточнения', r.clarifications.some(x => x.includes('Позиция сотрудника')), JSON.stringify(r.clarifications));
+
+      // 4. Неизвестное не исчезает
+      r = scenario({ ...base, scope:'unknown', onset:'unknown', conversation:'unknown', resources:['unknown'], management:'unknown', teamProcess:['unknown'], actions:['unknown'] });
+      assert(4, 'Все ключевые неизвестные собраны', r.clarifications.length >= 7, JSON.stringify(r.clarifications));
+      assert(4, 'Блок уточнений есть в отрисовке', renderResults(r).includes('Что нужно уточнить'), '');
+      assert(4, 'Кнопка копирования удалена', !renderResults(r).includes('copyBtn') && !renderResults(r).includes('Скопировать текст'), '');
+
+      // 5. Логика рабочих и психологических причин
+      r = scenario({ ...base, employeeExplanation:['capacity'], resources:['workload'], stateSupport:['no_request'] });
+      assert(5, 'Перегрузка без слов о состоянии не ведет к индивидуальной поддержке', !r.products.some(p => p.tag === 'Индивидуальная поддержка'), JSON.stringify(r.products));
+      r = scenario({ ...base, issue:'emotion', factPresence:'yes', detail:['self_report'], employeeExplanation:['stress'], stateSupport:['asks_support'] });
+      assert(5, 'Прямой сигнал сотрудника ведет к добровольной поддержке', r.products.some(p => p.tag === 'Индивидуальная поддержка'), JSON.stringify(r.products));
+      assert(5, 'Поддержка предлагается добровольно и не подменяет рабочие условия', r.recs.some(x => x.title.includes('психологическую поддержку добровольно')), JSON.stringify(r.recs));
+
+      // 6. Управленческая и организационная валидность
+      r = scenario({ ...base, issue:'responsibility', detail:['needs_approval'], employeeExplanation:['fear'], expectations:'different', resources:['none'], management:'micromanagement' });
+      assert(6, 'При микроконтроле выявляется зона полномочий', r.zones.some(z => z.title === 'Самостоятельность и полномочия'), JSON.stringify(r.zones));
+      assert(6, 'Ответственность не перекладывается на HR', r.owners.manager.some(x => /полномоч|разговор|ожидан/i.test(x)), JSON.stringify(r.owners));
+      assert(6, 'Есть конкретный следующий шаг', r.recs.every(x => x.action && x.owner && x.basis), JSON.stringify(r.recs));
+
+      // 7. Продуктовые рекомендации по правилам пользователя
+      r = scenario({ ...base, issue:'communication', detail:['sharp'], scope:'one_person', teamProcess:['none'] });
+      assert(7, 'Тренинг при коммуникационной жалобе сохранен', r.products.some(p => p.tag === 'Тренинг Alter для бизнеса'), JSON.stringify(r.products));
+      r = scenario({ ...base, scope:'others', teamProcess:['roles','decision'] });
+      assert(7, 'При системном сигнале сохранена диагностика', r.products.some(p => p.tag === 'Диагностика команды'), JSON.stringify(r.products));
+      const diagnosis = r.products.find(p => p.tag === 'Диагностика команды');
+      assert(7, 'Диагностика не подменяет разбор процесса', diagnosis && diagnosis.desc.includes('не заменяет разбор процессов'), JSON.stringify(diagnosis));
+      assert(7, 'Используется актуальное название диагностики', diagnosis && diagnosis.title === 'Диагностика ментального состояния команды', JSON.stringify(diagnosis));
+
+      // 8. Результат остается в границах рабочего разбора
+      const questionIds = questions.map(q => q.id);
+      assert(8, 'Ответ «Не знаю» считается выбранным ответом', answered('unknown') && !known('unknown'), '');
+      const renderedBase = renderResults(scenario(base));
+      assert(8, 'Отдельного вопроса о срочном риске нет', !questionIds.includes('risk'), questionIds.join(','));
+      assert(8, 'В результате нет отдельного блока безопасности', !renderedBase.includes('Когда обычного разбора недостаточно'), '');
+      assert(8, 'В результате нет формулировки «Сначала — безопасность»', !renderedBase.includes('Сначала — безопасность'), '');
+
+      // Качество вариантов: единая смысловая зона, достаточное покрытие и приемлемая длина списка.
+      let optionErrors = [];
+      for (const issue of Object.keys(ISSUE_LABELS)) {
+        const context = { ...base, issue, detail:[(DETAIL_OPTIONS[issue] || [])[0]?.value || 'other'] };
+        for (const q of questions) {
+          if (q.show && !q.show(context)) continue;
+          const options = q.options(context) || [];
+          const values = options.map(o => o.value);
+          const labels = options.map(o => o.label.trim());
+          const max = q.id === 'issue' ? 11 : q.type === 'multi' ? 9 : 7;
+          if (options.length > max) optionErrors.push(`${issue}:${q.id}:count=${options.length}`);
+          if (new Set(values).size !== values.length) optionErrors.push(`${issue}:${q.id}:duplicate-value`);
+          if (new Set(labels).size !== labels.length) optionErrors.push(`${issue}:${q.id}:duplicate-label`);
+          if (labels.some(label => !label)) optionErrors.push(`${issue}:${q.id}:empty-label`);
+        }
+      }
+      assert(8, 'Вариантов ответа не больше установленного предела', !optionErrors.some(x => x.includes('count=')), optionErrors.join('|'));
+      assert(8, 'Внутри вопроса нет повторяющихся вариантов', !optionErrors.some(x => x.includes('duplicate')), optionErrors.join('|'));
+      assert(8, 'Во всех основных открытых списках есть «Другое» и «Не знаю»', Object.keys(DETAIL_OPTIONS).every(issue => {
+        const values = DETAIL_OPTIONS[issue].map(o => o.value);
+        return values.includes('other') && (issue === 'vague' || values.includes('unknown'));
+      }), '');
+      assert(8, 'В конкретизации коммуникации нет вариантов о собеседнике — это проверяется масштабом', !DETAIL_OPTIONS.communication.some(o => ['manager_conflict','peer_conflict','one_sided'].includes(o.value)), JSON.stringify(DETAIL_OPTIONS.communication));
+      assert(8, 'В конкретизации эмоций запрос поддержки не дублирует отдельный вопрос о поддержке', !DETAIL_OPTIONS.emotion.some(o => o.value === 'support_request'), JSON.stringify(DETAIL_OPTIONS.emotion));
+
+      // 9. Ветвление и прогресс
+      const routeFor = answers => {
+        const saved = JSON.parse(JSON.stringify(state));
+        state = { answers: JSON.parse(JSON.stringify(answers)), index: 0 };
+        const active = activeQuestions();
+        state = saved;
+        return active;
+      };
+      const adaptationRoute = routeFor({ ...base, issue:'adaptation', detail:['role_tasks'], onset:'stable', employeeExplanation:['skills'], resources:['skills'], roleStage:'under3' });
+      const stages = adaptationRoute.map(stageForQuestion);
+      assert(9, 'Прогресс не идет назад', stages.every((x,i) => i === 0 || x >= stages[i-1]), stages.join(','));
+      assert(9, 'Контекст роли идет до финального вопроса', adaptationRoute.findIndex(q => q.id === 'roleStage') < adaptationRoute.findIndex(q => q.id === 'actions'), adaptationRoute.map(q => q.id).join(','));
+      assert(9, 'Вопросы не повторяются', new Set(adaptationRoute.map(q => q.id)).size === adaptationRoute.length, adaptationRoute.map(q => q.id).join(','));
+      assert(9, 'Маршрут остается приемлемым по длине', adaptationRoute.length <= 17, 'count=' + adaptationRoute.length);
+
+      const emotionResult = scenario({
+        issue:'emotion', factPresence:'yes', detail:['work_change'], scope:'overall', onset:'worsening',
+        conversation:'detailed', employeeExplanation:['disagrees','relationships'], resources:['relationships'],
+        management:'supportive', teamProcess:['none'], stateSupport:['observed_only'], actions:['nothing']
+      });
+      const emotionText = JSON.stringify(emotionResult);
+      assert(9, 'В ветке эмоционального состояния нет вопроса о выполнении договоренности', !emotionText.includes('выполнить договоренность') && !emotionText.includes('срок проверки и последствия'), emotionText);
+      assert(9, 'Ветка эмоционального состояния опирается на наблюдение и рабочие факторы', emotionResult.recs.some(x => /наблюдаем|рабочие факторы|поддержк/i.test(x.title)), JSON.stringify(emotionResult.recs));
+
+      const adaptationResult = scenario({
+        issue:'adaptation', factPresence:'yes', detail:['manager_contact'], scope:'overall', onset:'stable',
+        conversation:'detailed', employeeExplanation:['skills','support'], expectations:'different', resources:['skills','support'],
+        management:'limited_contact', teamProcess:['none'], roleStage:'under3', actions:['nothing']
+      });
+      const adaptationQuestions = [...adaptationResult.managerQuestions, ...adaptationResult.employeeQuestions].join(' ');
+      assert(9, 'Вопросы по адаптации относятся к роли, поддержке и обратной связи', /адаптац|роль|поддержк|обратн/i.test(adaptationQuestions), adaptationQuestions);
+      assert(9, 'В вопросах по адаптации нет нерелевантной формулировки про осторожность', !adaptationQuestions.includes('осторожность, зависимость от согласования'), adaptationQuestions);
+
+      const staleCodeResult = scenario({
+        issue:'adaptation', factPresence:'yes', detail:['one_sided'], scope:'one_event', onset:'insufficient',
+        conversation:'detailed', employeeExplanation:['skills'], expectations:'clear_spoken', resources:['skills'],
+        management:'supportive', teamProcess:['none'], roleStage:'under3', actions:['mentoring']
+      });
+      assert(10, 'В результат не попадают технические коды старых ответов', !JSON.stringify(staleCodeResult).includes('one_sided'), JSON.stringify(staleCodeResult));
+
+      // 10. Техническая целостность результата
+      const allIssues = Object.keys(ISSUE_LABELS);
+      for (const issue of allIssues) {
+        const detailOptions = DETAIL_OPTIONS[issue] || [];
+        const usable = detailOptions.find(o => !['unknown','label_only','no_formulation'].includes(o.value));
+        const answers = { ...base, issue, detail:[usable?.value || 'other'] };
+        if ((usable?.value || 'other') === 'other') answers.detail__other = 'Конкретная рабочая ситуация';
+        const result = scenario(answers);
+        assert(10, 'Сценарий без ошибки: ' + issue, result.recs.length > 0 && result.zones.length > 0, JSON.stringify(result));
+        assert(10, 'Не более трех продуктов: ' + issue, result.products.length <= 3, JSON.stringify(result.products));
+      }
+      // Полный проход по всем вариантам конкретизации жалобы.
+      let detailCases = 0;
+      let detailErrors = [];
+      for (const issue of allIssues) {
+        for (const option of (DETAIL_OPTIONS[issue] || [])) {
+          const answers = { ...base, issue, detail:[option.value] };
+          if (option.value === 'other') answers.detail__other = 'Дополнительный конкретный факт';
+          try {
+            const result = scenario(answers);
+            detailCases += 1;
+            if (!result.recs.length || !result.zones.length || result.products.length > 3) detailErrors.push(issue + ':' + option.value);
+          } catch (error) {
+            detailErrors.push(issue + ':' + option.value + ':' + error.message);
+          }
+        }
+      }
+      assert(10, 'Все варианты конкретизации проходят без ошибки', detailErrors.length === 0, 'cases=' + detailCases + '; errors=' + detailErrors.join('|'));
+
+      // Каждый доступный вариант каждого вопроса отдельно проходит через построение результата.
+      let answerOptionCases = 0;
+      let answerOptionErrors = [];
+      for (const issue of allIssues) {
+        const detailOptions = DETAIL_OPTIONS[issue] || [];
+        const usable = detailOptions.find(o => !['unknown','label_only','no_formulation'].includes(o.value));
+        const context = { ...base, issue, detail:[usable?.value || 'other'] };
+        if ((usable?.value || 'other') === 'other') context.detail__other = 'Конкретная рабочая ситуация';
+        for (const question of questions) {
+          if (question.id === 'issue' || (question.show && !question.show(context))) continue;
+          for (const option of (question.options(context) || [])) {
+            const answers = JSON.parse(JSON.stringify(context));
+            answers[question.id] = question.type === 'multi' ? [option.value] : option.value;
+            if (option.value === 'other') answers[question.id + '__other'] = 'Дополнительный ответ';
+            try {
+              const result = scenario(answers);
+              answerOptionCases += 1;
+              if (!result || !Array.isArray(result.recs) || !Array.isArray(result.zones)) answerOptionErrors.push(issue + ':' + question.id + ':' + option.value + ':shape');
+            } catch (error) {
+              answerOptionErrors.push(issue + ':' + question.id + ':' + option.value + ':' + error.message);
+            }
+          }
+        }
+      }
+      assert(10, 'Каждый вариант каждого вопроса проходит без ошибки', answerOptionErrors.length === 0, 'cases=' + answerOptionCases + '; errors=' + answerOptionErrors.slice(0,20).join('|'));
+
+      // Маршруты для всех тем: без повторов, отката прогресса и чрезмерной длины.
+      let routeErrors = [];
+      for (const issue of allIssues) {
+        const detailOptions = DETAIL_OPTIONS[issue] || [];
+        const usable = detailOptions.find(o => !['unknown','label_only','no_formulation'].includes(o.value));
+        const answers = { ...base, issue, detail:[usable?.value || 'other'] };
+        if ((usable?.value || 'other') === 'other') answers.detail__other = 'Конкретная рабочая ситуация';
+        const currentRoute = routeFor(answers);
+        const currentStages = currentRoute.map(stageForQuestion);
+        if (new Set(currentRoute.map(q => q.id)).size !== currentRoute.length) routeErrors.push(issue + ':duplicate');
+        if (!currentStages.every((x,i) => i === 0 || x >= currentStages[i-1])) routeErrors.push(issue + ':progress');
+        if (currentRoute.length > 17) routeErrors.push(issue + ':length=' + currentRoute.length);
+      }
+      assert(9, 'Все тематические маршруты корректны', routeErrors.length === 0, routeErrors.join('|'));
+      const vagueRoute = routeFor({ issue:'vague', detail:['label_only'] }).map(q => q.id);
+      assert(9, 'Общее недовольство не ведет в длинную диагностическую цепочку', vagueRoute.join(',') === 'issue,detail', vagueRoute.join(','));
+      const oneEventRoute = routeFor({ ...base, scope:'one_event' }).map(q => q.id);
+      assert(9, 'После единичного эпизода не задается вопрос о динамике', !oneEventRoute.includes('onset'), oneEventRoute.join(','));
+      const noSystemRoute = routeFor({ ...base, scope:'one_event', resources:['none'] }).map(q => q.id);
+      assert(9, 'Вопрос о командном процессе появляется только при системном сигнале', !noSystemRoute.includes('teamProcess'), noSystemRoute.join(','));
+      const noStateRoute = routeFor({ ...base, issue:'deadline', employeeExplanation:['capacity'] }).map(q => q.id);
+      assert(9, 'Вопрос о психологической поддержке появляется только при прямом сигнале состояния', !noStateRoute.includes('stateSupport'), noStateRoute.join(','));
+      const emotionRoute = routeFor({
+        issue:'emotion', factPresence:'yes', detail:['self_report'], scope:'overall', onset:'stable',
+        conversation:'detailed', employeeExplanation:['stress'], resources:['none'], stateSupport:['asks_support'], actions:['nothing']
+      }).map(q => q.id);
+      assert(9, 'В ветке эмоционального состояния нет второго вопроса о формате разговора', !emotionRoute.includes('management'), emotionRoute.join(','));
+      const knownPositionStateOptions = stateSupportOptions({ issue:'emotion', conversation:'detailed', employeeExplanation:['stress'] }).map(o => o.value);
+      assert(8, 'При известной позиции сотрудника не предлагается ответ «есть только наблюдение»', !knownPositionStateOptions.includes('observed_only'), knownPositionStateOptions.join(','));
+      assert(8, 'В условиях адаптации поддержка руководителя не дублирует отдельный вопрос о сопровождении', !resourceOptions({ issue:'adaptation' }).some(o => o.value === 'support'), JSON.stringify(resourceOptions({ issue:'adaptation' })));
+      const questionDimensions = {
+        issue:'тема запроса', factPresence:'наличие конкретного факта', detail:'наблюдаемое проявление',
+        scope:'масштаб', onset:'динамика', conversation:'факт прямого разговора',
+        employeeExplanation:'позиция и объяснение сотрудника', expectations:'ясность ожиданий до ситуации',
+        resources:'подтвержденные рабочие препятствия', management:'управленческие условия до или во время ситуации',
+        teamProcess:'общие командные условия', stateSupport:'запрос сотрудника на поддержку',
+        roleStage:'стаж в роли', actions:'изменения после ситуации'
+      };
+      let dimensionErrors = [];
+      for (const issue of allIssues) {
+        const detailOptions = DETAIL_OPTIONS[issue] || [];
+        const usable = detailOptions.find(o => !['unknown','label_only','no_formulation'].includes(o.value));
+        const answers = { ...base, issue, detail:[usable?.value || 'other'] };
+        if ((usable?.value || 'other') === 'other') answers.detail__other = 'Конкретная рабочая ситуация';
+        const dimensions = routeFor(answers).map(q => questionDimensions[q.id]);
+        if (new Set(dimensions).size !== dimensions.length) dimensionErrors.push(issue + ':' + dimensions.join('|'));
+      }
+      assert(9, 'В одном маршруте нет двух вопросов об одной смысловой зоне', dimensionErrors.length === 0, dimensionErrors.join('\n'));
+
+
+      // Детерминированный стресс-тест сочетаний ответов.
+      let seed = 246813579;
+      const rnd = max => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed % max; };
+      const pick = values => values[rnd(values.length)];
+      const maybeMany = values => {
+        const first = pick(values);
+        if (['none','unknown','no_issue','no_signal','nothing'].includes(first)) return [first];
+        const second = pick(values);
+        return first === second ? [first] : [first, second];
+      };
+      const scopes = ['one_event','same_tasks','overall','one_person','several_people','others','unknown'];
+      const onsets = ['stable','worsening','improving','episodic','insufficient','unknown'];
+      const conversations = ['detailed','short','claim_only','pressure','public_criticism','hr_instead','no','unknown'];
+      const explanations = ['expectations','capacity','priorities','dependencies','skills','fear','disagrees','overload','stress','wellbeing','personal','no_explanation','unknown'];
+      const expectations = ['clear_written','clear_spoken','partial','after','no','different','unknown'];
+      const resources = ['none','workload','information','dependencies','conflicting_priorities','skills','support','relationships','change','unknown'];
+      const management = ['supportive','micromanagement','reverses','mistake_risk','vague_feedback','limited_contact','no_support','pressure','public_criticism','unknown'];
+      const processes = ['none','others_same','roles','decision','cross_team','rules_differ','load_team','change_team','unknown'];
+      const states = ['no_request','asks_support','declines_support','work_adjustment','needs_time','observed_only','unknown'];
+      const actions = ['nothing','load','mentoring','process','support','formal','follow_up','onboarding','access','unknown'];
+      const roleStages = ['under3','three6','over6','internal_new','unknown'];
+      let stressErrors = [];
+      for (let i = 0; i < 10000; i += 1) {
+        const issue = pick(allIssues);
+        const details = DETAIL_OPTIONS[issue] || [];
+        const detail = pick(details).value;
+        const answers = {
+          issue,
+          factPresence: 'yes',
+          detail: [detail],
+          scope: pick(scopes),
+          onset: pick(onsets),
+          conversation: pick(conversations),
+          employeeExplanation: maybeMany(explanations),
+          expectations: pick(expectations),
+          resources: maybeMany(resources),
+          management: pick(management),
+          teamProcess: maybeMany(processes),
+          stateSupport: maybeMany(states),
+          actions: maybeMany(actions),
+          roleStage: pick(roleStages)
+        };
+        if (detail === 'other') answers.detail__other = 'Дополнительный конкретный факт';
+        try {
+          const result = scenario(answers);
+          if (!result.recs.length || !result.zones.length || result.products.length > 3) stressErrors.push('structure:' + i);
+          const diag = result.products.find(p => p.tag === 'Диагностика команды');
+          if (diag && !diag.desc.includes('не заменяет разбор процессов')) stressErrors.push('diagnostics:' + i);
+          const directStateSignal = any(answers.stateSupport, ['asks_support','work_adjustment']) || any(answers.employeeExplanation, ['stress','personal','wellbeing']) || any(answers.detail, ['self_report']);
+          if (answers.issue !== 'emotion' && !directStateSignal && result.products.some(p => p.tag === 'Индивидуальная поддержка')) stressErrors.push('support:' + i);
+        } catch (error) {
+          stressErrors.push('exception:' + i + ':' + error.message);
+        }
+        if (stressErrors.length > 20) break;
+      }
+      assert(10, '10 000 сочетаний ответов проходят инварианты', stressErrors.length === 0, stressErrors.join('|'));
+      const ratingHtml = renderResults(scenario(base));
+      assert(10, 'В результате есть шкала оценки от 1 до 10', (ratingHtml.match(/data-rating=/g) || []).length === 10, '');
+      assert(10, 'Отзыв не содержит ответы пользователя и готов к подключению бэкенда', !JSON.stringify(ratingPayload(8, 'Комментарий', [])).includes('answers') && typeof RATING_ENDPOINT === 'string', JSON.stringify(ratingPayload(8, 'Комментарий', [])));
+      assert(10, 'В отзыве есть комментарий и прикрепление скриншотов', ratingHtml.includes('ratingComment') && ratingHtml.includes('ratingScreenshots') && ratingHtml.includes('submitRatingBtn'), '');
+
+      const serialized = JSON.stringify(checks);
+      assert(10, 'Нет NaN и undefined', !serialized.includes('NaN') && !serialized.includes('undefined'), '');
+
+      const criteria = Array.from({ length: 10 }, (_, i) => i + 1).map(id => {
+        const own = checks.filter(c => c.criterion === id);
+        return { id, pass: own.length > 0 && own.every(c => c.pass), passed: own.filter(c => c.pass).length, total: own.length };
+      });
+      const passedChecks = checks.filter(c => c.pass).length;
+      const passedCriteria = criteria.filter(c => c.pass).length;
+      document.body.innerHTML = `<pre class="test-report">AUTOTEST CRITERIA ${passedCriteria}/10
+CHECKS ${passedChecks}/${checks.length}
+
+${criteria.map(c => (c.pass ? 'PASS' : 'FAIL') + ' ' + c.id + '. ' + QUALITY_CRITERIA[c.id] + ' (' + c.passed + '/' + c.total + ')').join('\n')}
+
+${checks.map(c => (c.pass ? 'PASS ' : 'FAIL ') + '[' + c.criterion + '] ' + c.name + (c.pass ? '' : '\n' + c.details)).join('\n')}</pre>`;
+      document.title = 'AUTOTEST ' + passedCriteria + '/10';
+    }
+
+    el('startBtn').addEventListener('click', () => { goal('b2b_tool_nechinite_start'); state.index = 0; start(); });
+    el('nextBtn').addEventListener('click', next);
+    el('backBtn').addEventListener('click', back);
+
+    if (new URLSearchParams(location.search).get('autotest') === '1') {
+      runAutotests();
+    } else if (state.answers && Object.keys(state.answers).length) {
+      // Не открываем сохраненный разбор автоматически: пользователь сам решает, продолжать ли его.
+      const continueBtn = document.createElement('button');
+      continueBtn.className = 'btn btn-secondary';
+      continueBtn.type = 'button';
+      continueBtn.textContent = 'Продолжить сохраненный разбор';
+      continueBtn.addEventListener('click', () => { goal('b2b_tool_nechinite_resume'); start(); });
+      document.querySelector('.hero .btn-row').appendChild(continueBtn);
+    }
+  })();
+  </script>
+</body>
+</html>

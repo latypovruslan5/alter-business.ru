@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Контент — Alter (внутреннее)</title>
+<style>
+@font-face { font-family:'Futura PT'; src:url('uploads/FuturaPTBook.otf') format('opentype'); font-weight:400; font-style:normal; font-display:swap; }
+@font-face { font-family:'Futura PT'; src:url('uploads/FuturaPTBold.otf') format('opentype'); font-weight:700; font-style:normal; font-display:swap; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Futura PT','Helvetica Neue',Arial,sans-serif; color:#282C3E; background:#F4F6F5; -webkit-font-smoothing:antialiased; }
+.wrap { max-width:1080px; margin:0 auto; padding:28px 24px 80px; }
+.head { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:6px; }
+.brand { display:flex; align-items:center; gap:10px; }
+.brand img { height:24px; }
+.badge { display:inline-flex; align-items:center; background:#E2F1E9; color:#239266; font-weight:700; font-size:12px; padding:5px 12px; border-radius:30px; }
+h1 { font-family:'Futura PT'; font-weight:700; font-size:26px; letter-spacing:-0.4px; margin:0; }
+h2 { font-family:'Futura PT'; font-weight:700; font-size:20px; margin:0 0 14px; }
+.muted { color:#6A7088; font-size:14px; }
+.card { background:#fff; border:1px solid #E4EAE6; border-radius:16px; padding:20px 22px; margin-bottom:18px; }
+table { width:100%; border-collapse:collapse; font-size:14.5px; }
+th, td { text-align:left; padding:11px 10px; border-bottom:1px solid #EEF2EF; vertical-align:middle; }
+th { font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:#8A90A6; font-weight:700; }
+tr:last-child td { border-bottom:none; }
+.link { color:#239266; font-weight:700; cursor:pointer; text-decoration:underline; text-underline-offset:3px; background:none; border:none; font-family:inherit; font-size:14.5px; padding:0; }
+.link.danger { color:#B23B3B; }
+.link.small { font-size:12.5px; }
+.btn { font-family:inherit; font-weight:700; font-size:15px; color:#fff; background:#29B981; border:none; padding:12px 22px; border-radius:40px; cursor:pointer; }
+.btn:disabled { opacity:.5; cursor:default; }
+.btn.ghost { background:#fff; color:#239266; border:1.5px solid #29B981; }
+.toolbar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; margin:0 0 18px; }
+.tabs { display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap; }
+.tab { font-family:inherit; font-weight:700; font-size:14px; padding:9px 18px; border-radius:30px; border:1.5px solid #E4EAE6; background:#fff; color:#6A7088; cursor:pointer; }
+.tab.active { background:#282C3E; color:#fff; border-color:#282C3E; }
+.field { margin-bottom:14px; }
+.field label { display:block; font-size:12.5px; font-weight:700; color:#6A7088; margin-bottom:6px; }
+.field input, .field select, .field textarea { width:100%; font-family:inherit; font-size:14.5px; padding:10px 12px; border:1.5px solid #E4EAE6; border-radius:10px; color:#282C3E; }
+.field textarea { resize:vertical; min-height:70px; }
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:0 16px; }
+.form-grid .field.full { grid-column:1 / -1; }
+.err { color:#B23B3B; font-size:13px; margin-top:-6px; margin-bottom:14px; }
+.login-wrap { max-width:360px; margin:80px auto; }
+.reorder { display:flex; flex-direction:column; gap:2px; }
+.reorder button { border:none; background:#EEF2EF; color:#3A3F58; width:22px; height:18px; border-radius:4px; cursor:pointer; font-size:11px; line-height:1; }
+.reorder button:disabled { opacity:.35; cursor:default; }
+.auds { display:inline-flex; gap:4px; }
+.aud { font-family:inherit; font-size:12px; font-weight:700; padding:5px 9px; border-radius:20px; cursor:pointer;
+  border:1.5px solid #E4EAE6; background:#fff; color:#8A90A6; transition:background .12s, color .12s, border-color .12s; }
+.aud.on { background:#E2F1E9; border-color:#29B981; color:#1E7A57; }
+.pill { font-size:12px; font-weight:700; border-radius:30px; padding:4px 11px; display:inline-block; background:#EEF2EF; color:#3A3F58; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="brand"><img src="assets/logo.svg" alt="Alter" onerror="this.style.display='none'" width="493" height="161"><h1>Контент сайта</h1></div>
+    <div id="who"></div>
+  </div>
+  <p class="muted" style="margin-bottom:20px;">Материалы, ближайшие вебинары и записи — без правки кода. Изменения на странице «Скачать материалы» и «Мероприятия» появляются сразу после нажатия «Сохранить».</p>
+  <div id="view"><div class="card">Загрузка…</div></div>
+</div>
+
+<script>
+(function () {
+  var IS_LOCAL = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  var ENDPOINT = window.ALTER_CAB_ENDPOINT || (IS_LOCAL ? 'http://127.0.0.1:8787' : 'https://alter.ru/crm-api');
+  var TOKEN_KEY = 'alter_content_cms_token';
+  var view = document.getElementById('view');
+  var who = document.getElementById('who');
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function getToken() { return localStorage.getItem(TOKEN_KEY) || ''; }
+  function setToken(t) { if (t) localStorage.setItem(TOKEN_KEY, t); else localStorage.removeItem(TOKEN_KEY); }
+
+  function api(path, body, needsAuth) {
+    var b = Object.assign({}, body || {});
+    if (needsAuth) b.token = getToken();
+    return fetch(ENDPOINT + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) })
+      .then(function (r) { return r.json().then(function (data) { return { status: r.status, data: data }; }); });
+  }
+
+  /* ---------- Схемы коллекций ---------- */
+  var MATERIAL_TYPES = [['checklist', 'Чек-лист'], ['guide', 'Гайд'], ['research', 'Исследование'], ['tool', 'Инструмент']];
+  // Значение — роль (её хранит CMS и знает воркер), подпись — по действию: так же
+  // подписан фильтр на витрине.
+  var MATERIAL_AUDIENCES = [['HR', 'Себе в работу'], ['Руководитель', 'Руководителям'], ['Сотрудник', 'Команде']];
+  var MATERIAL_TOPICS = ['Выгорание', 'Культура', 'Стресс и тревога', 'Лидерство', 'ROI', 'Онбординг'];
+  var WEBINAR_TYPES = [['Вебинар', 'Вебинар'], ['Конференция', 'Конференция']];
+  var RECORDING_TOPICS = ['Культура', 'Стресс и тревога', 'Лидерство', 'ROI', 'Онбординг'];
+
+  var MATERIAL_MODES = [['request', 'Скачать → всплывающая форма заявки'], ['link', 'Подробнее → переход на страницу материала']];
+
+  var COLLECTIONS = {
+    materials: {
+      tabLabel: 'Материалы',
+      loadPath: '/api/content/materials', loadKey: 'materials',
+      savePath: '/api/content/materials/save',
+      emptyItem: function () { return { type: 'guide', title: '', desc: '', topic: MATERIAL_TOPICS[0], audience: [], mode: 'request', href: '', cover: '', featured: false, slug: '' }; },
+      fields: [
+        { key: 'title', label: 'Заголовок', kind: 'text', full: true, required: true },
+        { key: 'desc', label: 'Описание (для карточки)', kind: 'textarea', full: true, required: true },
+        { key: 'type', label: 'Тип', kind: 'select', options: MATERIAL_TYPES, required: true },
+        { key: 'topic', label: 'Тема', kind: 'select', options: MATERIAL_TOPICS.map(function (t) { return [t, t]; }), required: true },
+        // Аудитория — фильтр «Кому» на витрине материалов.
+        { key: 'audience', label: 'Кому материал — можно отметить несколько', kind: 'checkgroup', options: MATERIAL_AUDIENCES, full: true },
+        { key: 'mode', label: 'Кнопка на карточке', kind: 'select', options: MATERIAL_MODES, full: true, required: true },
+        { key: 'href', label: 'Ссылка (обязательна для «Подробнее»; для «Скачать» не используется)', kind: 'text', full: true },
+        // Код материала уходит в поле сделки FORMNAME — по нему сейлсбот выбирает автописьмо.
+        // Без него заявка приходит в amoCRM обезличенной и письмо не уходит вовсе (так молча
+        // терялись заявки, пока поля здесь не было).
+        { key: 'slug', label: 'Код материала — латиницей, как в условиях сейлсбота (напр. vygoranie). По нему уходит автописьмо', kind: 'text', full: true },
+        { key: 'cover', label: 'Обложка — URL картинки (необязательно)', kind: 'text', full: true },
+        { key: 'featured', label: 'Показывать в блоке «Рекомендуем» наверху страницы материалов', kind: 'checkbox', full: true },
+      ],
+      validate: function (draft) {
+        if (draft.mode === 'link' && !String(draft.href || '').trim()) return 'Для режима «Подробнее» укажите ссылку на страницу материала';
+        if (!(draft.audience || []).length) return 'Отметьте, кому материал: себе в работу, руководителям или команде';
+        var slug = String(draft.slug || '').trim();
+        if (draft.mode === 'request' && !slug) return 'Для режима «Скачать» укажите код материала — без него заявка уйдёт в amoCRM без автописьма';
+        if (slug && !/^[a-z0-9_-]+$/.test(slug)) return 'Код материала — только латиница в нижнем регистре, цифры, дефис и подчёркивание';
+        return '';
+      },
+      columns: [
+        { key: 'title', label: 'Заголовок' },
+        { key: 'type', label: 'Тип', render: function (v) { var m = MATERIAL_TYPES.filter(function (t) { return t[0] === v; })[0]; return m ? m[1] : v; } },
+        { key: 'topic', label: 'Тема' },
+        // Аудиторию правим прямо в строке: расставить её у двух десятков материалов через
+        // «Править → Готово» на каждый — двадцать заходов в форму.
+        { key: 'audience', label: 'Кому', html: true, render: function (v, i) {
+          var have = Array.isArray(v) ? v : (v ? [v] : []);
+          return '<span class="auds">' + [['HR', 'себе'], ['Руководитель', 'руковод.'], ['Сотрудник', 'команде']].map(function (a) {
+            var on = have.indexOf(a[0]) >= 0;
+            return '<button class="aud' + (on ? ' on' : '') + '" data-aud="' + i + '" data-aud-val="' + a[0] + '" type="button">' + a[1] + '</button>';
+          }).join('') + '</span>';
+        } },
+        { key: 'featured', label: 'Рекомендуем', render: function (v) { return v ? 'Да' : 'Нет'; } },
+      ],
+    },
+    upcoming: {
+      tabLabel: 'Ближайшие вебинары',
+      loadPath: '/api/content/webinars', loadKey: 'upcoming',
+      savePath: '/api/content/webinars-upcoming/save',
+      emptyItem: function () { return { type: 'Вебинар', title: '', date: '', speaker: '', desc: '', href: '' }; },
+      fields: [
+        { key: 'title', label: 'Заголовок', kind: 'text', full: true, required: true },
+        { key: 'desc', label: 'Описание', kind: 'textarea', full: true, required: true },
+        { key: 'type', label: 'Тип', kind: 'select', options: WEBINAR_TYPES, required: true },
+        // Дата не только печатается на карточке: на следующий день после неё анонс сам
+        // уходит из блока «Ближайшие мероприятия» (фильтр в meropriyatiya-dlya-hr).
+        // Поэтому здесь календарь, а не свободный текст — по строке судить было нельзя.
+        { key: 'date', label: 'Дата проведения (после неё анонс сам уйдёт со страницы)', kind: 'date', required: true },
+        { key: 'speaker', label: 'Спикер', kind: 'text', full: true, required: true },
+        { key: 'href', label: 'Ссылка для кнопки «Подробнее →» (страница мероприятия; пусто = форма заявки на сайте)', kind: 'text', full: true },
+      ],
+      columns: [
+        { key: 'title', label: 'Заголовок' },
+        { key: 'date', label: 'Дата' },
+        { key: 'speaker', label: 'Спикер' },
+        { key: 'href', label: 'Ссылка «Подробнее»' },
+      ],
+    },
+    recordings: {
+      tabLabel: 'Записи вебинаров',
+      loadPath: '/api/content/webinars', loadKey: 'recordings',
+      savePath: '/api/content/webinars-recordings/save',
+      emptyItem: function () { return { type: 'Вебинар', topic: RECORDING_TOPICS[0], title: '', date: '', dur: '', desc: '', href: '', cover: '' }; },
+      fields: [
+        { key: 'title', label: 'Заголовок', kind: 'text', full: true, required: true },
+        { key: 'desc', label: 'Описание', kind: 'textarea', full: true, required: true },
+        { key: 'type', label: 'Тип', kind: 'select', options: WEBINAR_TYPES, required: true },
+        { key: 'topic', label: 'Тема', kind: 'select', options: RECORDING_TOPICS.map(function (t) { return [t, t]; }), required: true },
+        // Дата проведения. Записи сортируются по ней (от новых к старым), и она же
+        // печатается на карточке. Без неё карточка показывает «Дата уточняется».
+        { key: 'date', label: 'Дата проведения', kind: 'date', required: true },
+        { key: 'dur', label: 'Длительность (напр. «83 мин»)', kind: 'text' },
+        { key: 'href', label: 'Ссылка на запись (Kinescope и т.п.)', kind: 'text', full: true, required: true },
+        { key: 'cover', label: 'Обложка — URL картинки', kind: 'text', full: true, required: true },
+      ],
+      columns: [
+        { key: 'title', label: 'Заголовок' },
+        { key: 'topic', label: 'Тема' },
+        { key: 'date', label: 'Дата', render: function (v) { return v || '— нет даты —'; } },
+        { key: 'dur', label: 'Длит.' },
+      ],
+    },
+  };
+
+  var TAB_ORDER = ['materials', 'upcoming', 'recordings'];
+
+  /* state: per-collection {items, updatedAt, loaded, editing: null|{index, draft}, error, saving} */
+  var state = {};
+  TAB_ORDER.forEach(function (k) { state[k] = { items: [], updatedAt: 0, loaded: false, editing: null, error: '', saving: false }; });
+  var activeTab = TAB_ORDER[0];
+
+  function loadCollection(key, cb) {
+    var col = COLLECTIONS[key];
+    api(col.loadPath, {}, false).then(function (res) {
+      var d = res.data;
+      if (!d || !d.ok) { state[key].error = 'Не удалось загрузить.'; render(); return; }
+      state[key].items = (col.loadKey === 'materials') ? d.materials : d[col.loadKey];
+      state[key].updatedAt = (col.loadKey === 'upcoming') ? d.upcomingUpdatedAt : (col.loadKey === 'recordings') ? d.recordingsUpdatedAt : d.updatedAt;
+      state[key].loaded = true;
+      state[key].error = '';
+      render();
+      if (cb) cb();
+    }).catch(function () { state[key].error = 'Нет связи с воркером.'; render(); });
+  }
+
+  function field(f, val) {
+    var v = val == null ? '' : val;
+    var cls = 'field' + (f.full ? ' full' : '');
+    var input;
+    if (f.kind === 'textarea') {
+      input = '<textarea data-field="' + f.key + '">' + esc(v) + '</textarea>';
+    } else if (f.kind === 'select') {
+      var opts = f.options.map(function (o) { return '<option value="' + esc(o[0]) + '"' + (o[0] === v ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('');
+      input = '<select data-field="' + f.key + '">' + opts + '</select>';
+    } else if (f.kind === 'date') {
+      // Нативный календарь: значение всегда приходит как ГГГГ-ММ-ДД — ровно то,
+      // что ждут воркер и подпись на карточке. Руками формат не набивается.
+      input = '<input type="date" data-field="' + f.key + '" value="' + esc(v) + '">';
+    } else if (f.kind === 'checkgroup') {
+      // Несколько адресатов у одного материала: галочки, а не выпадашка.
+      var have = Array.isArray(val) ? val : (val ? [val] : []);
+      var boxes = f.options.map(function (o) {
+        return '<label style="display:inline-flex; align-items:center; gap:7px; margin-right:22px; cursor:pointer; font-size:14.5px;">'
+          + '<input type="checkbox" data-field-multi="' + f.key + '" value="' + esc(o[0]) + '"' + (have.indexOf(o[0]) >= 0 ? ' checked' : '') + '> ' + esc(o[1]) + '</label>';
+      }).join('');
+      return '<div class="' + cls + '"><label>' + esc(f.label) + '</label><div style="padding:6px 0 4px;">' + boxes + '</div></div>';
+    } else if (f.kind === 'checkbox') {
+      return '<div class="' + cls + '"><label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" data-field-checkbox="' + f.key + '"' + (val ? ' checked' : '') + '> ' + esc(f.label) + '</label></div>';
+    } else {
+      input = '<input type="text" data-field="' + f.key + '" value="' + esc(v) + '">';
+    }
+    return '<div class="' + cls + '"><label>' + esc(f.label) + (f.required ? ' *' : '') + '</label>' + input + '</div>';
+  }
+
+  function renderForm(key) {
+    var col = COLLECTIONS[key];
+    var s = state[key];
+    var draft = s.editing.draft;
+    var isNew = s.editing.index === -1;
+    var fields = col.fields.map(function (f) { return field(f, draft[f.key]); }).join('');
+    return '<div class="card">' +
+      '<h2>' + (isNew ? 'Новая запись' : 'Редактирование') + '</h2>' +
+      '<div class="form-grid">' + fields + '</div>' +
+      (s.formError ? '<div class="err">' + esc(s.formError) + '</div>' : '') +
+      '<div style="display:flex; gap:10px;">' +
+      '<button class="btn" id="formOk">' + (isNew ? 'Добавить' : 'Готово') + '</button>' +
+      '<button class="btn ghost" id="formCancel">Отмена</button>' +
+      '</div></div>';
+  }
+
+  function renderTable(key) {
+    var col = COLLECTIONS[key];
+    var s = state[key];
+    if (!s.loaded) return '<div class="card">Загрузка…</div>';
+    if (s.error) return '<div class="card">' + esc(s.error) + '</div>';
+    var head = col.columns.map(function (c) { return '<th>' + esc(c.label) + '</th>'; }).join('');
+    var rows = s.items.map(function (item, i) {
+      var cells = col.columns.map(function (c) {
+        var v = item[c.key];
+        // c.html — колонка сама отдаёт разметку (например выпадашку прямо в строке),
+        // тогда не экранируем. Номер строки нужен, чтобы такой контрол знал, что правит.
+        if (c.html) return '<td>' + c.render(v, i) + '</td>';
+        return '<td>' + esc(c.render ? c.render(v) : v) + '</td>';
+      }).join('');
+      return '<tr>' +
+        '<td class="reorder">' +
+        // «В начало» — новый материал добавляется в конец списка, а на витрине девять
+        // карточек на странице: без этой кнопки свежий материал пришлось бы поднимать
+        // полутора десятками нажатий ▲ и он всё равно рисковал остаться на второй странице.
+        '<button data-top="' + i + '" ' + (i === 0 ? 'disabled' : '') + ' title="В начало списка">⇈</button>' +
+        '<button data-up="' + i + '" ' + (i === 0 ? 'disabled' : '') + '>▲</button>' +
+        '<button data-down="' + i + '" ' + (i === s.items.length - 1 ? 'disabled' : '') + '>▼</button>' +
+        '</td>' +
+        cells +
+        '<td><button class="link small" data-edit="' + i + '">Править</button></td>' +
+        '<td><button class="link small danger" data-del="' + i + '">Удалить</button></td>' +
+        '</tr>';
+    }).join('');
+    return '<div class="card">' +
+      '<div class="toolbar"><h2 style="margin:0;">' + esc(col.tabLabel) + ' (' + s.items.length + ')</h2>' +
+      '<div style="display:flex; gap:10px;">' +
+      '<button class="btn ghost" id="addItem">+ Добавить</button>' +
+      '<button class="btn" id="saveItems" ' + (s.saving ? 'disabled' : '') + '>' + (s.saving ? 'Сохраняю…' : 'Сохранить') + '</button>' +
+      '</div></div>' +
+      (s.saveError ? '<div class="err">' + esc(s.saveError) + '</div>' : '') +
+      (s.saveOk ? '<p class="pill" style="margin-bottom:12px;">Сохранено ✓</p>' : '') +
+      (s.items.length ? '<div style="overflow-x:auto;"><table><thead><tr><th></th>' + head + '<th></th><th></th></tr></thead><tbody>' + rows + '</tbody></table></div>' : '<p class="muted">Пока пусто.</p>') +
+      '</div>';
+  }
+
+  function renderTab(key) {
+    var s = state[key];
+    if (s.editing) return renderForm(key);
+    return renderTable(key);
+  }
+
+  function renderTabs() {
+    return '<div class="tabs">' + TAB_ORDER.map(function (k) {
+      return '<button class="tab' + (k === activeTab ? ' active' : '') + '" data-tab="' + k + '">' + esc(COLLECTIONS[k].tabLabel) + '</button>';
+    }).join('') + '</div>';
+  }
+
+  function render() {
+    view.innerHTML = renderTabs() + renderTab(activeTab);
+    wireTab(activeTab);
+    Array.prototype.forEach.call(view.querySelectorAll('.tab'), function (b) {
+      b.addEventListener('click', function () {
+        activeTab = b.getAttribute('data-tab');
+        if (!state[activeTab].loaded) loadCollection(activeTab); else render();
+      });
+    });
+  }
+
+  function readDraftFromForm() {
+    var draft = {};
+    Array.prototype.forEach.call(view.querySelectorAll('[data-field]'), function (el) {
+      draft[el.getAttribute('data-field')] = el.value;
+    });
+    Array.prototype.forEach.call(view.querySelectorAll('[data-field-checkbox]'), function (el) {
+      draft[el.getAttribute('data-field-checkbox')] = el.checked;
+    });
+    Array.prototype.forEach.call(view.querySelectorAll('[data-field-multi]'), function (el) {
+      var k = el.getAttribute('data-field-multi');
+      if (!Array.isArray(draft[k])) draft[k] = [];
+      if (el.checked) draft[k].push(el.value);
+    });
+    return draft;
+  }
+
+  function wireTab(key) {
+    var col = COLLECTIONS[key];
+    var s = state[key];
+
+    if (s.editing) {
+      var ok = document.getElementById('formOk');
+      var cancel = document.getElementById('formCancel');
+      if (ok) ok.addEventListener('click', function () {
+        var draft = readDraftFromForm();
+        var missing = col.fields.filter(function (f) { return f.required && f.kind !== 'checkgroup' && !String(draft[f.key] || '').trim(); });
+        if (missing.length) { s.formError = 'Заполните: ' + missing.map(function (f) { return f.label; }).join(', '); render(); return; }
+        var customErr = col.validate ? col.validate(draft) : '';
+        if (customErr) { s.formError = customErr; render(); return; }
+        s.formError = '';
+        if (s.editing.index === -1) s.items.push(draft);
+        else s.items[s.editing.index] = Object.assign({}, s.items[s.editing.index], draft);
+        s.editing = null;
+        s.saveOk = false;
+        render();
+      });
+      if (cancel) cancel.addEventListener('click', function () { s.editing = null; s.formError = ''; render(); });
+      return;
+    }
+
+    var add = document.getElementById('addItem');
+    if (add) add.addEventListener('click', function () { s.editing = { index: -1, draft: col.emptyItem() }; render(); });
+
+    Array.prototype.forEach.call(view.querySelectorAll('[data-edit]'), function (b) {
+      b.addEventListener('click', function () {
+        var i = Number(b.getAttribute('data-edit'));
+        s.editing = { index: i, draft: Object.assign({}, s.items[i]) };
+        render();
+      });
+    });
+    Array.prototype.forEach.call(view.querySelectorAll('[data-del]'), function (b) {
+      b.addEventListener('click', function () {
+        var i = Number(b.getAttribute('data-del'));
+        if (!confirm('Удалить «' + (s.items[i].title || '') + '»?')) return;
+        s.items.splice(i, 1);
+        s.saveOk = false;
+        render();
+      });
+    });
+    Array.prototype.forEach.call(view.querySelectorAll('[data-aud]'), function (btn) {
+      btn.addEventListener('click', function () {
+        var item = s.items[Number(btn.getAttribute('data-aud'))];
+        var val = btn.getAttribute('data-aud-val');
+        var have = Array.isArray(item.audience) ? item.audience.slice() : (item.audience ? [item.audience] : []);
+        var at = have.indexOf(val);
+        if (at >= 0) have.splice(at, 1); else have.push(val);
+        item.audience = have;
+        btn.classList.toggle('on');   // без ре-рендера: он бы увёл фокус из таблицы
+        s.saveOk = false;
+      });
+    });
+    Array.prototype.forEach.call(view.querySelectorAll('[data-top]'), function (b) {
+      b.addEventListener('click', function () {
+        var i = Number(b.getAttribute('data-top'));
+        if (i <= 0) return;
+        s.items.unshift(s.items.splice(i, 1)[0]);
+        s.saveOk = false;
+        render();
+      });
+    });
+    Array.prototype.forEach.call(view.querySelectorAll('[data-up]'), function (b) {
+      b.addEventListener('click', function () {
+        var i = Number(b.getAttribute('data-up'));
+        if (i <= 0) return;
+        var tmp = s.items[i - 1]; s.items[i - 1] = s.items[i]; s.items[i] = tmp;
+        s.saveOk = false;
+        render();
+      });
+    });
+    Array.prototype.forEach.call(view.querySelectorAll('[data-down]'), function (b) {
+      b.addEventListener('click', function () {
+        var i = Number(b.getAttribute('data-down'));
+        if (i >= s.items.length - 1) return;
+        var tmp = s.items[i + 1]; s.items[i + 1] = s.items[i]; s.items[i] = tmp;
+        s.saveOk = false;
+        render();
+      });
+    });
+
+    var save = document.getElementById('saveItems');
+    if (save) save.addEventListener('click', function () {
+      s.saving = true; s.saveError = ''; s.saveOk = false; render();
+      api(col.savePath, { items: s.items, expectedUpdatedAt: s.updatedAt }, true).then(function (res) {
+        s.saving = false;
+        if (res.status === 401) { setToken(''); showLogin('Сессия истекла — войдите снова.'); return; }
+        if (res.status === 409) {
+          s.saveError = 'Кто-то другой сохранил изменения раньше вас. Список обновлён — примените правки заново.';
+          s.items = res.data.current || s.items;
+          s.updatedAt = res.data.updatedAt || s.updatedAt;
+          render();
+          return;
+        }
+        if (!res.data || !res.data.ok) { s.saveError = 'Не удалось сохранить (' + ((res.data && res.data.error) || res.status) + ').'; render(); return; }
+        s.updatedAt = res.data.updatedAt;
+        s.saveOk = true;
+        render();
+      }).catch(function () { s.saving = false; s.saveError = 'Нет связи с воркером.'; render(); });
+    });
+  }
+
+  /* ---------- Логин ---------- */
+  function showLogin(msg) {
+    who.innerHTML = '';
+    view.innerHTML = '<div class="login-wrap"><div class="card">' +
+      '<h2>Вход</h2>' +
+      (msg ? '<p class="err">' + esc(msg) + '</p>' : '') +
+      '<div class="field"><label>Пароль</label><input type="password" id="pwd"></div>' +
+      '<button class="btn" id="loginBtn" style="width:100%;">Войти</button>' +
+      '</div></div>';
+    var btn = document.getElementById('loginBtn');
+    var pwd = document.getElementById('pwd');
+    function submit() {
+      var val = pwd.value;
+      btn.disabled = true; btn.textContent = 'Проверяю…';
+      api('/api/content/login', { password: val }, false).then(function (res) {
+        btn.disabled = false; btn.textContent = 'Войти';
+        if (res.data && res.data.ok) { setToken(res.data.token); startApp(); }
+        else if (res.data && res.data.error === 'too_many_attempts') showLogin('Слишком много попыток. Вход закрыт на 15 минут.');
+        else showLogin('Неверный пароль.');
+      }).catch(function () { btn.disabled = false; btn.textContent = 'Войти'; showLogin('Нет связи с воркером.'); });
+    }
+    btn.addEventListener('click', submit);
+    pwd.addEventListener('keydown', function (e) { if (e.key === 'Enter') submit(); });
+    pwd.focus();
+  }
+
+  function startApp() {
+    who.innerHTML = '<button class="link small" id="logoutBtn">Выйти</button>';
+    document.getElementById('logoutBtn').addEventListener('click', function () {
+      api('/api/content/logout', {}, true).catch(function () {});
+      setToken('');
+      showLogin();
+    });
+    view.innerHTML = '<div class="card">Загрузка…</div>';
+    loadCollection(activeTab);
+  }
+
+  if (getToken()) startApp(); else showLogin();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js?v=ea7a6ce0" defer></script>
+</head>
+<body>
+<x-dc>
+
+<template id="__bundler_thumbnail" data-bg-color="#FBFCFB">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#FBFCFB"/>
+    <circle cx="600" cy="360" r="120" fill="#8A6FE0" opacity="0.15"/>
+    <text x="600" y="380" font-family="Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#282C3E" text-anchor="middle">Alter &amp; hh.ru</text>
+  </svg>
+</template>
+<helmet>
+<style>
+@font-face { font-family:'Futura PT'; src:url('uploads/FuturaPTBook.otf') format('opentype'); font-weight:400; font-style:normal; font-display:swap; }
+@font-face { font-family:'Futura PT'; src:url('uploads/FuturaPTBold.otf') format('opentype'); font-weight:700; font-style:normal; font-display:swap; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Futura PT', sans-serif; color:#282C3E; background:#FBFCFB; -webkit-font-smoothing:antialiased; }
+a { color:#239266; }
+a:hover { color:#146F4C; }
+</style>
+</helmet>
+
+<header style="position:sticky; top:0; z-index:60; background:rgba(251,252,251,0.85); backdrop-filter:blur(14px); border-bottom:1px solid rgba(40,44,62,0.07);">
+  <nav style="max-width:900px; margin:0 auto; padding:16px 40px; display:flex; align-items:center; justify-content:space-between; gap:20px;">
+    <a href="./" style="display:flex; align-items:center; gap:12px; text-decoration:none; position:relative; top:-3.5px;"><img src="assets/logo.svg" alt="Alter" style="height:28px; width:auto; display:block;" width="493" height="161"><span style="width:1px; height:17px; background:rgba(40,44,62,0.18); display:block; margin-top:5px;"></span><span style="font-size:14px; color:#6A7088; letter-spacing:0.2px; margin-top:5px; line-height:1;">для бизнеса</span></a>
+    <a href="materialy-dlya-hr" style="font-size:14px; color:#6A7088; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">← Все материалы</a>
+  </nav>
+</header>
+
+<dc-import name="LeadMagnetBody" tag="Исследование" tag-bg="#F1ECFA" tag-ink="#5A46A8" title="Alter &amp; hh.ru: ментальное здоровье сотрудников 2025" description="Совместное исследование Alter и hh.ru о психологическом состоянии сотрудников российских компаний — на основе данных 1200+ специалистов." form-title="Получить исследование" cta-label="Получить исследование" points="{{ points }}" hint-size="100%,900px"></dc-import>
+
+<footer style="background:#282C3E; color:#fff; margin-top:90px; padding:40px 40px 32px; text-align:center;">
+  <a href="./" style="display:inline-flex; align-items:center; gap:10px; text-decoration:none; position:relative; top:-3px;"><img src="assets/logo.svg" alt="Alter" style="height:22px; width:auto; display:block;" width="493" height="161"></a>
+  <p style="font-size:13.5px; color:#717892; margin-top:14px;">© 2026 Alter. Все права защищены.</p>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      points: [
+        "63% сотрудников сталкивались с выгоранием за последний год",
+        "Компании с программами поддержки теряют на 24% меньше сотрудников",
+        "HR и руководители — в топ-3 групп с самым высоким уровнем тревожности"
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

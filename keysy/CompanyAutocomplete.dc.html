@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="position:relative; width:100%;">
+  <input type="text" name="{{ fieldName }}" required="required" value="{{ query }}" onInput="{{ onInput }}" onFocus="{{ onFocus }}" onBlur="{{ onBlur }}" placeholder="{{ placeholder }}" autoComplete="off" style="{{ inputStyle }}" style-focus="border-color:#29B981; box-shadow:0 0 0 4px rgba(41,185,129,0.13);" />
+  <input type="hidden" data-role="company-inn" value="{{ pickedInn }}" />
+  <input type="hidden" data-role="company-address" value="{{ pickedAddress }}" />
+  <input type="hidden" data-role="company-okved" value="{{ pickedOkved }}" />
+  <input type="hidden" data-role="company-region" value="{{ pickedRegion }}" />
+  <sc-if value="{{ open }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; top:calc(100% + 6px); left:0; right:0; z-index:50; background:#fff; border:1px solid #E4E8E2; border-radius:14px; box-shadow:0 18px 44px rgba(40,44,62,0.16); max-height:260px; overflow-y:auto; padding:6px;">
+      <sc-for list="{{ results }}" as="c" hint-placeholder-count="3">
+        <button type="button" onMouseDown="{{ c.onPick }}" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; padding:12px 14px; border-radius:10px; transition:background .14s;" style-hover="background:#F1F7F3;">
+          <div style="font-family:'Futura PT'; font-weight:700; font-size:15px; color:#282C3E;">{{ c.name }}</div>
+          <div style="font-size:12.5px; color:#8A90A6; margin-top:3px; display:flex; gap:14px; flex-wrap:wrap;">
+            <span>ИНН: {{ c.inn }}</span>
+            <sc-if value="{{ c.hasOgrn }}" hint-placeholder-val="{{ true }}"><span>ОГРН: {{ c.ogrn }}</span></sc-if>
+            <sc-if value="{{ c.hasKpp }}" hint-placeholder-val="{{ true }}"><span>КПП: {{ c.kpp }}</span></sc-if>
+            <sc-if value="{{ c.inactive }}" hint-placeholder-val="{{ false }}"><span style="color:#C2410C;">{{ c.statusLabel }}</span></sc-if>
+          </div>
+          <sc-if value="{{ c.hasAddress }}" hint-placeholder-val="{{ true }}">
+            <div style="font-size:12.5px; color:#8A90A6; margin-top:2px;">{{ c.address }}</div>
+          </sc-if>
+        </button>
+      </sc-for>
+      <sc-if value="{{ loading }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:14px; font-size:14px; color:#8A90A6;">Ищем компанию…</div>
+      </sc-if>
+      <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:14px; font-size:14px; color:#8A90A6;">Ничего не найдено — введите название вручную</div>
+      </sc-if>
+      <sc-if value="{{ failed }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:14px; font-size:14px; color:#8A90A6;">Подсказки сейчас недоступны — введите название вручную</div>
+      </sc-if>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:480,&quot;height&quot;:300},&quot;compact&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;placeholder&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Название компании или ИНН&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;name&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;company&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+/*
+  Поле «Название компании или ИНН» — подсказки из ЕГРЮЛ через DaData.
+  Ищет по названию, ИНН, ОГРН и КПП (в т.ч. по неполному номеру).
+
+  Запрос идёт не в DaData напрямую, а в свой воркер (/api/dadata/party): ключ лежит
+  секретом воркера и в браузер не попадает. Адрес переопределяется снаружи через
+  window.ALTER_CRM_ENDPOINT до загрузки страницы.
+
+  Если воркер не отвечает или ключ у него не задан — поле работает как обычный
+  текстовый ввод: подсказок нет, но заполнить и отправить форму можно.
+*/
+const DADATA_URL = (typeof window !== "undefined" && window.ALTER_CRM_ENDPOINT
+  ? window.ALTER_CRM_ENDPOINT
+  : "https://alter.ru/crm-api/").replace(/\/+$/, "") + "/api/dadata/party";
+const MIN_QUERY = 2;
+const DEBOUNCE_MS = 250;
+const COUNT = 6;
+
+const STATUS_LABELS = {
+  LIQUIDATING: "ликвидируется",
+  LIQUIDATED: "ликвидирована",
+  BANKRUPT: "банкротство",
+  REORGANIZING: "реорганизация",
+};
+
+class Component extends DCLogic {
+  // phase: idle | loading | ok | empty | error
+  // pickedInn/pickedAddress/pickedOkved/pickedRegion: данные выбранной из подсказок компании
+  // (ИНН — для дедупа компаний в amoCRM, адрес, код ОКВЭД и регион — в карточку компании;
+  // сферу деятельности из кода ОКВЭД выводит воркер, здесь только сырой код). Сбрасываются,
+  // если пользователь правит текст руками после выбора — иначе к сделке мог бы прицепиться
+  // чужой реквизит.
+  state = { query: "", open: false, items: [], phase: "idle", pickedInn: "", pickedAddress: "", pickedOkved: "", pickedRegion: "" };
+
+  componentWillUnmount() {
+    clearTimeout(this._timer);
+    if (this._abort) this._abort.abort();
+  }
+
+  search(q) {
+    clearTimeout(this._timer);
+    if (this._abort) this._abort.abort();
+
+    const query = q.trim();
+    if (query.length < MIN_QUERY) {
+      this.setState({ items: [], phase: "idle" });
+      return;
+    }
+
+    this.setState({ phase: "loading" });
+    this._timer = setTimeout(() => {
+      const ctrl = new AbortController();
+      this._abort = ctrl;
+      fetch(DADATA_URL, {
+        method: "POST",
+        mode: "cors",
+        signal: ctrl.signal,
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({ query: query, count: COUNT }),
+      })
+        .then((r) => (r.ok ? r.json() : Promise.reject(new Error("HTTP " + r.status))))
+        .then((data) => {
+          if (ctrl.signal.aborted) return;
+          const items = (data.suggestions || []).map((s) => this.toItem(s));
+          this.setState({ items: items, phase: items.length ? "ok" : "empty" });
+        })
+        .catch((e) => {
+          if (e && e.name === "AbortError") return;
+          this.setState({ items: [], phase: "error" });
+        });
+    }, DEBOUNCE_MS);
+  }
+
+  toItem(s) {
+    const d = s.data || {};
+    const status = (d.state && d.state.status) || "ACTIVE";
+    const address = (d.address && d.address.value) || "";
+    // Регион берём из разобранного адреса, а не парсим строку: region_with_type даёт
+    // «г Москва» / «Московская обл» единообразно для всех форм записи адреса.
+    const region = (d.address && d.address.data && d.address.data.region_with_type) || "";
+    return {
+      name: s.value,
+      inn: d.inn || "",
+      ogrn: d.ogrn || "",
+      kpp: d.kpp || "",
+      address: address,
+      okved: d.okved || "",
+      region: region,
+      hasOgrn: !!d.ogrn,
+      hasKpp: !!d.kpp,           // у ИП КПП нет — пустую подпись не показываем
+      hasAddress: !!address,
+      inactive: status !== "ACTIVE",
+      statusLabel: STATUS_LABELS[status] || "",
+    };
+  }
+
+  renderVals() {
+    const q = this.state.query;
+    const phase = this.state.phase;
+    const compact = this.props.compact ?? false;
+    const pad = compact ? "11px 14px" : "17px 20px";
+    const fs = compact ? "14px" : "16px";
+    const radius = compact ? "11px" : "14px";
+    const active = this.state.open && q.trim().length >= MIN_QUERY;
+    return {
+      query: q,
+      open: active && phase !== "idle",
+      loading: active && phase === "loading",
+      noResults: active && phase === "empty",
+      failed: active && phase === "error",
+      results: phase === "ok" ? this.state.items.map((c) => ({
+        ...c,
+        onPick: () => {
+          clearTimeout(this._timer);
+          if (this._abort) this._abort.abort();
+          this.setState({ query: c.name, open: false, items: [], phase: "idle", pickedInn: c.inn || "", pickedAddress: c.address || "", pickedOkved: c.okved || "", pickedRegion: c.region || "" });
+        },
+      })) : [],
+      placeholder: this.props.placeholder ?? "Название компании или ИНН",
+      fieldName: this.props.name ?? "company",
+      pickedInn: this.state.pickedInn,
+      pickedAddress: this.state.pickedAddress,
+      pickedOkved: this.state.pickedOkved,
+      pickedRegion: this.state.pickedRegion,
+      inputStyle: `font-family:'Futura PT'; font-size:${fs}; padding:${pad}; width:100%; border:1px solid #DCE5DF; border-radius:${radius}; outline:none; color:#282C3E; background:#fff; transition:border-color .18s, box-shadow .18s;`,
+      onInput: (e) => {
+        const v = e.target.value;
+        this.setState({ query: v, open: true, pickedInn: "", pickedAddress: "", pickedOkved: "", pickedRegion: "" });
+        this.search(v);
+      },
+      onFocus: () => {
+        if (this.state.query.trim().length >= MIN_QUERY) this.setState({ open: true });
+      },
+      onBlur: () => setTimeout(() => this.setState({ open: false }), 120),
+    };
+  }
+}
+</script>
+</body>
+</html>
