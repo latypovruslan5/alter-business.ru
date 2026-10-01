@@ -163,6 +163,25 @@
   // рекламной ссылке и открыл форму уже на другой странице, куда UTM не докатились.
   captureUtm();
 
+  // Адрес страницы заявки собираем не из голого location.href, а с оглядкой на строку
+  // запроса, снятую при загрузке. У части посетителей метки вырезает блокировщик в самом
+  // браузере (ClearURLs, AdGuard, встроенная защита от слежки): он переписывает адресную
+  // строку уже после загрузки и пересобирает её как «путь + ? + остаток», поэтому когда
+  // вырезано всё, остаётся висячий вопросительный знак. Метки в сделке при этом целы —
+  // captureUtm() снял их выше, — а вот в поле «Страница заявки» и в карточку Пачки
+  // приезжало `https://latypovruslan5.github.io/alter-business.ru/?`, и менеджер не видел, откуда человек пришёл
+  // (разобрано 17.09.2026 на трёх заявках кампании budget2027_202609, всего таких случаев
+  // 4 из 1609 заявок с 01.06). Подменяем только когда к отправке строка запроса пуста:
+  // если посетитель сам ушёл на другой адрес сайта, его текущая строка главнее.
+  var SEARCH_AT_LOAD = location.search;
+
+  function pageUrl() {
+    var search = location.search;
+    if (!search || search === '?') search = SEARCH_AT_LOAD;
+    if (search === '?') search = '';  // чистить было нечего — не тащим висячий знак в карточку
+    return location.origin + location.pathname + search + location.hash;
+  }
+
   // --- ClientID Яндекс.Метрики. Без него сделку в amoCRM и визит в Метрике сопоставить
   // нечем: спор «Метрика видит одно число заявок, CRM другое» физически неразрешим, а
   // офлайн-конверсия (вернуть в Метрику и Директ факт победы, чтобы реклама оптимизировалась
@@ -262,7 +281,106 @@
   // каталогах тренингов — ещё и текстовое поле «комментарий»). Индексный парсинг эти различия
   // не учитывал и был готов молча перепутать поля местами. Классификация по типу/placeholder/
   // тексту опций работает одинаково независимо от порядка полей на странице.
+  /* ---------- Заслон от автозаполнения форм (24.09.2026) ----------
+
+     Форма «Индивидуальное предложение» собирала поддельные заявки пачками (17.09 — три за
+     53 секунды, 24.09 — две за 9 секунд). Отсюда уходят три признака, решение по ним
+     принимает воркер:
+
+     - `hp` — скрытое поле-ловушка. Человек его не видит и заполнить не может, автомат
+       обычно заполняет все поля подряд. Вставляем его в формы отсюда, а не в разметку
+       страниц: страниц шестьдесят, и половина собирается dc-рантаймом заново.
+     - `pageMs` — сколько прошло от загрузки страницы до отправки, `fillMs` — от первого
+       прикосновения к форме. Клик по самой кнопке началом заполнения не считаем: у
+       вернувшегося посетителя форма уже подставлена, и он жмёт кнопку сразу.
+     - `acted` — было ли на странице хоть одно настоящее нажатие или набор с клавиатуры.
+
+     Время считается в момент отправки формы, а не отправки запроса: заявка со страницей
+     «спасибо» лежит в sessionStorage и уходит уже оттуда, через секунду после перехода. */
+
+  var PAGE_T0 = Date.now();
+  var userActed = 0;
+  var HP_MARK = 'hp';
+
+  function honeypotInput() {
+    var el = document.createElement('input');
+    el.type = 'text';
+    el.name = 'subject';
+    el.value = '';
+    el.setAttribute('data-role', HP_MARK);
+    el.setAttribute('autocomplete', 'off');
+    el.setAttribute('tabindex', '-1');
+    el.setAttribute('aria-hidden', 'true');
+    // Не display:none — скрытые таким образом поля часть автоматов пропускает. И не
+    // обычный элемент потока: формы на сайте это grid, лишний элемент занял бы ячейку.
+    el.style.cssText = 'position:absolute;width:1px;height:1px;padding:0;margin:-1px;'
+      + 'border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);opacity:0;pointer-events:none';
+    return el;
+  }
+
+  function ensureHoneypots() {
+    var forms = document.querySelectorAll('form');
+    for (var i = 0; i < forms.length; i++) {
+      if (!forms[i].querySelector('[data-role="' + HP_MARK + '"]')) {
+        forms[i].appendChild(honeypotInput());
+      }
+    }
+  }
+
+  /* dc-рантайм перерисовывает страницу при первом действии посетителя и сносит вставленное.
+     Поэтому не одна вставка на загрузке, а наблюдение за деревом. Повторный проход ничего
+     не добавляет (поле уже на месте), так что наблюдатель сам себя не разгоняет. */
+  function watchForms() {
+    ensureHoneypots();
+    if (!window.MutationObserver) return;
+    var pending = 0;
+    new MutationObserver(function () {
+      if (pending) return;
+      pending = setTimeout(function () { pending = 0; ensureHoneypots(); }, 300);
+    }).observe(document.documentElement, { childList: true, subtree: true });
+  }
+
+  function isSubmitControl(el) {
+    var tag = (el.tagName || '').toLowerCase();
+    if (tag === 'button') return true;
+    return tag === 'input' && /^(submit|button|image)$/i.test(el.type || '');
+  }
+
+  function onFirstTouch(e) {
+    if (!e.isTrusted) return;        // синтетическое событие живым действием не считаем
+    userActed = 1;
+    var el = e.target;
+    if (!el || !el.closest) return;
+    var form = el.closest('form');
+    if (!form || form.getAttribute('data-alter-t0') || isSubmitControl(el)) return;
+    form.setAttribute('data-alter-t0', String(Date.now()));
+  }
+
+  try {
+    document.addEventListener('pointerdown', onFirstTouch, true);
+    document.addEventListener('keydown', onFirstTouch, true);
+    document.addEventListener('focusin', onFirstTouch, true);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', watchForms);
+    } else {
+      watchForms();
+    }
+  } catch (e) { /* без заслона форма всё равно должна работать */ }
+
+  function spamFields(formEl) {
+    var hpEl = formEl.querySelector('[data-role="' + HP_MARK + '"]');
+    var t0 = parseInt(formEl.getAttribute('data-alter-t0'), 10);
+    return {
+      hp: hpEl ? val(hpEl) : '',
+      fillMs: t0 ? (Date.now() - t0) : -1,
+      pageMs: Date.now() - PAGE_T0,
+      acted: userActed
+    };
+  }
+
   function classifyField(el) {
+    // Поле-ловушка из заслона выше: обычный text-инпут, а такой ниже уезжает в «Имя».
+    if (el.getAttribute('data-role') === HP_MARK) return null;
     var tag = el.tagName.toLowerCase();
     if (tag === 'textarea') return 'comment';
     if (tag === 'input') {
@@ -282,6 +400,10 @@
       if (/пилотной группы/i.test(optText)) return 'pilotSize';
       if (/интересующий тариф/i.test(optText)) return 'priceTariff';
       if (/размер компании/i.test(optText)) return 'companySize';
+      // Должность. Раньше этот селект не читался вообще: в amoCRM под него нет поля.
+      // Понадобился для регистраций на вебинар — там база живёт в таблице, и
+      // должность в ней отдельной колонкой (как в прежних выгрузках регистраций).
+      if (/должность/i.test(optText)) return 'position';
       if (/связаться/i.test(optText)) return 'contactMethod';
       if (/«?да»?\s*или\s*«?нет»?/i.test(optText)) return 'wantsDiagnostic'; // «Хотите бесплатную диагностику команды?» да/нет-вопрос на лид-магнитных страницах
       return null;
@@ -290,7 +412,7 @@
   }
 
   function readForm(formEl, formType) {
-    var out = { formType: formType, page: location.href };
+    var out = { formType: formType, page: pageUrl() };
     var elements = formEl.querySelectorAll('input, select, textarea');
     Array.prototype.forEach.call(elements, function (el) {
       var key = classifyField(el);
@@ -324,6 +446,11 @@
     var tracking = window.alterTracking();
     for (var t in tracking) {
       if (Object.prototype.hasOwnProperty.call(tracking, t)) out[t] = tracking[t];
+    }
+
+    var spam = spamFields(formEl);
+    for (var sp in spam) {
+      if (Object.prototype.hasOwnProperty.call(spam, sp)) out[sp] = spam[sp];
     }
     return out;
   }
@@ -621,6 +748,11 @@
     prefillStart();
   }
 
+  var MATERIAL_GOALS = {
+    'psihologicheskaya-aptechka': 'b2b_lead_material_aptechka',
+    'komanda-v-krizise': 'b2b_lead_material_krizis'
+  };
+
   // Цели Метрики 1:1 с воронками amoCRM (LEAD_PIPELINE_MAP в worker.js), с префиксом b2b_ —
   // счётчик общий с B2C-отделом. 'roi' сюда намеренно не входит: это фоновая тихая заявка
   // калькулятора, для неё своя микро-цель b2b_roi_calculated в roi.html, не лид-цель.
@@ -708,6 +840,21 @@
         window.alterGoal('b2b_lead_' + payload.formType);
         if (payload.packageName) window.alterGoal('b2b_lead_package');
         if (CORE_PRODUCT_TYPES[payload.formType]) window.alterGoal('b2b_lead_sum');
+        // Отдельная цель на конкретный материал — ПОВЕРХ общей b2b_lead_material, а не
+        // вместо неё: так материал виден в отчётах сам по себе, а сравнение материалов
+        // между собой и общий поток заявок не ломаются.
+        //
+        // Та же карта живёт в spasibo.html, и это не дубль. Заявки на материал обычно
+        // уходят туда редиректом (THANKYOU_TYPES ниже), и цели шлёт «спасибо». Сюда
+        // управление попадает только запасным путём: приватный режим браузера, где
+        // sessionStorage недоступен и заявка отправляется отсюда, с ожиданием ответа.
+        // Цель уходит один раз, в том месте, которое реально отправило заявку.
+        // Держать обе карты в согласии.
+        //
+        // Цель Метрики — это конкретный идентификатор события, а не префикс, поэтому
+        // каждый новый материал добавляется сюда и в setup-metrika-goals.py руками.
+        var mg = MATERIAL_GOALS[payload.materialSlug];
+        if (mg) window.alterGoal(mg);
       }
       return data;
     }).catch(function (err) {
@@ -716,6 +863,53 @@
       throw err;
     });
   }
+
+  /* ---------- регистрация мимо amoCRM: строка в Google-таблицу ----------
+
+     Совместные вебинары с партнёром: базу участников ведём в таблице и делим с
+     партнёром после эфира, сделок в CRM по ним не заводим. Поля читаются тем же
+     readForm и той же alterTracking, что и заявки, — чтобы метки и данные компании
+     из ЕГРЮЛ собирались один раз и одинаково. Запись делает воркер
+     (/api/sheet-lead), ключ сервисного аккаунта Google в браузер не попадает.
+
+     Ответ ждём: строка в таблице пишется за десятые доли секунды (в отличие от
+     сделки в amoCRM, которая идёт 2–22 с), и держать человека на странице ради
+     этого не жалко — зато он видит настоящую ошибку, если запись не прошла. */
+  var SHEET_ENDPOINT = ENDPOINT.replace(/\/+$/, '') + '/api/sheet-lead';
+
+  window.alterSubmitSheet = function (formEl, extra) {
+    var payload;
+    try {
+      payload = readForm(formEl, 'training');
+      if (extra) {
+        for (var k in extra) { if (Object.prototype.hasOwnProperty.call(extra, k)) payload[k] = extra[k]; }
+      }
+    } catch (err) {
+      if (window.alterGoal) window.alterGoal('b2b_lead_error', { formType: 'vebinar' });
+      return Promise.reject(err);
+    }
+    var sendingBtn = startSending(formEl);
+    prefillSave(payload, formEl);
+
+    return fetch(SHEET_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      if (!res.ok) throw new Error('Sheet submit failed: HTTP ' + res.status);
+      return res.json().catch(function () { return { ok: true }; });
+    }).then(function (data) {
+      if (data && data.ok === false) throw new Error(data.error || 'Sheet submit failed');
+      // Отдельная цель, не общая b2b_lead_training: эти регистрации до amoCRM не
+      // доезжают, и подмешивать их к заявкам на тренинги значит разойтись с CRM.
+      if (window.alterGoal) window.alterGoal('b2b_lead_vebinar', { vebinar: payload.formId || '' });
+      return data;
+    }).catch(function (err) {
+      if (window.alterGoal) window.alterGoal('b2b_lead_error', { formType: 'vebinar' });
+      stopSending(sendingBtn);
+      throw err;
+    });
+  };
 
   window.alterSubmitLead = function (formEl, formType, extra) {
     var payload;

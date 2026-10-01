@@ -164,7 +164,10 @@
   /* Подсказка под полем: не блокирует отправку, живёт своей жизнью рядом с
      красной рамкой ошибки. */
   function personalHint(el) {
-    var show = !emailError(el.value) && !!PERSONAL_MAIL[emailDomain(el.value)];
+    /* data-no-work-hint на поле: личная почта тут нормальна (психологи на psy-referral
+       дают свою, рабочей «на домене компании» у них нет), подсказку не показываем. */
+    var show = !el.hasAttribute('data-no-work-hint')
+      && !emailError(el.value) && !!PERSONAL_MAIL[emailDomain(el.value)];
     /* Ищем свою подсказку по всему контейнеру, а не в соседях справа: между
        почтой и подсказкой теперь могут стоять остальные поля ряда. */
     var hint = el.parentNode ? el.parentNode.querySelector(':scope > [data-role="email-hint"]') : null;

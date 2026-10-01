@@ -403,4 +403,146 @@
     try { sessionStorage.setItem(KEY, JSON.stringify(seen)); } catch (e) { /* приватный режим — не критично */ }
     if (seen.length === 3) window.alterGoal('b2b_training_multi_view');
   })();
+  /* --- Онлайн-чат amoCRM (виджет crm_plugin, кнопка 450283) ---------------------------
+     Подключён 15.09.2026. Код кнопки взят из amoCRM как есть (id + hash + locale + inline),
+     здесь он только обёрнут в отложенный запуск и обвешан целями.
+
+     Почему отсюда, а не тегом на страницах: analytics.js уже стоит на всех 85 страницах
+     раздела, и его подключение восстанавливает install-metrika.py после каждого зип-экспорта
+     дизайн-инструмента (тот стирает точечные патчи в HTML, см. CLAUDE.md). Тег, вставленный
+     в страницы отдельно, пришлось бы восстанавливать вторым скриптом.
+
+     Почему через __alterDefer: gso.amocrm.ru тянет ~130 КБ скрипта и два iframe. В <head>
+     без отсрочки это уехало бы в замер PageSpeed (по нему принимаются решения о скорости,
+     см. PROJECT.md). Очередь __alterDefer флешится по простою браузера (requestIdleCallback,
+     страховка таймером), то есть чат появляется через 1-2 секунды после загрузки и на LCP
+     не влияет. Запасной путь — для семи страниц, где загрузчика отсрочки нет.
+
+     ЧТО ВИДНО ИЗ СТРАНИЦЫ, А ЧТО НЕТ (разобрано по исходнику button.js 15.09.2026):
+     наружу виджет отдаёт onChatReady, onChatShow, onChatHide, onButtonClick,
+     onChatRenderDone и onConversationsChange. Событие «посетитель отправил сообщение»
+     родительской странице НЕ приходит вовсе: переписка живёт в iframe с чужим доменом,
+     а шина между iframe и страницей сообщений о письмах не содержит. onChatMessage в коде
+     виджета можно подписать, но он никогда не вызывается, а onConversationsChange приходит
+     с `false`, пока в аккаунте выключены мультидиалоги. Поэтому целей на «написал в чат»
+     и «оператор ответил» здесь нет и быть не может — факт диалога и сделку из чата брать
+     из amoCRM, а не из Метрики. Всё, что честно видно снаружи: открыл чат, сколько держал
+     открытым, ушёл ли в мессенджер. */
+  // ВЫКЛЮЧАТЕЛЬ. false — виджет не грузится вообще, ни на одной странице; цели при этом
+  // остаются заведёнными в Метрике и просто не срабатывают.
+  // 15.09.2026 выключен (бот в amoCRM не доработан), 16.09.2026 включён обратно: владелец
+  // проверяет спрос — будут ли вообще писать, приветствие сознательно не настраивается.
+  var CHAT_ON = true;
+  var CHAT_ID = '450283';
+  var CHAT_HASH = '779a104561fe31272a06dee93f1a13a089e20ad08897c437546fe0fe52eb7d7a';
+  // Режим кнопки. amoCRM отдаёт два варианта одного и того же кода: inline:true — источники
+  // всегда раскрыты рядком (в их интерфейсе «Раскрытые»), inline:false — один кружок,
+  // который раскрывается по клику («В кнопке»). 16.09.2026 владелец выбрал второй.
+  var CHAT_INLINE = false;
+  // Страницы, где чат отдела продаж неуместен: опрос для сотрудников компании-клиента
+  // (обещана анонимность, продавать там некому), личный кабинет лида и реферальная
+  // программа для психологов — туда приходят не покупатели B2B.
+  var CHAT_SKIP = /(?:^|\/)(psy-referral|diagnostika|kabinet)(?:\.dc)?(?:\.html)?$/i;
+  // Открытым дольше этого чат держит тот, кто пишет или читает ответ, а не тот, кто
+  // открыл и сразу закрыл. Единственный доступный признак вовлечённости — время.
+  // Префикс целей — b2b_amochat_, а не b2b_chat_: имена b2b_chat_* уже заняты своим
+  // консультантом (проект «Alter консультант», konsultant.js). Виджеты разные, смешивать
+  // их в одной цели нельзя.
+  var CHAT_ENGAGED_MS = 20000;
+  var CHAT_TICK_MS = 5000;
+
+  (function amoChat() {
+    if (!CHAT_ON) return;
+    if (CHAT_SKIP.test(location.pathname)) return;
+    if (window.amo_social_button) return;   // уже подключён тегом на самой странице
+
+    function start() {
+      window.amo_social_button = {
+        id: CHAT_ID, hash: CHAT_HASH, locale: 'ru', inline: CHAT_INLINE,
+        setMeta: function (p) { this.params = (this.params || []).concat([p]); }
+      };
+      window.amoSocialButton = window.amoSocialButton || function () {
+        (window.amoSocialButton.q = window.amoSocialButton.q || []).push(arguments);
+      };
+      var s = document.createElement('script');
+      s.async = true;
+      s.id = 'amo_social_button_script';
+      s.src = 'https://gso.amocrm.ru/js/button.js';
+      (document.head || document.documentElement).appendChild(s);
+      bindGoals();
+    }
+
+    function bindGoals() {
+      var clickedAt = 0;        // когда посетитель сам ткнул в кнопку чата
+      var openFired = false;
+      var engagedFired = false;
+      var openMs = 0;           // сколько времени окно чата реально провисело открытым
+      var ticks = 0;
+      var poll = 0;
+
+      // onButtonClick приходит и на сам чат (service === 'livechat'), и на кнопки
+      // мессенджеров. Состав кнопки задаётся в настройках amoCRM и приезжает с их сервера
+      // по hash, в коде сайта его нет: 15.09.2026 в кнопке был только чат, к вечеру того же
+      // дня добавились Telegram и WhatsApp — страница подхватила их сама. Клик по
+      // мессенджеру уводит человека из браузера, и после него сайт про него не знает
+      // ничего, поэтому у него своя цель.
+      window.amoSocialButton('onButtonClick', function (service) {
+        if (service === 'livechat') { clickedAt = Date.now(); return; }
+        window.alterGoal('b2b_amochat_messenger_click', { service: service || 'other' });
+      });
+
+      // onChatShow срабатывает и на клик посетителя, и на программное открытие (виджет
+      // сам разворачивает окно, когда приходит новое сообщение). Без разделения цель
+      // «открыл чат» распухла бы автопоказами, поэтому источник уходит параметром.
+      window.amoSocialButton('onChatShow', function () {
+        if (!openFired) {
+          openFired = true;
+          window.alterGoal('b2b_amochat_open', {
+            kak: (Date.now() - clickedAt < 3000) ? 'klik' : 'avto',
+            page: location.pathname
+          });
+        }
+        watchEngagement();
+      });
+
+      /* Вовлечённость считаем не парой событий show/hide, а фактическим состоянием окна.
+         Причина: события и картинка расходятся. Проверено 15.09.2026 — runChatHide шлёт
+         onChatHide, хотя окно остаётся на экране, а закрытие крестиком в другой раз
+         onChatHide не прислало вовсе. На одноразовом таймере это давало цель при закрытом
+         чате и молчание при открытом. Класс amo-livechat_hidden на окне виджета — то,
+         что видит посетитель, поэтому копим только видимые секунды.
+         Если виджет переименует класс, элемент перестанет считаться скрытым и цель начнёт
+         срабатывать чуть щедрее — это заметно в отчёте, в отличие от молчания. */
+      function chatVisible() {
+        var box = document.querySelector('.amo-livechat');
+        return !(box && /amo-livechat_hidden/.test(box.className));
+      }
+
+      function watchEngagement() {
+        if (poll || engagedFired) return;
+        var last = Date.now();
+        poll = setInterval(function () {
+          // Считаем по часам, а не по номиналу тика: в фоновой вкладке браузер режет
+          // интервалы до одного раза в минуту. Шаг сверху ограничен двумя тиками —
+          // иначе вкладка, пролежавшая в фоне полчаса с открытым чатом, засчиталась бы
+          // как вовлечённость, хотя на неё никто не смотрел.
+          var now = Date.now();
+          var dt = Math.min(now - last, CHAT_TICK_MS * 2);
+          last = now;
+          if (chatVisible()) openMs += dt;
+          if (openMs >= CHAT_ENGAGED_MS) {
+            clearInterval(poll); poll = 0;
+            engagedFired = true;
+            window.alterGoal('b2b_amochat_engaged');
+          } else if (++ticks > 120) {          // 10 минут — дальше сторожить незачем
+            clearInterval(poll); poll = 0;
+          }
+        }, CHAT_TICK_MS);
+      }
+    }
+
+    if (window.__alterDefer) window.__alterDefer(start);
+    else if (document.readyState === 'complete') setTimeout(start, 1200);
+    else window.addEventListener('load', function () { setTimeout(start, 1200); }, { once: true });
+  })();
 })();
