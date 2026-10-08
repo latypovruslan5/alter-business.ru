@@ -93,7 +93,13 @@
 
     if (OWN_HOSTS.test(u.hostname)) {
       if (u.pathname.indexOf(BLOG_PATH) === 0) return { source: 'alter-blog', medium: 'blog', term: '' };
-      return null; // обычный переход внутри сайта — это не источник
+      // Переход с B2C-части alter.ru (не из /business) — тоже источник: человек знал Alter как
+      // сервис для себя. До 08.10.2026 такой заход и прямой заход приезжали в сделку пустым
+      // источником и попадали в отчётах в «Без меток» вместе с потерянными метками.
+      if (/(^|\.)alter\.ru$/i.test(u.hostname) && u.pathname.indexOf('/business') !== 0) {
+        return { source: 'alter.ru', medium: 'internal', term: '' };
+      }
+      return null; // обычный переход внутри раздела — это не источник
     }
 
     return { source: u.hostname.replace(/^www\./i, ''), medium: 'referral', term: '' };
@@ -117,6 +123,12 @@
       // И только в этой ветке, то есть при заходе БЕЗ сохранённого касания — иначе органика
       // затирала бы рассылку или рекламу, по которой человек пришёл в прошлый раз.
       var fromRef = urlHasUtm ? null : parseReferrer(document.referrer);
+      // Пустой реферер при первом заходе — это прямой заход (набрали адрес, закладка, ссылка из
+      // мессенджера или письма без меток). Записываем его явно, иначе в CRM «прямой» не отличить
+      // от «источник потерян» (разобрано 08.10.2026: 13 из 65 заявок с форм без источника).
+      if (!urlHasUtm && !fromRef && !stored && !document.referrer) {
+        fromRef = { source: '(direct)', medium: '(none)', term: '' };
+      }
       stored = {
         source: param(params, 'utm_source') || (fromRef ? fromRef.source : ''),
         medium: param(params, 'utm_medium') || (fromRef ? fromRef.medium : ''),
