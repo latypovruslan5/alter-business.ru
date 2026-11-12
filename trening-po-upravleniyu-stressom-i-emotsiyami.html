@@ -1017,7 +1017,7 @@ select { -webkit-appearance:none !important; -moz-appearance:none !important; ap
         <sc-if value="{{ demoNot }}" hint-placeholder-val="{{ true }}">
           <form onSubmit="{{ onDemo }}" style="display:flex; flex-direction:column; gap:14px;">
             <input type="text" autocomplete="name" required="required" placeholder="Имя" style="font-family:'Futura PT','Futura Fallback'; font-size:16px; padding:17px 20px; border:1px solid #DCE5DF; border-radius:14px; outline:none; color:#282C3E; background:#fff; transition:border-color .18s, box-shadow .18s;" style-focus="border-color:#29B981; box-shadow:0 0 0 4px rgba(41,185,129,0.13);">
-            <dc-import name="CompanyAutocomplete" placeholder="Название компании или ИНН" hint-size="100%,60px"></dc-import>
+            <dc-import name="CompanyAutocomplete" placeholder="Название компании" hint-size="100%,60px"></dc-import>
             <select required="required" style="font-family:'Futura PT','Futura Fallback'; font-size:16px; padding:17px 20px; border:1px solid #DCE5DF; border-radius:14px; outline:none; color:#6A7088; background:#fff; transition:border-color .18s, box-shadow .18s;" style-focus="border-color:#29B981; box-shadow:0 0 0 4px rgba(41,185,129,0.13);" aria-label="Размер компании">
               <option value="">Размер компании</option>
               <option>до 50</option><option>50 - 100</option><option>100 - 300</option><option>300 - 600</option><option>600 - 5000</option><option>более 5000</option>
@@ -1101,7 +1101,7 @@ select { -webkit-appearance:none !important; -moz-appearance:none !important; ap
           <div style="font-family:'Futura PT','Futura Fallback'; font-weight:700; font-size:14px; color:#282C3E; margin-bottom:10px;">Узнать стоимость этого пакета</div>
           <form onSubmit="{{ onPkgFormSubmit }}" style="display:flex; flex-direction:column; gap:8px;">
             <input type="text" autocomplete="name" required="required" placeholder="Имя" style="font-family:'Futura PT','Futura Fallback'; font-size:14px; padding:11px 14px; border:1px solid #DCE5DF; border-radius:11px; outline:none; color:#282C3E; background:#fff; transition:border-color .18s, box-shadow .18s;" style-focus="border-color:#29B981; box-shadow:0 0 0 4px rgba(41,185,129,0.13);">
-            <dc-import name="CompanyAutocomplete" compact="{{ true }}" placeholder="Название компании или ИНН" hint-size="100%,44px"></dc-import>
+            <dc-import name="CompanyAutocomplete" compact="{{ true }}" placeholder="Название компании" hint-size="100%,44px"></dc-import>
             <select required="required" style="font-family:'Futura PT','Futura Fallback'; font-size:14px; padding:11px 14px; border:1px solid #DCE5DF; border-radius:11px; outline:none; color:#6A7088; background:#fff; transition:border-color .18s, box-shadow .18s;" style-focus="border-color:#29B981; box-shadow:0 0 0 4px rgba(41,185,129,0.13);" aria-label="Размер компании">
               <option value="">Размер компании</option>
               <option>до 50</option><option>50 - 100</option><option>100 - 300</option><option>300 - 600</option><option>600 - 5000</option><option>более 5000</option>
